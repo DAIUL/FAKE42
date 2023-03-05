@@ -6,7 +6,7 @@
 /*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 17:06:00 by qpuig             #+#    #+#             */
-/*   Updated: 2023/02/25 17:05:42 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/03/05 20:49:31 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
@@ -26,6 +28,8 @@ int	ft_check(char *s, int c)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i] && s[i] != (unsigned char)c)
 		i++;
@@ -37,13 +41,13 @@ int	ft_check(char *s, int c)
 char	*ft_strdup(char *s)
 {
 	char	*dup;
-	size_t	clatay;
 	size_t	i;
 
 	i = 0;
-	clatay = ft_strlen(s);
-	dup = malloc(clatay + 1 * sizeof(char));
-	if (dup == NULL)
+	if (!s || !*s)
+		return (NULL);
+	dup = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!dup)
 		return (NULL);
 	while (s[i])
 	{
@@ -76,36 +80,33 @@ char	*ft_strjoin(char *s1, char *s2)
 		s3[ft_strlen(s1) + i] = s2[i];
 		i++;
 	}
-	s3[ft_strlen(s1) + ft_strlen(s2) + 1] = '\0';
+	s3[ft_strlen(s1) + i] = '\0';
 	free(s1);
 	return (s3);
 }
 
-char	*ft_rest(char *s1, char *s2, char *s3)
+char	*ft_rest(char *rest)
 {
 	int		i;
 	int		j;
-	char	*s4;
+	char	*s;
 
 	i = 0;
-	while (s1[i] != '\n')
+	while (rest[i] && rest[i] != '\n')
 		i++;
-	s4 = malloc(ft_strlen(s1) + i + 1 * sizeof(char));
-	i = 0;
-	while (s1[i])
+	if (!rest[i])
 	{
-		s4[i] = s1[i];
-		i++;
+		free(rest);
+		return (NULL);
 	}
-	i = 0;
-	while (s2[i] != '\n')
-	{
-		s4[ft_strlen(s1) + i] = s2[i];
-		i++;
-	}
-	s4[ft_strlen(s1) + i] = '\0';
+	s = malloc((ft_strlen(rest) - i + 1) * sizeof(char));
+	if (!s)
+		return (NULL);
+	i++;
 	j = 0;
-	while (s2[i])
-		s3[j++] = s2[i++];
-	return (s4);
+	while (rest[i])
+		s[j++] = rest[i++];
+	s[j] = '\0';
+	free(rest);
+	return (s);
 }
