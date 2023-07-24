@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:38:29 by qpuig             #+#    #+#             */
-/*   Updated: 2023/06/09 15:38:32 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/07/07 17:10:18 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_sprt  *ft_stock(void *mlx_ptr)
 {
     t_sprt  *sprt;
 
-    sprt = malloc(10 * sizeof(t_sprt));
+    sprt = malloc(14 * sizeof(t_sprt));
     sprt[0] = ft_create(mlx_ptr, "./sprites/sprite0.xpm");
     sprt[1] = ft_create(mlx_ptr, "./sprites/sprite01.xpm");
     sprt[2] = ft_create(mlx_ptr, "./sprites/sprite02.xpm");
@@ -36,5 +36,9 @@ t_sprt  *ft_stock(void *mlx_ptr)
     sprt[6] = ft_create(mlx_ptr, "./sprites/sprite3.xpm");
     sprt[7] = ft_create(mlx_ptr, "./sprites/sprite4.xpm");
     sprt[8] = ft_create(mlx_ptr, "./sprites/sprite5.xpm");
+    sprt[9] = ft_create(mlx_ptr, "./sprites/sprite60.xpm");
+    sprt[10] = ft_create(mlx_ptr, "./sprites/sprite61.xpm");
+    sprt[11] = ft_create(mlx_ptr, "./sprites/sprite62.xpm");
+    sprt[12] = ft_create(mlx_ptr, "./sprites/sprite63.xpm");
     return (sprt);
 }

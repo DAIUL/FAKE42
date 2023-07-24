@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 19:04:55 by qpuig             #+#    #+#             */
-/*   Updated: 2023/06/12 19:04:58 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/07/07 17:48:36 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_move(int x, int y, t_mlx *mlx)
 	t_pos	pos;
 
 	pos = ft_pos(mlx->map);
+	ft_enemies(mlx);
 	if (mlx->map[pos.y + y][pos.x + x] == '1')
 		return;
 	if (mlx->map[pos.y + y][pos.x + x] == 'C')
@@ -58,18 +59,24 @@ void	ft_move(int x, int y, t_mlx *mlx)
 int	ft_anim(t_mlx *mlx)
 {
 	static int	i = 0;
+	static int	r = 0;
 	static int	delay = 0;
 	t_pos	pos;
 
 	if (mlx->stop == 1)
 		return (0);
-	if (delay == 10000)
+	if (delay == 6000)
 	{
 		pos = ft_pos(mlx->map);
-		if (i == 4)
+		if (i == 4 || r == 12)
+		{
 			i = 0;
+			r = 9;
+		}
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[i].pointer, (pos.x * 64), (pos.y * 64));
+		ft_animr(mlx, r);
 		i++;
+		r++;
 		delay = 0;
 	}
 	delay++;

@@ -8,6 +8,7 @@ FILE_SOLONG = so_long.c\
 		move.c\
 		get_next_line/get_next_line.c\
 		get_next_line/get_next_line_utils.c\
+		enemies.c\
 		sprite.c
 PRINTF_PATH = ft_printf/
 LIBX_PATH = Minilibx/
