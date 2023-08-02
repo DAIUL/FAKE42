@@ -12,9 +12,10 @@
 
 #include "so_long.h"
 
-void	ft_failure(char *message)
+void	ft_failure(t_mlx *mlx, char *message)
 {
 	ft_printf("%s\n", message);
+	ft_freesl(mlx);
 	exit(EXIT_FAILURE);
 }
 
@@ -38,7 +39,7 @@ char	**ft_remove(char **map)
 	return (map);
 }
 
-char	**ft_map(void)
+char	**ft_map(int argc, char **argv)
 {
 	int	fd;
 	char	**map;
@@ -46,7 +47,9 @@ char	**ft_map(void)
 	int	lect;
 	int	i;
 
-	fd = open("small.ber", O_RDONLY);
+	if (argc != 2)
+		return (NULL);
+	fd = open(argv[1], O_RDONLY);
 	lect = 0;
 	book = get_next_line(fd);
 	while (book)
@@ -58,7 +61,7 @@ char	**ft_map(void)
 	free(book);
 	map = ft_calloc((lect + 1) , sizeof(char *));
 	close(fd);
-	fd = open("small.ber", O_RDONLY);
+	fd = open(argv[1], O_RDONLY);
 	i = 0;
 	while (i < lect)
 		map[i++] = get_next_line(fd);
@@ -75,7 +78,7 @@ void	ft_display(char **map, t_mlx mlx)
 
 	y = 0;
 	x = 0;
-	while (map[y])
+	while (map[y][0])
 	{
 		while (map[y][x])
 		{
@@ -89,6 +92,8 @@ void	ft_display(char **map, t_mlx mlx)
 				mlx_put_image_to_window(mlx.mlx_ptr, mlx.window, mlx.sprites[7].pointer, (x * 64), (y * 64));
 			else if (map[y][x] == 'C')
 				mlx_put_image_to_window(mlx.mlx_ptr, mlx.window, mlx.sprites[6].pointer, (x * 64), (y * 64));
+			else if (map[y][x] == 'R')
+				mlx_put_image_to_window(mlx.mlx_ptr, mlx.window, mlx.sprites[9].pointer, (x * 64), (y * 64));
 			x++;
 		}
 		x = 0;

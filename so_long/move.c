@@ -16,10 +16,10 @@ int	jab_jab_hook(int keycode, t_mlx *mlx)
 {
 	ft_printf("%i\n", keycode);
 	(void)mlx;
-	if (mlx->stop == 1)
-		return (0);
 	if (keycode == 65307)
 		exit(0);
+	if (mlx->stop == 1)
+		return (0);
 	if (keycode == 119 || keycode == 65362)
 		ft_move(0, -1, mlx);
 	else if (keycode == 97 || keycode == 65361)
@@ -36,14 +36,23 @@ void	ft_move(int x, int y, t_mlx *mlx)
 	t_pos	pos;
 
 	pos = ft_pos(mlx->map);
-	ft_enemies(mlx);
 	if (mlx->map[pos.y + y][pos.x + x] == '1')
+	{
+		ft_enemies(mlx);
 		return;
-	if (mlx->map[pos.y + y][pos.x + x] == 'C')
+	}
+	else if (mlx->map[pos.y + y][pos.x + x] == 'C')
 		mlx->tcollect--;
-	if (mlx->map[pos.y + y][pos.x + x] == 'E' && mlx->tcollect == 0)
+	else if (mlx->map[pos.y + y][pos.x + x] == 'E' && mlx->tcollect == 0)
 	{
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[8].pointer, ((pos.x + x) * 64), ((pos.y + y) * 64));
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[5].pointer, (pos.x * 64), (pos.y * 64));
+		mlx->stop = 1;
+		return;
+	}
+	else if (mlx->map[pos.y + y][pos.x + x] == 'R')
+	{
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[9].pointer, ((pos.x + x) * 64), ((pos.y + y) * 64));
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[5].pointer, (pos.x * 64), (pos.y * 64));
 		mlx->stop = 1;
 		return;
@@ -54,18 +63,19 @@ void	ft_move(int x, int y, t_mlx *mlx)
 	pos.y = pos.y + y;
 	mlx->map[pos.y][pos.x] = 'P';
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[0].pointer, (pos.x * 64), (pos.y * 64));
+	ft_enemies(mlx);
 }
 
 int	ft_anim(t_mlx *mlx)
 {
 	static int	i = 0;
-	static int	r = 0;
+	static int	r = 9;
 	static int	delay = 0;
 	t_pos	pos;
 
 	if (mlx->stop == 1)
 		return (0);
-	if (delay == 6000)
+	if (delay == 3000)
 	{
 		pos = ft_pos(mlx->map);
 		if (i == 4 || r == 12)

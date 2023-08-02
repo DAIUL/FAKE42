@@ -12,27 +12,27 @@
 
 #include "so_long.h"
 
-void	ft_check_rectangle(char **map)
+void	ft_check_rectangle(t_mlx *mlx)
 {
 	int	len;
 	int	y;
 
 	y = 0;
-	while (map[y][0])
+	while (mlx->map[y][0])
 		y++;
 	y--;
 	len = y;
 	while (len >= 0)
 	{
-		if (ft_strlen(map[y]) == ft_strlen(map[len]))
+		if (ft_strlen(mlx->map[y]) == ft_strlen(mlx->map[len]))
 			len--;
 		else
-			ft_failure("That's not a rectangle u dumb bitch");
+			ft_failure(mlx, "That's not a rectangle u dumb bitch");
 	}
 	return;
 }
 
-void	ft_check_wall(char **map)
+void	ft_check_wall(t_mlx *mlx)
 {
 	int	x;
 	int	y;
@@ -40,28 +40,25 @@ void	ft_check_wall(char **map)
 	int	leny;
 
 	leny = 0;
-	while (map[leny][0])
+	while (mlx->map[leny][0])
 		leny++;
 	lenx = 0;
-	while (map[0][lenx])
+	while (mlx->map[0][lenx])
 		lenx++;
 	x = 0;
-	while ((map[leny - 1][x] == '1') && (map[0][x] == '1'))
+	while ((mlx->map[leny - 1][x] == '1') && (mlx->map[0][x] == '1'))
 		x++;
 	if (x != lenx)
-		ft_failure("Missing wall u bastard");
+		ft_failure(mlx, "Missing wall u bastard");
 	y = 0;
-	while ((map[y][0]) && (map[y][lenx - 1] == '1') && (map[y][0] == '1'))
-	{
-		ft_printf("%d\n", y);
+	while ((mlx->map[y][0]) && (mlx->map[y][lenx - 1] == '1') && (mlx->map[y][0] == '1'))
 		y++;
-	}
 	if (y != leny)
-		ft_failure("Missing wall u bastard");
+		ft_failure(mlx, "Missing wall u bastard");
 	return;
 }
 
-int	ft_check_epc(char **map)
+int	ft_check_epc(t_mlx *mlx)
 {
 	int			x;
 	int			y;
@@ -70,22 +67,22 @@ int	ft_check_epc(char **map)
 	static int	c = 0;
 
 	y = -1;
-	while (map[++y][0])
+	while (mlx->map[++y][0])
 	{
 		x = -1;
-		while (map[y][++x])
+		while (mlx->map[y][++x])
 		{
-			if (map[y][x] == 'E')
+			if (mlx->map[y][x] == 'E')
 				e++;
-			if (map[y][x] == 'P')
+			if (mlx->map[y][x] == 'P')
 				p++;
-			if (map[y][x] == 'C')
+			if (mlx->map[y][x] == 'C')
 				c++;
 		}
 	}
 	ft_printf("%i", e + p + c);
 	if (e != 1 || p != 1 || c < 1)
-		ft_failure("Missing special item loser");
+		ft_failure(mlx, "Missing or too much special item loser");
 	return (e + p + c);
 }
 

@@ -12,75 +12,112 @@
 
 #include "so_long.h"
 
-t_pos	ft_posr(char **map, int yr, int xr)
+void	ft_posr(t_mlx *mlx, int nb)
 {
-	t_pos	pos;
-	int	y;
-	int	x;
+    int y;
+    int x;
+    int i;
 
-	y = yr;
-    x = xr;
-	while (map[y][0])
+    mlx->nbrats = malloc((nb + 1) * sizeof(t_rats));
+    y = 0;
+    x = 0;
+    i = 0;
+	while (mlx->map[y][0])
 	{
-        if (y != yr)
-		    x = 0;
-		while (map[y][x])
+		while (mlx->map[y][x])
 		{
-			if (map[y][x] == 'R')
+			if (mlx->map[y][x] == 'R')
 			{
-				pos.yr = y;
-				pos.xr = x;
-                return (pos);
+				mlx->nbrats[i].yr = y;
+				mlx->nbrats[i].xr = x; 
+                i++;
 			}
 			x++;
 		}
+        x = 0;
 		y++;
 	}
-    pos.xr = -1;
-	return (pos);
 }
 
-void    ft_enemiesmvmt(t_mlx *mlx, t_pos pos, int yr, int xr)
-{   
-    if (mlx->map[pos.yr + yr][pos.xr + xr] == '1' || mlx->map[pos.yr + yr][pos.xr + xr] == 'C' || mlx->map[pos.yr + yr][pos.xr + xr] == 'E') 
+void    ft_enemiesmvmt(t_mlx *mlx, t_rats *rats, int yr, int xr)
+{
+    if (mlx->map[rats->yr + yr][rats->xr + xr] == '1' || mlx->map[rats->yr + yr][rats->xr + xr] == 'C' || mlx->map[rats->yr + yr][rats->xr + xr] == 'E' || mlx->map[rats->yr + yr][rats->xr + xr] == 'R') 
 		return;
-    mlx->map[pos.yr][pos.xr] = '0';
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[5].pointer, (pos.xr * 64), (pos.yr * 64));
-	pos.xr += xr;
-	pos.yr += yr;
-	mlx->map[pos.yr][pos.xr] = 'R';
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[9].pointer, (pos.xr * 64), (pos.yr * 64));
+    mlx->map[rats->yr][rats->xr] = '0';    
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[5].pointer, (rats->xr * 64), (rats->yr * 64));
+    if (mlx->map[rats->yr + yr][rats->xr + xr] == 'P')
+    {
+        rats->xr += xr;
+	    rats->yr += yr;
+	    mlx->map[rats->yr][rats->xr] = 'R';
+	    mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[9].pointer, (rats->xr * 64), (rats ->yr * 64));
+        mlx->stop = 1;
+        return;
+    }
+	rats->xr += xr;
+	rats->yr += yr;
+	mlx->map[rats->yr][rats->xr] = 'R';
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[9].pointer, (rats->xr * 64), (rats ->yr * 64));
 }
 
 void    ft_enemies(t_mlx *mlx)
 {
-    t_pos   pos;
     int r;
+    int i;
 
-    pos = ft_posr(mlx->map, 0, 0);
-    srand(time(NULL));
-    while (pos.xr != -1)
+    i = 0;
+    if (!mlx->nbrats[0].xr)
+        return;
+    while (mlx->nbrats[i].xr)
     {
         r = rand() % 5;
         if (r == 0)
-            ft_enemiesmvmt(mlx, pos, 0, 0);
-        if (r == 1)
-            ft_enemiesmvmt(mlx, pos, 0, -1);
-        if (r == 2)
-            ft_enemiesmvmt(mlx, pos, 1, 0);
-        if (r == 3)
-            ft_enemiesmvmt(mlx, pos, 0, 1);
-        if (r == 4)
-            ft_enemiesmvmt(mlx, pos, -1, 0);
-        pos = ft_posr(mlx->map, pos.yr, pos.xr + 1);
+            ft_enemiesmvmt(mlx, &mlx->nbrats[i], 0, 0);
+        else if (r == 1)
+            ft_enemiesmvmt(mlx, &mlx->nbrats[i], 0, -1);
+        else if (r == 2)
+            ft_enemiesmvmt(mlx, &mlx->nbrats[i], 1, 0);
+        else if (r == 3)
+            ft_enemiesmvmt(mlx, &mlx->nbrats[i], 0, 1);
+        else if (r == 4)
+            ft_enemiesmvmt(mlx, &mlx->nbrats[i], -1, 0);
         ft_printf("%i\n", r);
+        ft_printf("xy %i %i\n", mlx->nbrats[i].xr, mlx->nbrats[i].yr);
+        i++;
     }
 }
 
 void    ft_animr(t_mlx *mlx, int r)
 {
-    t_pos   pos;
+    int i;
 
-    pos = ft_posr(mlx->map, 0, 0);
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[r].pointer, (pos.xr * 64), (pos.yr * 64));
+    i = 0;
+    while (mlx->nbrats[i].xr)
+    {
+	    mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[r].pointer, (mlx->nbrats[i].xr * 64), (mlx->nbrats[i].yr * 64));
+        i++;
+    }
+}
+
+void    ft_nbrats(t_mlx *mlx)
+{
+    int nb;
+    int y;
+    int x;
+
+    nb = 0;
+    y = 0;
+    x = 0;
+    while (mlx->map[y][0])
+    {
+        while (mlx->map[y][x])
+        {
+            if (mlx->map[y][x] == 'R')
+                nb++;
+            x++;
+        }
+        x = 0;
+        y++;
+    }
+    ft_posr(mlx, nb);
 }

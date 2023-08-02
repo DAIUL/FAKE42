@@ -21,6 +21,12 @@
 # include <stdlib.h>
 # include <time.h>
 
+typedef struct s_rats
+{
+	int	xr;
+	int	yr;
+}				t_rats;
+
 typedef struct s_sprt
 {
 	void	*pointer;
@@ -40,32 +46,33 @@ typedef struct s_mlx
 	t_sprt	*sprites;
 	int		tcollect;
 	int		stop;
-}		t_mlx;
+	t_rats	*nbrats;
+}				t_mlx;
 
 typedef struct s_pos
 {
 	int	y;
 	int	x;
-	int	xr;
-	int	yr;
-}		t_pos;
+}				t_pos;
 
-void	ft_check_rectangle(char **map);
-void	ft_check_wall(char **map);
-int	ft_check_epc(char **map);
+void	ft_check_rectangle(t_mlx *mlx);
+void	ft_check_wall(t_mlx *mlx);
+int	ft_check_epc(t_mlx *mlx);
 t_pos	ft_pos(char **map);
 int	ft_check_winable(char **map, int y, int x, int epc);
 int	jab_jab_hook(int keycode, t_mlx *mlx);
-void	ft_failure(char *message);
+void	ft_failure(t_mlx *mlx, char *message);
 char	**ft_remove(char **map);
-char	**ft_map(void);
+char	**ft_map(int argc, char **argv);
 t_sprt	*ft_stock(void *mlx_ptr);
 void	ft_display(char **map, t_mlx mlx);
 void	ft_move(int x, int y, t_mlx *mlx);
 int		ft_anim(t_mlx *mlx);
-t_pos	ft_posr(char **map, int yr, int xr);
-void	ft_enemiesmvmt(t_mlx *mlx, t_pos pos, int yr, int xr);
+void	ft_posr(t_mlx *mlx, int nb);
+void	ft_enemiesmvmt(t_mlx *mlx, t_rats *rats, int yr, int xr);
 void	ft_enemies(t_mlx *mlx);
 void	ft_animr(t_mlx *mlx, int r);
+void    ft_nbrats(t_mlx *mlx);
+void	ft_freesl(t_mlx *mlx);
 
 #endif
