@@ -18,7 +18,7 @@ void	ft_posr(t_mlx *mlx, int nb)
     int x;
     int i;
 
-    mlx->nbrats = malloc((nb + 1) * sizeof(t_rats));
+    mlx->nbrats = ft_calloc((nb + 1), sizeof(t_rats));
     y = 0;
     x = 0;
     i = 0;

@@ -12,12 +12,10 @@
 
 #include "so_long.h"
 
-void	ft_freesl(t_mlx *mlx)
+	void	ft_freeslmap(t_mlx *mlx)
 {
 	int	y;
-	int	i;
 
-	i = 0;
 	y = 0;
 	while (mlx->map[y][0])
 	{
@@ -26,14 +24,28 @@ void	ft_freesl(t_mlx *mlx)
 	}
 	free(mlx->map[y]);
 	free(mlx->map);
+}
+
+void	ft_freesl(t_mlx *mlx)
+{
+	int	i;
+
+	i = 0;
+	ft_freeslmap(mlx);
+	free(mlx->nbrats);
 	if (mlx->sprites)
 	{
 		while (mlx->sprites[i].pointer)
 		{
-			mlx_destroy_image(mlx->mlx_ptr, mlx->sprites);
+			mlx_destroy_image(mlx->mlx_ptr, mlx->sprites[i].pointer);
 			i++;
 		}
+		//mlx_destroy_image(mlx->mlx_ptr, mlx->sprites[i].pointer);
 	}
+	free(mlx->sprites);
+	mlx_destroy_window(mlx->mlx_ptr, mlx->window);
+	mlx_destroy_display(mlx->mlx_ptr);
+	free(mlx->mlx_ptr);
 	ft_printf("freeze corleone\n");
 }
 
@@ -47,7 +59,6 @@ void	ft_view(char **map)
 		ft_printf("%s\n", map[y]);
 		y++;
 	}
-	return;
 }
 
 int	main(int argc, char **argv)
@@ -67,7 +78,7 @@ int	main(int argc, char **argv)
 	mlx.sprites = NULL;
 	mlx.stop = 0;
 	ft_view(mlx.map);
-	ft_freesl(&mlx);
+	ft_freeslmap(&mlx);
 	mlx.map = ft_map(argc, argv);
 	ft_view(mlx.map);
 	ft_nbrats(&mlx);

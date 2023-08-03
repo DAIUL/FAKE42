@@ -62,7 +62,7 @@ t_pos	ft_pos(char **map);
 int	ft_check_winable(char **map, int y, int x, int epc);
 int	jab_jab_hook(int keycode, t_mlx *mlx);
 void	ft_failure(t_mlx *mlx, char *message);
-char	**ft_remove(char **map);
+char	*ft_remove(char *book);
 char	**ft_map(int argc, char **argv);
 t_sprt	*ft_stock(void *mlx_ptr);
 void	ft_display(char **map, t_mlx mlx);
@@ -74,5 +74,6 @@ void	ft_enemies(t_mlx *mlx);
 void	ft_animr(t_mlx *mlx, int r);
 void    ft_nbrats(t_mlx *mlx);
 void	ft_freesl(t_mlx *mlx);
+void	ft_freeslmap(t_mlx *mlx);
 
 #endif

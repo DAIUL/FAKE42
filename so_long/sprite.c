@@ -15,7 +15,7 @@
 t_sprt  ft_create(void *mlx_ptr, char *path)
 {
     t_sprt  sprt;
-
+  
     sprt.pointer = mlx_xpm_file_to_image(mlx_ptr, path, &sprt.x, &sprt.y);
 	sprt.pixels  = mlx_get_data_addr(sprt.pointer, &sprt.bits_per_pixel, &sprt.line_size, &sprt.endian);
 	return (sprt);
@@ -26,7 +26,7 @@ t_sprt  *ft_stock(void *mlx_ptr)
 {
     t_sprt  *sprt;
 
-    sprt = malloc(14 * sizeof(t_sprt));
+    sprt = ft_calloc(14, sizeof(t_sprt));
     sprt[0] = ft_create(mlx_ptr, "./sprites/sprite0.xpm");
     sprt[1] = ft_create(mlx_ptr, "./sprites/sprite01.xpm");
     sprt[2] = ft_create(mlx_ptr, "./sprites/sprite02.xpm");

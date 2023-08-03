@@ -17,7 +17,10 @@ int	jab_jab_hook(int keycode, t_mlx *mlx)
 	ft_printf("%i\n", keycode);
 	(void)mlx;
 	if (keycode == 65307)
+	{
+		ft_freesl(mlx);
 		exit(0);
+	}
 	if (mlx->stop == 1)
 		return (0);
 	if (keycode == 119 || keycode == 65362)

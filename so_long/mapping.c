@@ -19,24 +19,24 @@ void	ft_failure(t_mlx *mlx, char *message)
 	exit(EXIT_FAILURE);
 }
 
-char	**ft_remove(char **map)
+char	*ft_remove(char *book)
 {
-	int	x;
-	int	y;
+	int	i;
+	int	j;
+	char *clean;
 
-	y = 0;
-	while (map[y][0])
+	i = 0;
+	while (book[i] && book[i] != '\n')
+		i++;
+	clean = ft_calloc((i + 1), sizeof(char));
+	j = 0;
+	while (j <= i && book[j] && book[j] != '\n')
 	{
-		x = 0;
-		while (map[y][x] != '\n')
-			x++;
-		if (map[y][x] == '\n')
-		{
-			map[y][x] = '\0';
-			y++;
-		}
+		clean[j] = book[j];
+		j++;
 	}
-	return (map);
+	free(book);
+	return(clean);
 }
 
 char	**ft_map(int argc, char **argv)
@@ -64,10 +64,12 @@ char	**ft_map(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	i = 0;
 	while (i < lect)
-		map[i++] = get_next_line(fd);
+	{
+		book = get_next_line(fd);
+		map[i++] = ft_remove(book);
+	}
 	close(fd);
 	map[i] = ft_calloc(sizeof(char), 1);
-	ft_remove(map);
 	return(map);
 }
 
@@ -94,6 +96,8 @@ void	ft_display(char **map, t_mlx mlx)
 				mlx_put_image_to_window(mlx.mlx_ptr, mlx.window, mlx.sprites[6].pointer, (x * 64), (y * 64));
 			else if (map[y][x] == 'R')
 				mlx_put_image_to_window(mlx.mlx_ptr, mlx.window, mlx.sprites[9].pointer, (x * 64), (y * 64));
+			//else
+				//ft_failure(mlx.mlx_ptr, "Connais pas");
 			x++;
 		}
 		x = 0;
