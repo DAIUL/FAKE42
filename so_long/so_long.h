@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:15:19 by qpuig             #+#    #+#             */
-/*   Updated: 2023/07/07 17:39:07 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/08 19:58:18 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct s_mlx
 	int		tcollect;
 	int		stop;
 	t_rats	*nbrats;
+	int		step;
+	int		leny;
+	int		lenx;
 }				t_mlx;
 
 typedef struct s_pos
@@ -75,5 +78,6 @@ void	ft_animr(t_mlx *mlx, int r);
 void    ft_nbrats(t_mlx *mlx);
 void	ft_freesl(t_mlx *mlx);
 void	ft_freeslmap(t_mlx *mlx);
+void	ft_counter(t_mlx *mlx, int color);
 
 #endif

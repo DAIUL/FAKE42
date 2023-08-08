@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:20:31 by qpuig             #+#    #+#             */
-/*   Updated: 2023/05/26 19:04:56 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/08 16:09:05 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	ft_display(char **map, t_mlx mlx)
 				mlx_put_image_to_window(mlx.mlx_ptr, mlx.window, mlx.sprites[6].pointer, (x * 64), (y * 64));
 			else if (map[y][x] == 'R')
 				mlx_put_image_to_window(mlx.mlx_ptr, mlx.window, mlx.sprites[9].pointer, (x * 64), (y * 64));
-			//else
-				//ft_failure(mlx.mlx_ptr, "Connais pas");
+			else
+				ft_failure(mlx.mlx_ptr, "Connais pas");
 			x++;
 		}
 		x = 0;

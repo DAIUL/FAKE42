@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 15:00:52 by qpuig             #+#    #+#             */
-/*   Updated: 2023/07/07 18:04:10 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/08 16:14:39 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,9 @@ void    ft_enemies(t_mlx *mlx)
             ft_enemiesmvmt(mlx, &mlx->nbrats[i], 0, 1);
         else if (r == 4)
             ft_enemiesmvmt(mlx, &mlx->nbrats[i], -1, 0);
-        ft_printf("%i\n", r);
-        ft_printf("xy %i %i\n", mlx->nbrats[i].xr, mlx->nbrats[i].yr);
         i++;
     }
+        
 }
 
 void    ft_animr(t_mlx *mlx, int r)

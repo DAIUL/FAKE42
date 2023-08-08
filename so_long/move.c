@@ -6,15 +6,23 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 19:04:55 by qpuig             #+#    #+#             */
-/*   Updated: 2023/07/07 17:48:36 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/08 20:08:27 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	ft_counter(t_mlx *mlx, int color)
+{
+	char*	steps;
+	
+	steps = ft_itoa(mlx->step);
+	mlx_string_put(mlx->mlx_ptr, mlx->window, ((mlx->lenx / 2) * 64), ((mlx->leny * 64) + 15), color, steps);
+	free(steps);
+}
+
 int	jab_jab_hook(int keycode, t_mlx *mlx)
 {
-	ft_printf("%i\n", keycode);
 	(void)mlx;
 	if (keycode == 65307)
 	{
@@ -23,7 +31,7 @@ int	jab_jab_hook(int keycode, t_mlx *mlx)
 	}
 	if (mlx->stop == 1)
 		return (0);
-	if (keycode == 119 || keycode == 65362)
+	else if (keycode == 119 || keycode == 65362)
 		ft_move(0, -1, mlx);
 	else if (keycode == 97 || keycode == 65361)
 		ft_move(-1, 0, mlx);
@@ -50,13 +58,24 @@ void	ft_move(int x, int y, t_mlx *mlx)
 	{
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[8].pointer, ((pos.x + x) * 64), ((pos.y + y) * 64));
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[5].pointer, (pos.x * 64), (pos.y * 64));
+		ft_counter(mlx, 0);
+		mlx->step++;
+		ft_counter(mlx, 111111111);
 		mlx->stop = 1;
+		return;
+	}
+	else if (mlx->map[pos.y + y][pos.x + x] == 'E' && mlx->tcollect != 0)
+	{
+		ft_enemies(mlx);
 		return;
 	}
 	else if (mlx->map[pos.y + y][pos.x + x] == 'R')
 	{
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[9].pointer, ((pos.x + x) * 64), ((pos.y + y) * 64));
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[5].pointer, (pos.x * 64), (pos.y * 64));
+		ft_counter(mlx, 0);
+		mlx->step++;
+		ft_counter(mlx, 111111111);
 		mlx->stop = 1;
 		return;
 	}
@@ -66,6 +85,9 @@ void	ft_move(int x, int y, t_mlx *mlx)
 	pos.y = pos.y + y;
 	mlx->map[pos.y][pos.x] = 'P';
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->window, mlx->sprites[0].pointer, (pos.x * 64), (pos.y * 64));
+	ft_counter(mlx, 0);
+	mlx->step++;
+	ft_counter(mlx, 111111111);
 	ft_enemies(mlx);
 }
 
@@ -78,7 +100,7 @@ int	ft_anim(t_mlx *mlx)
 
 	if (mlx->stop == 1)
 		return (0);
-	if (delay == 3000)
+	if (delay == 5000)
 	{
 		pos = ft_pos(mlx->map);
 		if (i == 4 || r == 12)

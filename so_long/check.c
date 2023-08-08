@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:57:44 by qpuig             #+#    #+#             */
-/*   Updated: 2023/07/07 15:56:44 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/08 20:01:46 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_check_rectangle(t_mlx *mlx)
 	y = 0;
 	while (mlx->map[y][0])
 		y++;
+	mlx->leny = y;
 	y--;
 	len = y;
 	while (len >= 0)
@@ -45,6 +46,7 @@ void	ft_check_wall(t_mlx *mlx)
 	lenx = 0;
 	while (mlx->map[0][lenx])
 		lenx++;
+	mlx->lenx = lenx;
 	x = 0;
 	while ((mlx->map[leny - 1][x] == '1') && (mlx->map[0][x] == '1'))
 		x++;
@@ -80,7 +82,6 @@ int	ft_check_epc(t_mlx *mlx)
 				c++;
 		}
 	}
-	ft_printf("%i", e + p + c);
 	if (e != 1 || p != 1 || c < 1)
 		ft_failure(mlx, "Missing or too much special item loser");
 	return (e + p + c);
@@ -128,6 +129,5 @@ int	ft_check_winable(char **map, int y, int x, int epc)
 	ft_check_winable(map, y, (x + 1), epc);
 	ft_check_winable(map, (y + 1), x, epc);
 	ft_check_winable(map, y, (x - 1), epc);
-	ft_printf("%d\n", collect);
 	return (verif);
 }
