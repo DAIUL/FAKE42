@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:04:26 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/08 20:18:39 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/09 20:46:07 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_croix(t_mlx *mlx)
 	return (0);
 }
 
-	void	ft_freeslmap(t_mlx *mlx)
+void	ft_freeslmap(t_mlx *mlx)
 {
 	int	y;
 
@@ -54,6 +54,18 @@ void	ft_freesl(t_mlx *mlx)
 	free(mlx->mlx_ptr);
 }
 
+void	altmain(t_mlx *mlx, int argc, char **argv)
+{
+	mlx->tcollect = (ft_check_epc(mlx) - 2);
+	mlx->sprites = NULL;
+	mlx->stop = 0;
+	mlx->step = 0;
+	ft_freeslmap(mlx);
+	mlx->map = ft_map(argc, argv);
+	ft_nbrats(mlx);
+	mlx->sprites = ft_stock(mlx->mlx_ptr);
+}
+
 int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
@@ -63,18 +75,14 @@ int	main(int argc, char **argv)
 	mlx.map = ft_map(argc, argv);
 	ft_check_rectangle(&mlx);
 	ft_check_wall(&mlx);
-	mlx.window = mlx_new_window(mlx.mlx_ptr, (mlx.lenx * 64), (mlx.leny * 64 + 30), "Philippe EtcheQuest");
-	mlx_set_font(mlx.mlx_ptr, mlx.window, "-misc-fixed-bold-r-normal--20-0-100-100-c-0-iso10646-1");
-	if (ft_check_winable(mlx.map, ft_pos(mlx.map).y, ft_pos(mlx.map).x, ft_check_epc(&mlx)) == 0)
+	mlx.window = mlx_new_window(mlx.mlx_ptr, (mlx.lenx * 64),
+			(mlx.leny * 64 + 30), "Philippe EtcheQuest");
+	mlx_set_font(mlx.mlx_ptr, mlx.window,
+		"-misc-fixed-bold-r-normal--20-0-100-100-c-0-iso10646-1");
+	if (ft_check_winable(mlx.map, ft_pos(mlx.map).y,
+			ft_pos(mlx.map).x, ft_check_epc(&mlx)) == 0)
 		ft_failure(&mlx, "That's not finished stupid bitch");
-	mlx.tcollect = (ft_check_epc(&mlx) - 2);
-	mlx.sprites = NULL;
-	mlx.stop = 0;
-	mlx.step = 0;
-	ft_freeslmap(&mlx);
-	mlx.map = ft_map(argc, argv);
-	ft_nbrats(&mlx);
-	mlx.sprites = ft_stock(mlx.mlx_ptr);
+	altmain(&mlx, argc, argv);
 	ft_display(mlx.map, mlx);
 	mlx_key_hook(mlx.window, &jab_jab_hook, &mlx);
 	mlx_loop_hook(mlx.mlx_ptr, &ft_anim, &mlx);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 13:37:55 by qpuig             #+#    #+#             */
-/*   Updated: 2023/02/15 13:11:21 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/09 20:54:40 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 static size_t	ft_size(int n)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 19:24:23 by qpuig             #+#    #+#             */
-/*   Updated: 2023/03/14 13:14:23 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/09 20:54:57 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 # define FT_PRINTF_H
 
-# include<stdio.h>
-# include<stdarg.h>
-# include<stdlib.h>
-# include<string.h>
-# include<unistd.h>
+# include <stdio.h>
+# include <stdarg.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
 # define HEXAMIN "0123456789abcdef"
 # define HEXAMAJ "0123456789ABCDEF"

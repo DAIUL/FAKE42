@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:15:19 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/08 19:58:18 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/09 20:50:15 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef struct s_rats
 typedef struct s_sprt
 {
 	void	*pointer;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	char	*pixels;
-	int	bits_per_pixel;
-	int	line_size;
-	int	endian;
+	int		bits_per_pixel;
+	int		line_size;
+	int		endian;
 }				t_sprt;
 
 typedef struct s_mlx
@@ -60,10 +60,10 @@ typedef struct s_pos
 
 void	ft_check_rectangle(t_mlx *mlx);
 void	ft_check_wall(t_mlx *mlx);
-int	ft_check_epc(t_mlx *mlx);
+int		ft_check_epc(t_mlx *mlx);
 t_pos	ft_pos(char **map);
-int	ft_check_winable(char **map, int y, int x, int epc);
-int	jab_jab_hook(int keycode, t_mlx *mlx);
+int		ft_check_winable(char **map, int y, int x, int epc);
+int		jab_jab_hook(int keycode, t_mlx *mlx);
 void	ft_failure(t_mlx *mlx, char *message);
 char	*ft_remove(char *book);
 char	**ft_map(int argc, char **argv);
@@ -75,7 +75,7 @@ void	ft_posr(t_mlx *mlx, int nb);
 void	ft_enemiesmvmt(t_mlx *mlx, t_rats *rats, int yr, int xr);
 void	ft_enemies(t_mlx *mlx);
 void	ft_animr(t_mlx *mlx, int r);
-void    ft_nbrats(t_mlx *mlx);
+void	ft_nbrats(t_mlx *mlx);
 void	ft_freesl(t_mlx *mlx);
 void	ft_freeslmap(t_mlx *mlx);
 void	ft_counter(t_mlx *mlx, int color);

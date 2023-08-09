@@ -9,7 +9,8 @@ FILE_SOLONG = so_long.c\
 		get_next_line/get_next_line.c\
 		get_next_line/get_next_line_utils.c\
 		enemies.c\
-		sprite.c
+		sprite.c\
+		keys.c
 PRINTF_PATH = ft_printf/
 LIBX_PATH = Minilibx/
 LIBFT_PATH = libft/

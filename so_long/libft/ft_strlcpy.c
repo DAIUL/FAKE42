@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 17:34:33 by qpuig             #+#    #+#             */
-/*   Updated: 2023/02/05 23:43:10 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/09 20:54:00 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<string.h>
+#include <string.h>
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {

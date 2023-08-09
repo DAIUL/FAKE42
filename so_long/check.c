@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:57:44 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/08 20:01:46 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/09 19:33:11 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_check_rectangle(t_mlx *mlx)
 		else
 			ft_failure(mlx, "That's not a rectangle u dumb bitch");
 	}
-	return;
+	return ;
 }
 
 void	ft_check_wall(t_mlx *mlx)
@@ -53,11 +53,12 @@ void	ft_check_wall(t_mlx *mlx)
 	if (x != lenx)
 		ft_failure(mlx, "Missing wall u bastard");
 	y = 0;
-	while ((mlx->map[y][0]) && (mlx->map[y][lenx - 1] == '1') && (mlx->map[y][0] == '1'))
+	while ((mlx->map[y][0]) && (mlx->map[y][lenx - 1] == '1')
+	&& (mlx->map[y][0] == '1'))
 		y++;
 	if (y != leny)
 		ft_failure(mlx, "Missing wall u bastard");
-	return;
+	return ;
 }
 
 int	ft_check_epc(t_mlx *mlx)
@@ -90,8 +91,8 @@ int	ft_check_epc(t_mlx *mlx)
 t_pos	ft_pos(char **map)
 {
 	t_pos	pos;
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 
 	y = 0;
 	pos.y = 0;

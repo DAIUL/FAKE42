@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 11:44:42 by qpuig             #+#    #+#             */
-/*   Updated: 2023/02/14 17:33:30 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/09 20:54:26 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<string.h>
+#include <string.h>
 
 char	*ft_strchr(const char *s, int c)
 {
