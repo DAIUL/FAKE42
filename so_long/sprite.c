@@ -6,11 +6,40 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:38:29 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/09 20:42:20 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/10 16:34:24 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_check_char(t_mlx *mlx)
+{
+	int		y;
+	int		x;
+
+	y = 0;
+	while (mlx->map[y][0])
+	{
+		x = 0;
+		while (mlx->map[y][x])
+		{
+			if (mlx->map[y][x] != 'P' && mlx->map[y][x] != 'E'
+				&& mlx->map[y][x] != 'C' && mlx->map[y][x] != '1'
+				&& mlx->map[y][x] != '0' && mlx->map[y][x] != 'R')
+				ft_failure2(mlx, "Connais pas");
+			x++;
+		}
+		y++;
+	}
+	return ;
+}
+
+void	ft_failure2(t_mlx *mlx, char *message)
+{
+	ft_printf("%s\n", message);
+	ft_freeslmap(mlx);
+	exit(EXIT_FAILURE);
+}
 
 void	ft_failure(t_mlx *mlx, char *message)
 {

@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 18:57:44 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/09 19:33:11 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/10 16:09:37 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_check_rectangle(t_mlx *mlx)
 		if (ft_strlen(mlx->map[y]) == ft_strlen(mlx->map[len]))
 			len--;
 		else
-			ft_failure(mlx, "That's not a rectangle u dumb bitch");
+			ft_failure2(mlx, "That's not a rectangle u dumb bitch");
 	}
 	return ;
 }
@@ -51,13 +51,13 @@ void	ft_check_wall(t_mlx *mlx)
 	while ((mlx->map[leny - 1][x] == '1') && (mlx->map[0][x] == '1'))
 		x++;
 	if (x != lenx)
-		ft_failure(mlx, "Missing wall u bastard");
+		ft_failure2(mlx, "Missing wall u bastard");
 	y = 0;
 	while ((mlx->map[y][0]) && (mlx->map[y][lenx - 1] == '1')
 	&& (mlx->map[y][0] == '1'))
 		y++;
 	if (y != leny)
-		ft_failure(mlx, "Missing wall u bastard");
+		ft_failure2(mlx, "Missing wall u bastard");
 	return ;
 }
 
@@ -84,7 +84,7 @@ int	ft_check_epc(t_mlx *mlx)
 		}
 	}
 	if (e != 1 || p != 1 || c < 1)
-		ft_failure(mlx, "Missing or too much special item loser");
+		ft_failure2(mlx, "Missing or too much special item loser");
 	return (e + p + c);
 }
 

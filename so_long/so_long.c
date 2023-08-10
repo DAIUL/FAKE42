@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:04:26 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/09 20:46:07 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/10 16:26:03 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,18 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 
 	srand(time(NULL));
-	mlx.mlx_ptr = mlx_init();
 	mlx.map = ft_map(argc, argv);
+	ft_check_char(&mlx);
 	ft_check_rectangle(&mlx);
 	ft_check_wall(&mlx);
+	if (ft_check_winable(mlx.map, ft_pos(mlx.map).y,
+			ft_pos(mlx.map).x, ft_check_epc(&mlx)) == 0)
+		ft_failure(&mlx, "That's not finished stupid bitch");
+	mlx.mlx_ptr = mlx_init();
 	mlx.window = mlx_new_window(mlx.mlx_ptr, (mlx.lenx * 64),
 			(mlx.leny * 64 + 30), "Philippe EtcheQuest");
 	mlx_set_font(mlx.mlx_ptr, mlx.window,
 		"-misc-fixed-bold-r-normal--20-0-100-100-c-0-iso10646-1");
-	if (ft_check_winable(mlx.map, ft_pos(mlx.map).y,
-			ft_pos(mlx.map).x, ft_check_epc(&mlx)) == 0)
-		ft_failure(&mlx, "That's not finished stupid bitch");
 	altmain(&mlx, argc, argv);
 	ft_display(mlx.map, mlx);
 	mlx_key_hook(mlx.window, &jab_jab_hook, &mlx);

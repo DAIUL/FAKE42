@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:20:31 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/09 20:42:25 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/10 16:15:28 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_display2(char **map, t_mlx mlx, int x, int y)
 		mlx_put_image_to_window(mlx.mlx_ptr,
 			mlx.window, mlx.sprites[9].pointer, (x * 64), (y * 64));
 	else
-		ft_failure(mlx.mlx_ptr, "Connais pas");
+		ft_failure2(mlx.mlx_ptr, "Connais pas");
 }
 
 void	ft_display(char **map, t_mlx mlx)
