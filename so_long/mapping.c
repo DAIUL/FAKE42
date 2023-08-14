@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:20:31 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/14 12:36:07 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/14 12:50:39 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**ft_map(int argc, char **argv)
 	int		lect;
 
 	if (argc != 2)
-		return (NULL);
+		ft_failure3("Toujours plus de map toi");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		ft_failure3("C'est quoi cette map encore ?");
