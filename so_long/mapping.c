@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 19:20:31 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/10 16:15:28 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/14 12:36:07 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	**ft_map(int argc, char **argv)
 	if (argc != 2)
 		return (NULL);
 	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		ft_failure3("C'est quoi cette map encore ?");
 	lect = 0;
 	book = get_next_line(fd);
 	while (book)

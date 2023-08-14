@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 15:15:19 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/10 16:22:11 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/14 12:35:56 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void	ft_freeslmap(t_mlx *mlx);
 void	ft_counter(t_mlx *mlx, int color);
 void	ft_failure2(t_mlx *mlx, char *message);
 void	ft_check_char(t_mlx *mlx);
+void	ft_failure3(char *message);
 
 #endif

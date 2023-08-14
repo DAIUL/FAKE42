@@ -6,11 +6,17 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 20:12:11 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/09 20:15:32 by qpuig            ###   ########.fr       */
+/*   Updated: 2023/08/14 12:35:44 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_failure3(char *message)
+{
+	ft_printf("%s\n", message);
+	exit(EXIT_FAILURE);
+}
 
 void	ft_counter(t_mlx *mlx, int color)
 {
