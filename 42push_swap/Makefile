@@ -5,7 +5,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 FILE_PUSHSWAP = push_swap.c\
 		swap_and_push.c\
 		check.c\
-		rotate.c
+		rotate.c\
+		sort_last.c
 PRINTF_PATH = ft_printf/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a

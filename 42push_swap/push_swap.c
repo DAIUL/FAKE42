@@ -7,19 +7,20 @@ t_list_ps  *ft_multiparam(char **params)
     t_list_ps   *a;
 
     i = 0;
-    ft_check(params);
+    if (ft_check(params) == 0)
+        return (ft_printf("Error"), NULL);
     a = ft_calloc(1, sizeof(t_list_ps *));
     temp = a;
     while (params[i + 1])
     {
         a->next = ft_calloc(1, sizeof(t_list_ps *));
         a->data = ft_atoi(params[i]);
-        ft_printf("%s, ", a->data);
+        ft_printf("%d, ", a->data);
         a = a->next;
         i++;
     }
     a->data = ft_atoi(params[i]);
-    ft_printf("%s", a->data);
+    ft_printf("%d", a->data);
     return (temp);
 }
 
@@ -32,20 +33,21 @@ t_list_ps  *ft_soloparam(char *monoparam)
 
     i = 0;
     params = ft_split(monoparam, ' ');
-    ft_check(params);
+    if (ft_check(params) == 0)
+        return (ft_printf("Error"), NULL);
     a = ft_calloc(1, sizeof(t_list_ps *));
     temp = a;
     while (params[i + 1])
     {
         a->next = ft_calloc(1, sizeof(t_list_ps *));
         a->data = ft_atoi(params[i]);
-        ft_printf("%s, ", a->data);
+        ft_printf("%d, ", a->data);
         free(params[i]);
         a = a->next;
         i++;
     }
     a->data = ft_atoi(params[i]);
-    ft_printf("%s", a->data);
+    ft_printf("%d", a->data);
     return (free(params[i]), free(params), temp);
 }
 

@@ -25,5 +25,7 @@ void    ft_rarab(t_list_ps *a, int op);
 void    ft_rrr(t_list_ps **tab);
 int     *ft_big_atoi(char **s);
 int     ft_check(char **s);
+void    sort_last_three(t_list_ps *a);
+void    push_start(t_list_ps **tab);
 
 #endif
