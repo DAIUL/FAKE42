@@ -6,7 +6,10 @@ FILE_PUSHSWAP = push_swap.c\
 		swap_and_push.c\
 		check.c\
 		rotate.c\
-		sort_last.c
+		sort_1.c\
+		utils_1.c\
+		utils_2.c\
+		opti_count.c
 PRINTF_PATH = ft_printf/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a

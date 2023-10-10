@@ -14,14 +14,14 @@ void    sort_last_three(t_list_ps *a)
             ft_rarab(a, 1);
         else
         {
-            ft_sa(a, 1);
+            ft_sab(a, 1);
             ft_arab(a, 1);
         }
     }
     if ((a->next->next->data > a->next->data) && (a->next->next->data > a->data))
     {
         if (a->data > a->next->data)
-            ft_sa(a, 1);
+            ft_sab(a, 1);
     }
 }
 
