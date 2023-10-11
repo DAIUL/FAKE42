@@ -43,14 +43,16 @@ int     b_min_steps(t_list_ps *b, int nb)
 int     idc_steps(t_list_ps **tab, int idc)
 {
     int i;
+    t_list_ps *a;
 
     i = 1;
+    a = tab[0];
     while (i < idc)
     {
-        tab[0] = tab[0]->next;
+        a = a->next;
         i++;
     }
-    return ((a_min_steps(tab[0], tab[0]->data) + b_min_steps(tab[1], tab[0]->data)));
+    return ((a_min_steps(a, a->data) + b_min_steps(tab[1], a->data)));
 }
 
 int     opti_idc(t_list_ps **tab)
@@ -61,12 +63,15 @@ int     opti_idc(t_list_ps **tab)
     int ret;
 
     idc = 1;
+    ret = 1;
     opti = (a_min_steps(tab[0], tab[0]->data) + b_min_steps(tab[1], tab[0]->data));
     size = list_len(tab[0]);
     while (idc <= opti || size >= (list_len(tab[0]) - (opti - 2)))
     {
+        ft_printf("opti %d\n", opti);
         if (idc_steps(tab, idc) < opti)
         {
+            ft_printf("check %d\n", opti);
             opti = idc_steps(tab, idc);
             ret = idc;
         }
@@ -75,8 +80,11 @@ int     opti_idc(t_list_ps **tab)
             opti = idc_steps(tab, size);
             ret = size;
         }
+        ft_printf("idc %d\n", idc);
         idc++;
+        ft_printf("size %d\n", size);
         size--;
     }
+    ft_printf("ret %d\n", ret);
     return (ret);
 }
