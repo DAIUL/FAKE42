@@ -65,7 +65,7 @@ t_list_ps	*ft_lstnew_ps(int data)
 {
 	t_list_ps	*truc;
 
-	truc = (t_list_ps *)malloc(sizeof(t_list_ps)); //celui la il le fait pas (crash) dans la boucle du soloparam
+	truc = (t_list_ps *)malloc(sizeof(t_list_ps));
 	if (!truc)
 		return (NULL);
 	truc->data = data;

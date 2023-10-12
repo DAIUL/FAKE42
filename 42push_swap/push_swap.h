@@ -41,5 +41,8 @@ void	ft_lstadd_back_ps(t_list_ps **lst, t_list_ps *new);
 long long int	ft_atol(const char *nptr);
 void    ft_error(t_list_ps **tab);
 t_list_ps	*ft_lstlast_ps(t_list_ps *lst);
+int     get_idca(t_list_ps *a, int nb);
+int     get_idcb(t_list_ps *b, int nb);
+int     dual_move(int idca, int idcb, int sizea, int sizeb);
 
 #endif

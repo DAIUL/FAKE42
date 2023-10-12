@@ -34,6 +34,14 @@ t_list_ps  *ft_soloparam(char *monoparam, t_list_ps** tab, int ac)
     return (free(params[i]), free(params), a);
 }
 
+/*t_list_ps   *push_swap(t_list_ps **tab)
+{
+    int opti;
+
+    opti = opti_idc(tab);
+
+}*/
+
 int    main(int ac, char **av)
 {
     t_list_ps   *a;
@@ -51,6 +59,7 @@ int    main(int ac, char **av)
     tab[0] = a;
     tab[1] = b;
     push_start(tab);
-    ft_printf("%d\n", opti_idc(tab));
+    //push_swap(tab);
+    opti_idc(tab);
     return (0); 
 }

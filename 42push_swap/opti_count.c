@@ -40,6 +40,27 @@ int     b_min_steps(t_list_ps *b, int nb)
         return (i);
 }
 
+int     dual_move(int idca, int idcb, int sizea, int sizeb)
+{
+    if ((idca > (sizea/2)) && (idcb > (sizeb/2)))
+    {
+        if (idca > idcb)
+            return (sizea - idca + 2);
+        return (sizeb - idcb + 2);
+    }
+    else if ((idca <= (sizea/2)) && (idcb <= (sizeb/2)))
+    {
+        if (idca > idcb)
+            return (idca);
+        return (idcb);
+    }
+    else if ((idca <= (sizea/2)) && (idcb > (sizeb/2)))
+        return(idca + (sizeb - idcb + 1));
+    else if ((idca > (sizea/2)) && (idcb <= (sizeb/2)))
+        return (idcb + (sizea - idca + 1));
+    return (0);
+}
+
 int     idc_steps(t_list_ps **tab, int idc)
 {
     int i;
@@ -52,7 +73,7 @@ int     idc_steps(t_list_ps **tab, int idc)
         a = a->next;
         i++;
     }
-    return ((a_min_steps(a, a->data) + b_min_steps(tab[1], a->data)));
+    return (dual_move(get_idca(tab[0], a->data), get_idcb(tab[1], a->data), list_len(tab[0]), list_len(tab[1])));
 }
 
 int     opti_idc(t_list_ps **tab)
@@ -64,7 +85,7 @@ int     opti_idc(t_list_ps **tab)
 
     idc = 1;
     ret = 1;
-    opti = (a_min_steps(tab[0], tab[0]->data) + b_min_steps(tab[1], tab[0]->data));
+    opti = (idc_steps(tab, idc));
     size = list_len(tab[0]);
     while (idc <= opti || size >= (list_len(tab[0]) - (opti - 2)))
     {

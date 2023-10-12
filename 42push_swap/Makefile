@@ -9,7 +9,8 @@ FILE_PUSHSWAP = push_swap.c\
 		sort_1.c\
 		utils_1.c\
 		utils_2.c\
-		opti_count.c
+		opti_count.c\
+		opti_count_2.c
 PRINTF_PATH = ft_printf/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a
