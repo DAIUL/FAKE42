@@ -7,7 +7,7 @@ int     a_min_steps(t_list_ps *a, int nb)
 
     i = 1;
     size = list_len(a);
-    while (nb != a->data)
+    while (a && (nb != a->data))
     {
         i++;
         a = a->next;

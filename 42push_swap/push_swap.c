@@ -58,8 +58,30 @@ int    main(int ac, char **av)
         a = ft_multiparam(av, tab, ac);
     tab[0] = a;
     tab[1] = b;
+    while (a)
+    {
+        ft_printf("%d\n", a->data);
+        a = a->next;
+    }
+    ft_printf("pile B\n");
+    while (b)
+    {
+        ft_printf("%d\n", b->data);
+        b = b->next;
+    }
     push_start(tab);
-    //push_swap(tab);
-    opti_idc(tab);
+    //sort_idc(tab, opti_idc(tab));
+    ft_printf("pile A\n");
+    while (a)
+    {
+        ft_printf("%d\n", a->data);
+        a = a->next;
+    }
+    ft_printf("pile B\n");
+    while (b)
+    {
+        ft_printf("%d\n", b->data);
+        b = b->next;
+    }
     return (0); 
 }
