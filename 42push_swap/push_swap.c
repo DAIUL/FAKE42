@@ -47,6 +47,8 @@ int    main(int ac, char **av)
     t_list_ps   *a;
     t_list_ps   *b;
     t_list_ps   **tab;
+    t_list_ps   *temp;
+    t_list_ps   *retemp;
 
     a = NULL;
     b = NULL;
@@ -58,30 +60,24 @@ int    main(int ac, char **av)
         a = ft_multiparam(av, tab, ac);
     tab[0] = a;
     tab[1] = b;
-    while (a)
-    {
-        ft_printf("%d\n", a->data);
-        a = a->next;
-    }
-    ft_printf("pile B\n");
-    while (b)
-    {
-        ft_printf("%d\n", b->data);
-        b = b->next;
-    }
     push_start(tab);
-    //sort_idc(tab, opti_idc(tab));
+    sort_idc(tab, opti_idc(tab));
+    sort_idc(tab, opti_idc(tab));
+    sort_idc(tab, opti_idc(tab));
+    sort_idc(tab, opti_idc(tab));
+    temp = tab[0];
+    retemp = tab[1];
     ft_printf("pile A\n");
-    while (a)
+    while (temp)
     {
-        ft_printf("%d\n", a->data);
-        a = a->next;
+        ft_printf("%d\n", temp->data);
+        temp = temp->next;
     }
     ft_printf("pile B\n");
-    while (b)
+    while (retemp)
     {
-        ft_printf("%d\n", b->data);
-        b = b->next;
+        ft_printf("%d\n", retemp->data);
+        retemp = retemp->next;
     }
     return (0); 
 }

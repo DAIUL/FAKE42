@@ -27,6 +27,7 @@ int     min_max(t_list_ps *b, int idc)
     limit = 0;
     if (idc == 1)
     {
+        limit = b->data;
         while (b)
         {
             if (limit > b->data)

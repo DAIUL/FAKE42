@@ -1,101 +1,90 @@
 #include "push_swap.h"
 
-void     do_steps(t_list_ps *a, int idc, int op)
+void     do_steps(t_list_ps **tab, int idc, int op, int w)
 {
     int i;
     int size;
     int min;
 
     i = 0;
-    size = list_len(a);
-    min = a_min_steps(a, get_nb(a, idc));
+    size = list_len(tab[op]);
+    min = a_min_steps(tab[op], get_nb(tab[op], idc));
     while (i < min)
     {
         ft_printf("i:%d\n", i);
         ft_printf("min_steps:%d\n", min);
         if (idc <= (size/2))
-            ft_arab(a, op);
+            ft_arab(tab, op, w);
         else
-        {
-            while (a)
-            {
-                ft_printf("%d\n", a->data);
-                a = a->next;
-            }
-            ft_rarab(a, op);
-        }
+            ft_rarab(tab, op, w);
+        i++;
     }
 }
 
 void     sync_move(int idca, int idcb, int sizea, int sizeb, t_list_ps **tab)
 {
     int i;
-    t_list_ps *a;
-    t_list_ps *b;
     int min;
 
-
-    a = tab[0];
-    b = tab[1];
     i = 0;
-    min = a_min_steps(a, get_nb(a, idca));
+    min = a_min_steps(tab[0], get_nb(tab[0], idca));
     if ((idca > (sizea/2)) && (idcb > (sizeb/2)))
     {
         if (idca <= idcb)
         {
-            while (i < (a_min_steps(b, get_nb(b, idcb))))
+            while (i < (a_min_steps(tab[1], get_nb(tab[1], idcb))))
             {
                 ft_printf("i:%d\n", i);
-                ft_printf("idcb min steps:%d\n", a_min_steps(b, get_nb(b, idcb)));
+                ft_printf("idcb min steps:%d\n", a_min_steps(tab[1], get_nb(tab[1], idcb)));
                 ft_rrr(tab);
                 i++;
             }
             if (idca < idcb)
                 idca += i;
-            do_steps(a, idca, 1);
+            do_steps(tab, idca, 0, 1);
             return ;
         }
-        min = a_min_steps(a, get_nb(a, idca));
-        while (i < min) //crash ne rerentre pas mis ne sort pas
+        min = a_min_steps(tab[0], get_nb(tab[0], idca));
+        while (i < min)
         {
             ft_printf("i:%d\n", i);
-            ft_printf("idca min steps:%d\n", a_min_steps(a, get_nb(a, idca)));
+            ft_printf("idca min steps:%d\n", a_min_steps(tab[0], get_nb(tab[0], idca)));
             ft_rrr(tab);
             i++;
             ft_printf("idcb:%d\n", idcb);
         }
         ft_printf("idcb:%d\n", idcb);
         idcb += i;
-        do_steps(b  , idcb, 2);
+        do_steps(tab, idcb, 1, 2);
         return ;
     }
     else if ((idca <= (sizea/2)) && (idcb <= (sizeb/2)))
     {
         if (idca >= idcb)
         {
-            while (i < (a_min_steps(b, idcb)))
+            while (i < (a_min_steps(tab[1], idcb)))
             {
                 ft_rr(tab);
                 i++;
             }
             if (idca > idcb)
                 idca -= i;
-            do_steps(a, idca, 1);
+            do_steps(tab, idca, 0, 1);
             return ;
         }
-        while (i < (a_min_steps(a, idca)))
+        while (i < (a_min_steps(tab[0], idca)))
         {
             ft_rr(tab);
             i++;
         }
         idcb -= i;
-        do_steps(b, idcb, 2);
+        do_steps(tab, idcb, 1, 2);
         return ;
     }
     else if (((idca <= (sizea/2)) && (idcb > (sizeb/2))) || ((idca > (sizea/2)) && (idcb <= (sizeb/2))))
         {
-            do_steps(a, idca, 1);
-            do_steps(b, idcb, 2);
+            do_steps(tab, idca, 0, 1);
+            do_steps(tab, idcb, 1, 2);
         }
     return ;
 }
@@ -104,14 +93,12 @@ void    sort_idc(t_list_ps **tab, int idc)
 {
     int idca;
     int idcb;
-    t_list_ps   *a;
-    t_list_ps   *b;
 
-    a = tab[0];
-    b = tab[1];
-    idca = get_idca(a, get_nb(a, idc));
-    idcb = get_idcb(b, get_nb(a, idc));
-    sync_move(idca, idcb, list_len(a), list_len(b), tab);
+    idca = get_idca(tab[0], get_nb(tab[0], idc));
+    ft_printf("idca:%d\n", idca);  
+    idcb = get_idcb(tab[1], get_nb(tab[0], idc));
+    ft_printf("idcb:%d\n", idcb);  
+    sync_move(idca, idcb, list_len(tab[0]), list_len(tab[1]), tab);
     ft_pb(tab);
 }
 
@@ -145,5 +132,5 @@ void    push_start(t_list_ps **tab)
     ft_pb(tab);
     ft_pb(tab);
     if (tab[1]->data < tab[1]->next->data)
-        ft_sab(tab[1], 2);
+        ft_sab(tab, 2, 2);
 }

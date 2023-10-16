@@ -1,25 +1,25 @@
 #include "push_swap.h"
 
-void    ft_sab(t_list_ps *a, int op)
+void    ft_sab(t_list_ps **tab, int op, int w)
 {
     t_list_ps *temp;
 
-    if (a == NULL || a->next == NULL)
+    if (tab[op - 1] == NULL || tab[op - 1]->next == NULL)
         return ;
-    temp = a;
-    a = a->next;
-    temp->next = a->next;
-    a->next = temp;
-    if (op == 1)
+    temp = tab[op - 1];
+    tab[op - 1] = tab[op - 1]->next;
+    temp->next = tab[op - 1]->next;
+    tab[op - 1]->next = temp;
+    if (w == 1)
         ft_printf("sa\n");
-    if (op == 2)
+    if (w == 2)
         ft_printf("sb\n");
 }
 
 void    ft_ss(t_list_ps **tab)
 {
-    ft_sab(tab[0], 3);
-    ft_sab(tab[1], 3);
+    ft_sab(tab, 1, 3);
+    ft_sab(tab, 2, 3);
     ft_printf("ss\n");
 }
 

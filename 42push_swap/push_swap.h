@@ -16,13 +16,13 @@ typedef struct s_list_ps
 }               t_list_ps;
 
 
-void    ft_sab(t_list_ps* a, int op);
+void    ft_sab(t_list_ps **tab, int op, int w);
 void    ft_ss(t_list_ps** tab);
 void    ft_pa(t_list_ps** tab);
 void    ft_pb(t_list_ps** tab);
-void    ft_arab(t_list_ps *a, int op);
+void    ft_arab(t_list_ps **tab, int op, int w);
 void    ft_rr(t_list_ps **tab);
-void    ft_rarab(t_list_ps *a, int op);
+void    ft_rarab(t_list_ps **tab, int op, int w);
 void    ft_rrr(t_list_ps **tab);
 int     ft_check(char **s, t_list_ps **tab, int ac);
 int     *ft_big_atoi(char **s, t_list_ps **tab, int ac);
@@ -46,7 +46,7 @@ int     get_idcb(t_list_ps *b, int nb);
 int     dual_move(int idca, int idcb, int sizea, int sizeb);
 void    sort_idc(t_list_ps **tab, int idc);
 void    sync_move(int idca, int idcb, int sizea, int sizeb, t_list_ps **tab);
-void    do_steps(t_list_ps *a, int idc, int op);
+void     do_steps(t_list_ps **tab, int idc, int op, int w);
 int     get_nb(t_list_ps *a, int idc);
 
 #endif
