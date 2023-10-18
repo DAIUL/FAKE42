@@ -27,7 +27,7 @@ void    ft_rrr(t_list_ps **tab);
 int     ft_check(char **s, t_list_ps **tab, int ac);
 int     *ft_big_atoi(char **s, t_list_ps **tab, int ac);
 int     ft_strlen_ps(char **s);
-void    sort_last_three(t_list_ps *a);
+void    sort_last_three(t_list_ps **tab, int op);
 void    push_start(t_list_ps **tab);
 int     list_len(t_list_ps *a);
 int     last_list_data(t_list_ps *b);
@@ -48,5 +48,9 @@ void    sort_idc(t_list_ps **tab, int idc);
 void    sync_move(int idca, int idcb, int sizea, int sizeb, t_list_ps **tab);
 void     do_steps(t_list_ps **tab, int idc, int op, int w);
 int     get_nb(t_list_ps *a, int idc);
+void    push_me_daddy(t_list_ps **tab);
+void    quaso(t_list_ps **tab);
+void	ft_lstclear_ps(t_list_ps **tab, int op);
+void	ft_free_params(char **params);
 
 #endif

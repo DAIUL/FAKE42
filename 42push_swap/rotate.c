@@ -49,7 +49,7 @@ void    ft_rarab(t_list_ps **tab, int op, int w)
 
 void    ft_rrr(t_list_ps **tab)
 {
-    ft_rarab(tab, 0, 3);
-    ft_rarab(tab, 1, 3);
-    ft_printf("rrr\n");
+   ft_rarab(tab, 0, 3);
+   ft_rarab(tab, 1, 3);
+   ft_printf("rrr\n");
 }

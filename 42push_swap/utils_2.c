@@ -1,5 +1,19 @@
 #include "push_swap.h"
 
+void	ft_lstclear_ps(t_list_ps **tab, int op)
+{
+	t_list_ps	*n;
+
+	if (!tab)
+		return ;
+	while (tab[op])
+	{
+		n = (tab[op])->next;
+		free(tab[op]);
+		tab[op] = n;
+	}
+}
+
 t_list_ps	*ft_lstlast_ps(t_list_ps *lst)
 {
 	if (!lst)
@@ -9,6 +23,15 @@ t_list_ps	*ft_lstlast_ps(t_list_ps *lst)
 	return (lst);
 }
 
+void	ft_free_params(char **params)
+{
+	int	i;
+	
+	i = 0;
+	while (params[i])
+		free(params[i++]);
+	free(params);
+}
 
 void    ft_error(t_list_ps **tab)
 {
@@ -20,6 +43,7 @@ void    ft_error(t_list_ps **tab)
         free (tab[i]);
         i++;
     }
+	free(tab);
     ft_printf("Error\n");
     exit(EXIT_FAILURE);
 }
@@ -41,7 +65,7 @@ long long int	ft_atol(const char *nptr)
 			sign *= -1;
 		i++;
 	}
-	while (nptr[i] >= 48 && nptr[i] <= 57)
+	while ((nptr[i] >= 48 && nptr[i] <= 57))
 	{
 		vret = vret * 10 + (nptr[i] - 48);
 		i++;

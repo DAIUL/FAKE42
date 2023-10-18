@@ -36,7 +36,7 @@ int     *ft_big_atoi(char **s, t_list_ps **tab, int ac)
         j = 0;
     else
         j = 1;
-    while (check[i])
+    while (s[j])
     {
         if (check[i] > INT_MAX || check[i] < INT_MIN)
         {
@@ -52,25 +52,31 @@ int     *ft_big_atoi(char **s, t_list_ps **tab, int ac)
     return (params);
 }
 
-int     ft_double(int ac, int *params)
+int     ft_double(char **s, int *params, int ac)
 {
     int i;
     int j;
+    int k;
+    int l;
 
     if (ac == 2)
-        i = 0;
+        k = 0;
     else
-        i = 1;
-    while (params[i])
+        k = 1;
+    i = 0;
+    while (s[k])
     {
         j = i + 1;
-        while (params[j])
+        l = k;
+        while (s[l + 1])
         {
             if (params[j] == params[i])
                 return (0);
             j++;
+            l++;
         }
         i++;
+        k++;
     }
     return (1);
 }
@@ -90,15 +96,18 @@ int     ft_check(char **s, t_list_ps **tab, int ac)
         j = 0;
         while (s[i][j])
         {
-            if (!(s[i][j] >= '0' && s[i][j] <= '9') || s[i][j] == '-' || s[i][j] == '+')
+            if (!((s[i][j] >= '0' && s[i][j] <= '9') || s[i][j] == '-' || s[i][j] == '+') || !((s[i][j + 1] >= 48 && s[i][j + 1] <= 57) || s[i][j + 1] == '\0'))
                 return (0);
             j++;
         }
         i++;   
     }
     params = ft_big_atoi(s, tab, ac);
-    if (ft_double(ac, params) == 0)
+    if (ft_double(s, params, ac) == 0)
+    {
+        free(params);
         return (0);
+    }
     free(params);
     return (1);
 }

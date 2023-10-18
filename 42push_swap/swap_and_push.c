@@ -4,12 +4,12 @@ void    ft_sab(t_list_ps **tab, int op, int w)
 {
     t_list_ps *temp;
 
-    if (tab[op - 1] == NULL || tab[op - 1]->next == NULL)
+    if (tab[op] == NULL || tab[op]->next == NULL)
         return ;
-    temp = tab[op - 1];
-    tab[op - 1] = tab[op - 1]->next;
-    temp->next = tab[op - 1]->next;
-    tab[op - 1]->next = temp;
+    temp = tab[op];
+    tab[op] = tab[op]->next;
+    temp->next = tab[op]->next;
+    tab[op]->next = temp;
     if (w == 1)
         ft_printf("sa\n");
     if (w == 2)

@@ -73,8 +73,6 @@ int     idc_steps(t_list_ps **tab, int idc)
         a = a->next;
         i++;
     }
-    ft_printf("idcacheck  %d\n", get_idca(tab[0], a->data));
-    ft_printf("idcbcheck  %d\n", get_idcb(tab[1], a->data));
     return (dual_move(get_idca(tab[0], a->data), get_idcb(tab[1], a->data), list_len(tab[0]), list_len(tab[1])));
 }
 
@@ -91,25 +89,18 @@ int     opti_idc(t_list_ps **tab)
     size = list_len(tab[0]);
     while (idc <= opti || size >= (list_len(tab[0]) - (opti - 2)))
     {
-        ft_printf("idc %d\n", idc);
-        ft_printf("size %d\n", size);
-        ft_printf("opti %d\n", opti);
-        ft_printf("idc steps %d\n", idc_steps(tab, idc  ));
         if (idc_steps(tab, idc) < opti)
         {
-            ft_printf("check %d\n", opti);
             opti = idc_steps(tab, idc);
             ret = idc;
         }   
         if (idc_steps(tab, size) < opti)
         {
-            ft_printf("idc oui oui %d\n", idc_steps(tab, size));
             opti = idc_steps(tab, size);
             ret = size;
         }
         idc++;
         size--;
     }
-    ft_printf("ret %d\n", ret);
     return (ret);
 }

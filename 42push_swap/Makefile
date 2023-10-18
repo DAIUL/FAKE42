@@ -7,6 +7,7 @@ FILE_PUSHSWAP = push_swap.c\
 		check.c\
 		rotate.c\
 		sort_1.c\
+		sort_2.c\
 		utils_1.c\
 		utils_2.c\
 		opti_count.c\
