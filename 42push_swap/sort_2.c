@@ -39,3 +39,14 @@ void    push_me_daddy(t_list_ps **tab)
             ft_rarab(tab, 0, 1);
     }
 }
+
+int     already_sort(t_list_ps *a)
+{
+    while (a->next)
+    {
+        if (a->next->data < a->data)
+            return (0);
+        a = a->next;
+    }
+    return (1);
+}

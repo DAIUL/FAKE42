@@ -69,11 +69,14 @@ int    main(int ac, char **av)
         a = ft_multiparam(av, tab, ac);
     tab[0] = a;
     tab[1] = b;
-    if (list_len(tab[0]) >= 5)
+    if (already_sort(tab[0]) == 1)
     {
-        push_start(tab);
-        while (list_len(tab[0]) > 3)
-            sort_idc(tab, opti_idc(tab));
+        while (tab[0])
+            ft_lstclear_ps(tab, 0);
+        while (tab[1])
+            ft_lstclear_ps(tab, 1);
+        free(tab);
+        return (0);
     }
     if (list_len(tab[0]) == 2)
     {
@@ -84,7 +87,22 @@ int    main(int ac, char **av)
         free(tab);
         return (0);
     }
-    //if (list_len(tab[0]) == 4)
+    if (list_len(tab[0]) == 3)
+    {
+        sort_last_three(tab, 0);
+        while (tab[0])
+            ft_lstclear_ps(tab, 0);
+        free(tab);
+        return (0); 
+    }
+    if (list_len(tab[0]) == 4)
+        ft_pb(tab);
+    if (list_len(tab[0]) >= 5)
+    {
+        push_start(tab);
+        while (list_len(tab[0]) > 3)
+            sort_idc(tab, opti_idc(tab));
+    }
     sort_last_three(tab, 0);
     push_me_daddy(tab);
     quaso(tab);

@@ -52,5 +52,6 @@ void    push_me_daddy(t_list_ps **tab);
 void    quaso(t_list_ps **tab);
 void	ft_lstclear_ps(t_list_ps **tab, int op);
 void	ft_free_params(char **params);
+int     already_sort(t_list_ps *a   );
 
 #endif

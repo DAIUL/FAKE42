@@ -42,6 +42,7 @@ int     *ft_big_atoi(char **s, t_list_ps **tab, int ac)
         {
             free(check);
             free(params);
+            ft_free_params(s);
             ft_error(tab);
         }
         params[i] = ft_atoi(s[j]);
@@ -91,6 +92,8 @@ int     ft_check(char **s, t_list_ps **tab, int ac)
         i = 0;
     else
         i = 1;
+    if (!s[0] || !s[0][0])
+        return(0);
     while (s[i])
     {
         j = 0;
