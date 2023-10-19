@@ -68,11 +68,13 @@ int     idc_steps(t_list_ps **tab, int idc)
 
     i = 1;
     a = tab[0];
+    //ft_printf("1ch\n");
     while (i < idc)
     {
         a = a->next;
         i++;
     }
+    //ft_printf("2ch\n");
     return (dual_move(get_idca(tab[0], a->data), get_idcb(tab[1], a->data), list_len(tab[0]), list_len(tab[1])));
 }
 
@@ -87,8 +89,11 @@ int     opti_idc(t_list_ps **tab)
     ret = 1;
     opti = (idc_steps(tab, idc++));
     size = list_len(tab[0]);
-    while (idc <= opti || size >= (list_len(tab[0]) - (opti - 2)))
+    while ((idc <= list_len(tab[0])  && idc <= size) && (idc <= opti || size >= (list_len(tab[0]) - (opti - 2))))
     {
+        //ft_printf("idc %d\n", idc);
+        //ft_printf("opti %d\n", opti);
+        //ft_printf("size %d\n", size);
         if (idc_steps(tab, idc) < opti)
         {
             opti = idc_steps(tab, idc);
@@ -102,5 +107,6 @@ int     opti_idc(t_list_ps **tab)
         idc++;
         size--;
     }
+    //ft_printf("ret %d\n", ret);
     return (ret);
 }
