@@ -53,5 +53,7 @@ void    quaso(t_list_ps **tab);
 void	ft_lstclear_ps(t_list_ps **tab, int op);
 void	ft_free_params(char **params);
 int     already_sort(t_list_ps *a   );
+t_list_ps  *ft_multiparam(char **params, t_list_ps **tab, int ac);
+t_list_ps  *ft_soloparam(char *monoparam, t_list_ps** tab, int ac);
 
 #endif

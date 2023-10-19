@@ -2,7 +2,7 @@
 
 int     check_sort(t_list_ps *a)
 {
-    while (a)
+    while (a->next)
     {
         if (a->data < a->next->data)
             a = a->next;
@@ -80,7 +80,8 @@ int     main(int ac, char **av)
     }
     if ((check_sort(tab[0]) == 0) || (list_len(tab[1]) != 0))
         ft_printf("KO\n");
-    ft_printf("OK\n");
+    else
+        ft_printf("OK\n");
     while (tab[0])
         ft_lstclear_ps(tab, 0);
     while (tab[1])

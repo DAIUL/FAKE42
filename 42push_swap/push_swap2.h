@@ -7,6 +7,7 @@
 # include <stdlib.h>
 # include "ft_printf/ft_printf.h"
 # include "libft/libft.h"
+# include "get_next_line/get_next_line.h"
 # include <limits.h>
 
 typedef struct s_list_ps

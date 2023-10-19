@@ -89,27 +89,9 @@ void    sort_idc(t_list_ps **tab, int idc)
 {
     int idca;
     int idcb;
-    t_list_ps   *temp;
-    t_list_ps   *retemp;
 
-    temp = tab[0];
-    retemp = tab[1];
-    ft_printf("pile A\n");
-    while (temp)
-    {
-        ft_printf("%d\n", temp->data);
-        temp = temp->next;
-    }
-    ft_printf("pile B\n");
-    while (retemp)
-    {
-        ft_printf("%d\n", retemp->data);
-        retemp = retemp->next;
-    }
     idca = get_idca(tab[0], get_nb(tab[0], idc));
-    //ft_printf("idca %d\n", idca);
     idcb = get_idcb(tab[1], get_nb(tab[0], idc));
-   // ft_printf("idcb %d\n", idcb);
     sync_move(idca, idcb, list_len(tab[0]), list_len(tab[1]), tab);
     ft_pb(tab);
 }

@@ -12,10 +12,23 @@ FILE_PUSHSWAP = push_swap.c\
 		utils_1.c\
 		utils_2.c\
 		opti_count.c\
+		params.c\
 		opti_count_2.c
 FILE_CHECKER = checker.c\
+				swap_and_push.c\
+				check.c\
+				rotate.c\
 				swap_and_push2.c\
-				rotate2.c
+				params.c\
+				rotate2.c\
+				sort_1.c\
+				sort_2.c\
+				utils_1.c\
+				utils_2.c\
+				opti_count.c\
+				opti_count_2.c\
+				get_next_line/get_next_line_bonus.c\
+				get_next_line/get_next_line_utils_bonus.c
 PRINTF_PATH = ft_printf/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a
@@ -25,6 +38,8 @@ OBJS = ${FILE_PUSHSWAP:.c=.o}
 OBJSCH = ${FILE_CHECKER:.c=.o}
 
 all: ${PRINTF} ${LIBFT} ${NAME}
+
+bonus: ${PRINTF} ${LIBFT} ${NAME} ${CHECK}
 
 ${LIBFT}:
 	make -sC ${LIBFT_PATH} all
@@ -36,8 +51,6 @@ ${NAME}: ${OBJS}
 
 ${CHECK}: ${OBJSCH}
 	${CC} ${CFLAGS} ${OBJSCH} -o ${CHECK} ${LIB}
-
-bonus: ${NAME} ${PRINTF} ${LIBFT} ${CHECK}
 
 clean:
 	make -sC ${PRINTF_PATH} fclean

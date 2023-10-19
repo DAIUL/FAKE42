@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-t_list_ps  *ft_multiparam(char **params, t_list_ps **tab, int ac)
+/*t_list_ps  *ft_multiparam(char **params, t_list_ps **tab, int ac)
 {
     int     i;
     t_list_ps   *a;
@@ -38,7 +38,7 @@ t_list_ps  *ft_soloparam(char *monoparam, t_list_ps** tab, int ac)
     return (free(params[i]), free(params), a);
 }
 
-/*t_list_ps   *push_swap(t_list_ps **tab)
+t_list_ps   *push_swap(t_list_ps **tab)
 {
     int opti;
 

@@ -16,8 +16,8 @@ void    ft_arab2(t_list_ps **tab, int op)
 
 void    ft_rr2(t_list_ps **tab)
 {
-    ft_arab(tab, 0, 3);
-    ft_arab(tab, 1, 3);
+    ft_arab2(tab, 0);
+    ft_arab2(tab, 1);
 }
 
 void    ft_rarab2(t_list_ps **tab, int op)
@@ -40,6 +40,6 @@ void    ft_rarab2(t_list_ps **tab, int op)
 
 void    ft_rrr2(t_list_ps **tab)
 {
-   ft_rarab(tab, 0, 3);
-   ft_rarab(tab, 1, 3);
+   ft_rarab2(tab, 0);
+   ft_rarab2(tab, 1);
 }

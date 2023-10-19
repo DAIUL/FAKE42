@@ -14,8 +14,8 @@ void    ft_sab2(t_list_ps **tab, int op)
 
 void    ft_ss2(t_list_ps **tab)
 {
-    ft_sab(tab, 0);
-    ft_sab(tab, 1);
+    ft_sab2(tab, 0);
+    ft_sab2(tab, 1);
     ft_printf("ss\n");
 }
 
