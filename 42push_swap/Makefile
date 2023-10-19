@@ -1,4 +1,5 @@
 NAME = push_swap
+CHECK = checker
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
@@ -12,12 +13,16 @@ FILE_PUSHSWAP = push_swap.c\
 		utils_2.c\
 		opti_count.c\
 		opti_count_2.c
+FILE_CHECKER = checker.c\
+				swap_and_push2.c\
+				rotate2.c
 PRINTF_PATH = ft_printf/
 LIBFT_PATH = libft/
 LIBFT = libft/libft.a
 PRINTF = ft_printf/libftprintf.a
 LIB = -L ${PRINTF_PATH} -lftprintf -L ${LIBFT_PATH} -lft
 OBJS = ${FILE_PUSHSWAP:.c=.o}
+OBJSCH = ${FILE_CHECKER:.c=.o}
 
 all: ${PRINTF} ${LIBFT} ${NAME}
 
@@ -29,12 +34,19 @@ ${PRINTF}:
 ${NAME}: ${OBJS}
 	${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LIB}
 
+${CHECK}: ${OBJSCH}
+	${CC} ${CFLAGS} ${OBJSCH} -o ${CHECK} ${LIB}
+
+bonus: ${NAME} ${PRINTF} ${LIBFT} ${CHECK}
+
 clean:
 	make -sC ${PRINTF_PATH} fclean
 	make -sC ${LIBFT_PATH} fclean
 	rm -f ${OBJS}
+	rm -f ${OBJSCH}
 
 fclean: clean
 	rm -f ${NAME}
+	rm -f ${CHECK}
 
 re: fclean all

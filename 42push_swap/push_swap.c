@@ -51,8 +51,6 @@ int    main(int ac, char **av)
     t_list_ps   *a;
     t_list_ps   *b;
     t_list_ps   **tab;
-    t_list_ps   *temp;
-    t_list_ps   *retemp;
 
     a = NULL;
     b = NULL;
@@ -106,20 +104,6 @@ int    main(int ac, char **av)
     sort_last_three(tab, 0);
     push_me_daddy(tab);
     quaso(tab);
-    temp = tab[0];
-    retemp = tab[1];
-    ft_printf("pile A\n");
-    while (temp)
-    {
-        ft_printf("%d\n", temp->data);
-        temp = temp->next;
-    }
-    ft_printf("pile B\n");
-    while (retemp)
-    {
-        ft_printf("%d\n", retemp->data);
-        retemp = retemp->next;
-    }
     while (tab[0])
         ft_lstclear_ps(tab, 0);
     while (tab[1])
