@@ -56,7 +56,7 @@ void     sync_move(int idca, int idcb, int sizea, int sizeb, t_list_ps **tab)
     {
         if (idca >= idcb)
         {
-            while (i < (a_min_steps(tab[1], idcb)))
+            while (i < (a_min_steps(tab[1], get_nb(tab[1], idcb))))
             {
                 ft_rr(tab);
                 i++;
@@ -68,7 +68,7 @@ void     sync_move(int idca, int idcb, int sizea, int sizeb, t_list_ps **tab)
             do_steps(tab, idca, 0, 1);
             return ;
         }
-        while (i < (a_min_steps(tab[0], idca)))
+        while (i < (a_min_steps(tab[0], get_nb(tab[0], idca))))
         {
             ft_rr(tab);
             i++;
@@ -90,8 +90,8 @@ void    sort_idc(t_list_ps **tab, int idc)
     int idca;
     int idcb;
 
-    idca = get_idca(tab[0], get_nb(tab[0], idc)); 
-    idcb = get_idcb(tab[1], get_nb(tab[0], idc));  
+    idca = get_idca(tab[0], get_nb(tab[0], idc));
+    idcb = get_idcb(tab[1], get_nb(tab[0], idc));
     sync_move(idca, idcb, list_len(tab[0]), list_len(tab[1]), tab);
     ft_pb(tab);
 }
