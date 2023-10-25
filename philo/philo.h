@@ -8,27 +8,32 @@
 # include <pthread.h>
 # include <unistd.h>
 
-typedef struct s_mut
+typedef struct s_info
 {
     pthread_mutex_t *eat;
     pthread_mutex_t *sleep;
     pthread_mutex_t *think;
-    pthread_mutex_t *fork;
 	long long int	nb_philo;
 	long long int	ti_eat;
 	long long int	ti_sleep;
 	long long int	ti_think;
-}               t_mut;
+}               t_info;
 
 typedef struct s_philo
 {
-    struct s_mut   *mutex;
+    struct s_info   *info;
     pthread_t       id;
     int             nb;
+    pthread_mutex_t *fork;
 }				t_philo;
 
 void			*ft_calloc(size_t nmemb, size_t size);
 void			ft_bzero(void *s, size_t n);
 long long int	ft_atol(const char *nptr);
+void			fill_arg(t_mut *info, char **av);
+void			create(char **av);
+void    		*miam(void);
+void    		*zzz(t_philo *p);
+void    		*hmmm(void);
 
 #endif
