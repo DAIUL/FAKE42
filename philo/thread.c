@@ -34,34 +34,41 @@
 
 ###########################################################
 
-// ou je suis cense intialiser les philo ?
-
-void    create(void)
+void	fill_arg(t_mut *info, char **av)
 {
-    pthread_t   p1;
-    pthread_t   p2;
-    pthread_t   p3;
-    pthread_t   p4;
-    t_mut   mut;
-
-// boucle de cration en fct de ac ?
-// dans ce cas la comment declarer ?
-
-    pthread_create(&p1, NULL, &cycle, NULL);
-    pthread_create(&p2, NULL, &cycle, NULL);
-    pthread_create(&p3, NULL, &cycle, NULL);
-    pthread_create(&p4, NULL, &cycle, NULL);
-    pthread_join(p1, NULL);
-    pthread_join(p2, NULL);
-    pthread_join(p3, NULL);
-    pthread_join(p4, NULL);
-    pthread_mutex_init(&mut->eat, NULL);
-    pthread_mutex_init(&mut->sleep, NULL);
-    pthread_mutex_init(&mut->think, NULL);
+	info->nb_philo = ft_atol(av[1]);
+	info->ti_think = ft_atol(av[2]);
+	info->ti_eat = ft_atol(av[3]);
+	info->ti_sleep = ft_atol(av[4]);
 }
 
-void    *cycle(void  *) //quelle variable je peux mettre en parametre ?
+void    create(char **av) //si tu peux pas tout initialsier ici fait le dans le main et envoies le pointeur de la struct en parametre de create
 {
+	t_philo	*p;
+	t_mut	info;
+	int		i;
+
+	fill_arg(&info, av);
+	pthread_mutex_init(&mut->eat, NULL);
+	pthread_mutex_init(&mut->sleep, NULL);
+    pthread_mutex_init(&mut->think, NULL);
+	p = ft_calloc((int)info->nb_philo, sizeof(t_philo)); 
+    i = 0;
+	while (i < (int)info->nb_philo)
+    {
+        p[i]->info = &info;
+		p[i]->nb = i;
+    }
+    i = 0;
+    while (p[i])
+        pthread_create(&p[i]->id, NULL, &cycle, &p[i]);
+    i = 0;
+    while (p[i])
+		pthread_join(p[i]->id, NULL);
+}
+
+void    *cycle(void  *p)
+{	
     miam();
     zzz();
     hmmm();

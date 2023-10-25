@@ -22,7 +22,8 @@ RM = rm -f
 
 NAME = philo
 SRCS = philo.c\
-		thread.c
+		thread.c\
+		utils.c
 OBJS = ${SRCS:.c=.o}
 
 ###############################################
@@ -39,7 +40,7 @@ clean:
 
 fclean: clean
 	${RM} ${NAME}
-	echo "\033[1;38;2;255;117;24m(づ ◕‿◕ )づ Vraiment tout propre (づ ◕‿◕ )づ\033[0m"
+	echo "\033[1;38;2;255;117;24m(づ ◕‿◕ )づ Je pense donc j'essuie (づ ◕‿◕ )づ\033[0m"
 
 re: fclean all
 
