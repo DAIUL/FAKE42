@@ -25,15 +25,15 @@ typedef struct s_philo
     pthread_t       id;
     int             nb;
     pthread_mutex_t *fork;
+	pthread_mutex_t	*nfork;
 }				t_philo;
 
 void			*ft_calloc(size_t nmemb, size_t size);
 void			ft_bzero(void *s, size_t n);
 long long int	ft_atol(const char *nptr);
-void			fill_arg(t_mut *info, char **av);
+void			fill_arg(t_info *info, char **av);
 void			create(char **av);
-void    		*miam(void);
+void    		*miam(t_philo *p);
 void    		*zzz(t_philo *p);
-void    		*hmmm(void);
 
 #endif

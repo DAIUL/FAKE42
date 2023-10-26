@@ -12,13 +12,14 @@
 
 # include "philo.h"
 
-int main(void)
+int main(int ac, char **av)
 {
     // if (ac == 6)
     //     // avec limite de repas
     // else if (ac == 5)
     //     // sans limite repas
     // else
-    threads_test();
+    (void)ac;
+    create(av);
     return (0);
 }

@@ -12,27 +12,35 @@
 
 # include "philo.h"
 
-// void    *routine(void *osef)
-// {
-//     (void)osef;
-//     printf("Yacine est raciste\n");
-//     sleep(2);
-//     printf("Yacine a triche\n");
-//     return (osef);
-// }
+void    *zzz(t_philo *p)
+{
+    pthread_mutex_lock(p->info->sleep);
+	printf("%d is sleeping\n", p->nb);
+	pthread_mutex_unlock(p->info->sleep);
+	usleep(p->info->ti_sleep * 1000);
+	pthread_mutex_unlock(p->info->think);
+	printf("%d is thinking\n", p->nb);
+	pthread_mutex_unlock(p->info->think);
+}
 
-// void    threads_test(void)
-// {
-//     pthread_t   test;
-//     pthread_t   test2;
+void    *miam(t_philo *p)
+{
+    pthread_mutex_lock(p->fork);
+	pthread_mutex_lock(p->nfork);
+	printf("%d is eating\n", p->nb);
+	usleep(p->info->ti_eat * 1000);
+    pthread_mutex_unlock(p->fork);
+	pthread_mutex_unlock(p->nfork);
+}
 
-//     pthread_create(&test, NULL, &routine, NULL);
-//     pthread_create(&test2, NULL, &routine, NULL);
-//     pthread_join(test, NULL);
-//     pthread_join(test2, NULL);
-// }
+void    *cycle(void *temp)
+{	
+	t_philo	*p;
 
-###########################################################
+	p = (t_philo *)temp;
+    miam(p);
+    zzz(p);
+}
 
 void	fill_arg(t_info *info, char **av)
 {
@@ -42,66 +50,37 @@ void	fill_arg(t_info *info, char **av)
 	info->ti_sleep = ft_atol(av[4]);
 }
 
-void    create(char **av) //si tu peux pas tout initialsier ici fait le dans le main et envoies le pointeur de la struct en parametre de create
+void    create(char **av)
 {
 	t_philo	*p;
 	t_info	info;
+	pthread_mutex_t	*f;
 	int		i;
 
 	fill_arg(&info, av);
-	pthread_mutex_init(&info->eat, NULL);
-	pthread_mutex_init(&info->sleep, NULL);
-    pthread_mutex_init(&info->think, NULL);
-	p = ft_calloc((int)info->nb_philo, sizeof(t_philo)); 
+	pthread_mutex_init(info.eat, NULL);
+	pthread_mutex_init(info.sleep, NULL);
+    pthread_mutex_init(info.think, NULL);
+	p = ft_calloc((int)info.nb_philo, sizeof(t_philo)); 
+	f = ft_calloc((int)info.nb_philo, sizeof(pthread_mutex_t));
     i = 0;
-	while (i < (int)info->nb_philo)
+	while (i < (int)info.nb_philo)
+		pthread_mutex_init(&f[i], NULL);
+	i = 0;
+	while (i < ((int)info.nb_philo - 1))
     {
-        p[i]->info = &info;
-		p[i]->nb = i;
+        p[i].info = &info;
+		p[i].nb = i;
+		p[i].fork = &f[i];
+		p[i].nfork = &f[i + 1];
+		i++;
     }
+	p[i].fork = &f[i];
+	p[i].nfork = &f[0];
     i = 0;
     while (p[i])
-        pthread_create(&p[i]->id, NULL, &cycle, &p[i]);
+        pthread_create(&p[i].id, NULL, &cycle, &p[i]);
     i = 0;
     while (p[i])
-		pthread_join(p[i]->id, NULL);
-}
-
-void    *cycle(void  *) // comment j'envoie la struct si c'est un void * ??
-{	
-    miam();
-    zzz();
-    hmmm();
-}
-
-void    *miam(void)
-{
-    pthread_mutex_lock(&p[i]->fork);
-	if (!p[i + 1])
-		pthread_mutex_lock(&p[0]->fork);
-	else
-    	pthread_mutex_lock(&p[i + 1]->fork);
-	usleep(p->info->ti_eat * 1000);
-	printf("%d is eating\n", p[i]->nb);
-    pthread_mutex_unlock(&p[i]->fork);
-	if (!p[i + 1])
-		pthread_mutex_unlock(&p[0]->fork);
-	else
-    	pthread_mutex_unlock(&p[i + 1]->fork);
-}
-
-void    *zzz(t_philo *p)
-{
-	uslepp(p->info->ti_sleep * 1000);
-    pthread_mutex_lock(&info->sleep);
-	printf("%d have slept\n", p[i]->nb);
-	pthread_mutex_unlock(&info->sleep);
-}
-
-void    *hmmm(void)
-{
-	// boucle sleep tant que y'a pas de fourchette ?? quelle condition ?
-    pthread_mutex_lock(&info->think);
-	printf("%d is thinking\n", p[i]->nb);
-    pthread_mutex_unlock(&info->think);
+		pthread_join(p[i].id, NULL);
 }
