@@ -14,12 +14,14 @@
 
 int main(int ac, char **av)
 {
+    t_glo  glo;
     // if (ac == 6)
     //     // avec limite de repas
     // else if (ac == 5)
     //     // sans limite repas
     // else
     (void)ac;
-    create(av);
+	fill_arg(&glo.info, av);
+    create(&glo);
     return (0);
 }
