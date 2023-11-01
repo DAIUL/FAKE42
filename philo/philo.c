@@ -20,6 +20,6 @@ int main(int ac, char **av)
     //     // sans limite repas
     // else
     (void)ac;
-    create(av);
+    create(ac, av);
     return (0);
 }

@@ -19,3 +19,22 @@ long long int	get_milli(void)
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));	
 }
+
+void	*death_check(void *temp)
+{
+	t_philo	*p;
+
+	p = (t_philo *)temp;
+	pthread_mutex_init(&p->info->death, NULL);
+	while (((p->info->nb_meal == -1) || (p->act_meal < p->info->nb_meal)) && (p->info->ilemor == 0))
+	{
+		if	((get_milli() - p->last_meal) < p->info->ti_think)
+		{
+    		pthread_mutex_lock(&p->info->death);
+			printf("%llu %d is dead\n", (get_milli() - p->info->start), p->nb);
+			p->info->ilemor = 1;
+    		pthread_mutex_unlock(&p->info->death);
+		}
+	}
+	return ((void *)0);
+}

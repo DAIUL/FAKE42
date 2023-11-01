@@ -30,6 +30,7 @@ void    *miam(t_philo *p)
 	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
 	pthread_mutex_lock(p->nfork);
 	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
+	p->last_meal = (get_milli() - p->info->start);
 	printf("%llu %d is eating\n", (get_milli() - p->info->start), p->nb);
 	usleep(p->info->ti_eat * 1000);
     pthread_mutex_unlock(p->fork);
@@ -52,23 +53,28 @@ void    *cycle(void *temp)
 	return ((void *)0);
 }
 
-void	fill_arg(t_info *info, char **av)
+void	fill_arg(t_info *info, char **av, int ac)
 {	
 	info->nb_philo = (int)ft_atol(av[1]);
 	info->ti_think = ft_atol(av[2]);
 	info->ti_eat = ft_atol(av[3]);
 	info->ti_sleep = ft_atol(av[4]);
 	info->start = get_milli();
+	info->ilemor = 0;
+	if (ac == 6)
+		info->nb_meal = ft_atol(av[5]);
+	else
+		info->nb_meal = -1;
 }
 
-void    create(char **av)
+void    create(int ac, char **av)
 {
 	int		i;
 	t_info	*info;
 	t_philo	*p;
 
 	info = ft_calloc(1, sizeof(t_info));
-	fill_arg(info, av);
+	fill_arg(info, av, ac);
 	pthread_mutex_init(&info->eat, NULL);
 	pthread_mutex_init(&info->sleep, NULL);
 	pthread_mutex_init(&info->think, NULL);
@@ -92,8 +98,16 @@ void    create(char **av)
     }
     i = -1;
     while (++i < info->nb_philo)
+	{
         pthread_create(&p[i].id, NULL, cycle, &p[i]);
+    	pthread_create(&p[i].idd, NULL, death_check, &p[i]);
+	}
     i = -1;
     while (++i < info->nb_philo)
+	{
 		pthread_join(p[i].id, NULL);
+		pthread_join(p[i].idd, NULL);
+	}
+	free(p->info->f);
+    free(p);
 }
