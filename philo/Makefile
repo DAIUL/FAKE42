@@ -23,7 +23,8 @@ RM = rm -f
 NAME = philo
 SRCS = philo.c\
 		thread.c\
-		utils.c
+		utils.c\
+		time.c
 OBJS = ${SRCS:.c=.o}
 
 ###############################################

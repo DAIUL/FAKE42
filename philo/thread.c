@@ -15,11 +15,11 @@
 void    *zzz(t_philo *p)
 {
     pthread_mutex_lock(&p->info->sleep);
-	printf("%d is sleeping\n", p->nb);
+	printf("%llu %d is sleeping\n", (get_milli() - p->info->start), p->nb);
 	pthread_mutex_unlock(&p->info->sleep);
 	usleep(p->info->ti_sleep * 1000);
 	pthread_mutex_unlock(&p->info->think);
-	printf("%d is thinking\n", p->nb);
+	printf("%llu %d is thinking\n", (get_milli() - p->info->start), p->nb);
 	pthread_mutex_unlock(&p->info->think);
 	return ((void *)0);
 }
@@ -27,8 +27,10 @@ void    *zzz(t_philo *p)
 void    *miam(t_philo *p)
 {
     pthread_mutex_lock(p->fork);
+	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
 	pthread_mutex_lock(p->nfork);
-	printf("%d is eating\n", p->nb);
+	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
+	printf("%llu %d is eating\n", (get_milli() - p->info->start), p->nb);
 	usleep(p->info->ti_eat * 1000);
     pthread_mutex_unlock(p->fork);
 	pthread_mutex_unlock(p->nfork);
@@ -40,51 +42,58 @@ void    *cycle(void *temp)
 	t_philo	*p;
 
 	p = (t_philo *)temp;
-    pthread_mutex_lock(&p->info->create);
-    pthread_mutex_unlock(&p->info->create);
-    miam(p);
-    zzz(p);
+	if ((p->nb % 2) == 0)
+		usleep((p->info->ti_eat / 10) * 1000);
+	while (1)
+	{
+    	miam(p);
+    	zzz(p);
+	}
 	return ((void *)0);
 }
 
 void	fill_arg(t_info *info, char **av)
-{
+{	
 	info->nb_philo = (int)ft_atol(av[1]);
 	info->ti_think = ft_atol(av[2]);
 	info->ti_eat = ft_atol(av[3]);
 	info->ti_sleep = ft_atol(av[4]);
+	info->start = get_milli();
 }
 
-void    create(t_glo *glo)
+void    create(char **av)
 {
 	int		i;
+	t_info	*info;
+	t_philo	*p;
 
-	pthread_mutex_init(&glo->info.eat, NULL);
-	pthread_mutex_init(&glo->info.sleep, NULL);
-	pthread_mutex_init(&glo->info.think, NULL);
-	pthread_mutex_init(&glo->info.create, NULL);
-	glo->philo = ft_calloc(glo->info.nb_philo, sizeof(t_philo)); 
-	glo->info.f = ft_calloc(glo->info.nb_philo, sizeof(pthread_mutex_t));
+	info = ft_calloc(1, sizeof(t_info));
+	fill_arg(info, av);
+	pthread_mutex_init(&info->eat, NULL);
+	pthread_mutex_init(&info->sleep, NULL);
+	pthread_mutex_init(&info->think, NULL);
+	pthread_mutex_init(&info->create, NULL);
+	p = ft_calloc(info->nb_philo, sizeof(t_philo)); 
+	info->f = ft_calloc(info->nb_philo, sizeof(pthread_mutex_t));
     i = 0;
-	while (i < glo->info.nb_philo)
-		pthread_mutex_init(&glo->info.f[i++], NULL);
+	while (i < info->nb_philo)
+		pthread_mutex_init(&info->f[i++], NULL);
 	i = 0;
-	while (i < (glo->info.nb_philo - 1))
+	while (i < (info->nb_philo))
     {
-		glo->philo[i].info = &glo->info;
-		glo->philo[i].nb = i;
-		glo->philo[i].fork = &glo->info.f[i];
-		glo->philo[i].nfork = &glo->info.f[i + 1];
+		p[i].info = info;
+		p[i].nb = i;
+		p[i].fork = &info->f[i];
+		if (i == info->nb_philo - 1)
+			p[i].nfork = &info->f[0];
+		else
+			p[i].nfork = &info->f[i + 1];
 		i++;
     }
-	glo->philo[i].fork = &glo->info.f[i];
-	glo->philo[i].nfork = &glo->info.f[0];
-    pthread_mutex_lock(&glo->info.create);
     i = -1;
-    while (++i < glo->info.nb_philo)
-        pthread_create(&glo->philo[i].id, NULL, &cycle, &glo->philo[i]);
+    while (++i < info->nb_philo)
+        pthread_create(&p[i].id, NULL, cycle, &p[i]);
     i = -1;
-    while (++i < glo->info.nb_philo)
-		pthread_join(glo->philo[i].id, NULL);
-    pthread_mutex_unlock(&glo->info.create);
+    while (++i < info->nb_philo)
+		pthread_join(p[i].id, NULL);
 }

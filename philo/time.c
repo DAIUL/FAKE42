@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qpuig <qpuig@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 12:14:14 by qpuig             #+#    #+#             */
-/*   Updated: 2023/10/23 12:14:14 by qpuig            ###   ########.fr       */
+/*   Created: 2023/11/01 16:53:10 by qpuig             #+#    #+#             */
+/*   Updated: 2023/11/01 16:53:10 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philo.h"
+#include "philo.h"
 
-int main(int ac, char **av)
+long long int	get_milli(void)
 {
-    // if (ac == 6)
-    //     // avec limite de repas
-    // else if (ac == 5)
-    //     // sans limite repas
-    // else
-    (void)ac;
-    create(av);
-    return (0);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));	
 }

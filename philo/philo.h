@@ -6,6 +6,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <pthread.h>
+# include <sys/time.h>
 # include <unistd.h>
 
 typedef struct s_info
@@ -19,6 +20,7 @@ typedef struct s_info
 	long long int	ti_sleep;
 	long long int	ti_think;
     pthread_mutex_t *f;
+    long long int   start;
 }               t_info;
 
 typedef struct s_philo
@@ -30,17 +32,12 @@ typedef struct s_philo
 	pthread_mutex_t	*nfork;
 }				t_philo;
 
-typedef struct s_glo
-{
-    struct s_info   info;
-    struct s_philo  *philo;
-}               t_glo;
-
 void			*ft_calloc(size_t nmemb, size_t size);
 void			ft_bzero(void *s, size_t n);
 long long int	ft_atol(const char *nptr);
 void			fill_arg(t_info *info, char **av);
-void			create(t_glo *glo);
+long long int	get_milli(void);
+void			create(char **av);
 void    		*miam(t_philo *p);
 void    		*zzz(t_philo *p);
 
