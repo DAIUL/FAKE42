@@ -18,7 +18,7 @@ void    *zzz(t_philo *p)
 	printf("%llu %d is sleeping\n", (get_milli() - p->info->start), p->nb);
 	pthread_mutex_unlock(&p->info->sleep);
 	usleep(p->info->ti_sleep * 1000);
-	pthread_mutex_unlock(&p->info->think);
+	pthread_mutex_lock(&p->info->think);
 	printf("%llu %d is thinking\n", (get_milli() - p->info->start), p->nb);
 	pthread_mutex_unlock(&p->info->think);
 	return ((void *)0);
@@ -27,9 +27,13 @@ void    *zzz(t_philo *p)
 void    *miam(t_philo *p)
 {
     pthread_mutex_lock(p->fork);
+    pthread_mutex_lock(&p->info->eat);
 	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
+    pthread_mutex_unlock(&p->info->eat);
 	pthread_mutex_lock(p->nfork);
+    pthread_mutex_lock(&p->info->eat);
 	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
+    pthread_mutex_unlock(&p->info->eat);
 	p->last_meal = (get_milli() - p->info->start);
 	printf("%llu %d is eating\n", (get_milli() - p->info->start), p->nb);
 	usleep(p->info->ti_eat * 1000);
@@ -79,6 +83,7 @@ void    create(int ac, char **av)
 	pthread_mutex_init(&info->sleep, NULL);
 	pthread_mutex_init(&info->think, NULL);
 	pthread_mutex_init(&info->create, NULL);
+	pthread_mutex_init(&info->death, NULL);
 	p = ft_calloc(info->nb_philo, sizeof(t_philo)); 
 	info->f = ft_calloc(info->nb_philo, sizeof(pthread_mutex_t));
     i = 0;
