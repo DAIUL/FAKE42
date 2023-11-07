@@ -11,11 +11,14 @@
 
 typedef struct s_info
 {
-    pthread_mutex_t eat;
+    pthread_mutex_t print;
     pthread_mutex_t sleep;
     pthread_mutex_t think;
     pthread_mutex_t create;
     pthread_mutex_t death;
+    pthread_mutex_t stop;
+    pthread_mutex_t meal;
+    pthread_mutex_t full;
 	int	nb_philo;
 	long long int	ti_eat;
 	long long int	ti_sleep;
@@ -32,6 +35,7 @@ typedef struct s_philo
     pthread_t       id;
     pthread_t       idd;
     int             nb;
+    int             ilerepu;
     long long int   act_meal;
     long long int   last_meal;
     pthread_mutex_t *fork;
@@ -45,7 +49,11 @@ void			fill_arg(t_info *info, char **av, int ac);
 long long int	get_milli(void);
 void			create(int ac, char **av);
 void	        *death_check(void *temp);
-void    		*miam(t_philo *p);
-void    		*zzz(t_philo *p);
+void    		miam(t_philo *p);
+void    		zzz(t_philo *p);
+int		        ft_stop(t_philo *p);
+void	        ft_print(t_philo *p, int state);
+
+
 
 #endif

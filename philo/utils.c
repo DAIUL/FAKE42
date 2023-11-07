@@ -12,6 +12,22 @@
 
 #include "philo.h"
 
+void	ft_print(t_philo *p, int state)
+{
+	if (ft_stop(p))
+		return ;
+	pthread_mutex_lock(&p->info->print);
+	if (state == 1)
+		printf("%llu %d is sleeping\n", (get_milli() - p->info->start), p->nb);
+	else if (state == 2)
+		printf("%llu %d is thinking\n", (get_milli() - p->info->start), p->nb);
+	else if (state == 3)
+		printf("%llu %d is eating\n", (get_milli() - p->info->start), p->nb);
+	else if (state == 4)
+		printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
+	pthread_mutex_unlock(&p->info->print);
+}
+
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t	temp;

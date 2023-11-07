@@ -12,34 +12,35 @@
 
 # include "philo.h"
 
-void    *zzz(t_philo *p)
+void    zzz(t_philo *p)
 {
-    pthread_mutex_lock(&p->info->sleep);
-	printf("%llu %d is sleeping\n", (get_milli() - p->info->start), p->nb);
-	pthread_mutex_unlock(&p->info->sleep);
+	if (ft_stop(p))
+		return ;
+    ft_print(p, 1);
 	usleep(p->info->ti_sleep * 1000);
-	pthread_mutex_lock(&p->info->think);
-	printf("%llu %d is thinking\n", (get_milli() - p->info->start), p->nb);
-	pthread_mutex_unlock(&p->info->think);
-	return ((void *)0);
+    ft_print(p, 2);
+	return ;
 }
 
-void    *miam(t_philo *p)
+void    miam(t_philo *p)
 {
+	if (ft_stop(p))
+		return ;
     pthread_mutex_lock(p->fork);
-    pthread_mutex_lock(&p->info->eat);
-	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
-    pthread_mutex_unlock(&p->info->eat);
+    ft_print(p, 4);
 	pthread_mutex_lock(p->nfork);
-    pthread_mutex_lock(&p->info->eat);
-	printf("%llu %d is taking a fork\n", (get_milli() - p->info->start), p->nb);
-    pthread_mutex_unlock(&p->info->eat);
+    ft_print(p, 4);
+    pthread_mutex_lock(&p->info->stop);
 	p->last_meal = (get_milli() - p->info->start);
-	printf("%llu %d is eating\n", (get_milli() - p->info->start), p->nb);
+    pthread_mutex_unlock(&p->info->stop);
+    ft_print(p, 3);
 	usleep(p->info->ti_eat * 1000);
     pthread_mutex_unlock(p->fork);
 	pthread_mutex_unlock(p->nfork);
-	return ((void *)0);
+    pthread_mutex_lock(&p->info->meal);
+	p->act_meal++;
+    pthread_mutex_unlock(&p->info->meal);
+	return ;
 }
 
 void    *cycle(void *temp)
@@ -49,7 +50,7 @@ void    *cycle(void *temp)
 	p = (t_philo *)temp;
 	if ((p->nb % 2) == 0)
 		usleep((p->info->ti_eat / 10) * 1000);
-	while (1)
+	while (!ft_stop(p))
 	{
     	miam(p);
     	zzz(p);
@@ -79,11 +80,14 @@ void    create(int ac, char **av)
 
 	info = ft_calloc(1, sizeof(t_info));
 	fill_arg(info, av, ac);
-	pthread_mutex_init(&info->eat, NULL);
+	pthread_mutex_init(&info->print, NULL);
 	pthread_mutex_init(&info->sleep, NULL);
 	pthread_mutex_init(&info->think, NULL);
 	pthread_mutex_init(&info->create, NULL);
 	pthread_mutex_init(&info->death, NULL);
+	pthread_mutex_init(&info->stop, NULL);
+	pthread_mutex_init(&info->meal, NULL);
+	pthread_mutex_init(&info->full, NULL);
 	p = ft_calloc(info->nb_philo, sizeof(t_philo)); 
 	info->f = ft_calloc(info->nb_philo, sizeof(pthread_mutex_t));
     i = 0;
