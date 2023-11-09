@@ -53,6 +53,7 @@ void    		miam(t_philo *p);
 void    		zzz(t_philo *p);
 int		        ft_stop(t_philo *p);
 void	        ft_print(t_philo *p, int state);
+void	        *tout_seul(void *temp);
 
 
 

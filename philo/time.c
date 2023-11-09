@@ -12,6 +12,23 @@
 
 #include "philo.h"
 
+void	*tout_seul(void *temp)
+{
+	t_philo	*p;
+
+	p = (t_philo *)temp;
+	if (ft_stop(p))
+		return ((void *)0);
+	pthread_mutex_lock(p->fork);
+	ft_print(p, 4);
+	usleep(p->info->ti_think * 1000);
+	pthread_mutex_lock(&p->info->print);
+    printf("%llu %d is dead\n", (get_milli() - p->info->start), p->nb);
+	pthread_mutex_lock(&p->info->death);
+	p->info->ilemor = 1;
+	return (pthread_mutex_unlock(&p->info->death), (void *)0);
+}
+
 long long int	get_milli(void)
 {
 	struct timeval	time;

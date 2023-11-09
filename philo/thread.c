@@ -18,6 +18,8 @@ void    zzz(t_philo *p)
 		return ;
     ft_print(p, 1);
 	usleep(p->info->ti_sleep * 1000);
+	if (ft_stop(p))
+		return ;
     ft_print(p, 2);
 	return ;
 }
@@ -26,9 +28,17 @@ void    miam(t_philo *p)
 {
 	if (ft_stop(p))
 		return ;
-    pthread_mutex_lock(p->fork);
+	if (p->nb % 2 == 0) 
+    	pthread_mutex_lock(p->fork);
+	else
+		pthread_mutex_lock(p->nfork);
     ft_print(p, 4);
-	pthread_mutex_lock(p->nfork);
+	if (ft_stop(p))
+		return ;
+	if (p->nb % 2 == 0) 
+    	pthread_mutex_lock(p->nfork);
+	else
+		pthread_mutex_lock(p->fork);
     ft_print(p, 4);
     pthread_mutex_lock(&p->info->stop);
 	p->last_meal = (get_milli() - p->info->start);
@@ -106,16 +116,21 @@ void    create(int ac, char **av)
 		i++;
     }
     i = -1;
-    while (++i < info->nb_philo)
+    while ((++i < info->nb_philo) && (info->nb_philo != 1))
 	{
         pthread_create(&p[i].id, NULL, cycle, &p[i]);
     	pthread_create(&p[i].idd, NULL, death_check, &p[i]);
 	}
     i = -1;
-    while (++i < info->nb_philo)
+    while ((++i < info->nb_philo) && (info->nb_philo != 1))
 	{
 		pthread_join(p[i].id, NULL);
 		pthread_join(p[i].idd, NULL);
+	}
+	if (info->nb_philo == 1)
+	{
+		pthread_create(&p[i].id, NULL, tout_seul, &p[i]);
+		pthread_join(p[i].id, NULL);
 	}
 	pthread_mutex_destroy(&info->print);
 	pthread_mutex_destroy(&info->sleep);
