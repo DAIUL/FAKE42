@@ -33,7 +33,7 @@ all: ${NAME}
 	echo "\033[1;38;2;255;117;24m(づ ◕‿◕ )づ Je pense donc je suis (づ ◕‿◕ )づ\033[0m"
 
 ${NAME}: ${OBJS}
-	${GCC} -g ${CFLAGS} ${OBJS} -o ${NAME}
+	${GCC} ${CFLAGS} ${OBJS} -o ${NAME} -g
 
 clean: 
 	${RM} ${OBJS}

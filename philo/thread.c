@@ -117,6 +117,18 @@ void    create(int ac, char **av)
 		pthread_join(p[i].id, NULL);
 		pthread_join(p[i].idd, NULL);
 	}
-	free(p->info->f);
+	pthread_mutex_destroy(&info->print);
+	pthread_mutex_destroy(&info->sleep);
+	pthread_mutex_destroy(&info->think);
+	pthread_mutex_destroy(&info->create);
+	pthread_mutex_destroy(&info->death);
+	pthread_mutex_destroy(&info->stop);
+	pthread_mutex_destroy(&info->meal);
+	pthread_mutex_destroy(&info->full);
+	i = 0;
+	while (i < info->nb_philo)
+		pthread_mutex_destroy(&info->f[i++]);
+	free(info->f);
+	free(info);
     free(p);
 }
