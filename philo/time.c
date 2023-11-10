@@ -64,8 +64,7 @@ void	*elseif_death(t_philo *p)
 	p->ilerepu = 1;
 	return (pthread_mutex_unlock(&p->info->full),
 		pthread_mutex_unlock(&p->info->print),
-		pthread_mutex_unlock(&p->info->meal),
-		pthread_mutex_unlock(&p->info->stop), (void *)0);
+		(void *)0);
 }
 
 void	*death_check(void *temp)
