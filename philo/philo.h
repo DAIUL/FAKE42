@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qpuig <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/10 14:13:38 by qpuig             #+#    #+#             */
+/*   Updated: 2023/11/10 16:22:52 by qpuig            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 
 # define PHILO_H
@@ -11,34 +23,34 @@
 
 typedef struct s_info
 {
-    pthread_mutex_t print;
-    pthread_mutex_t sleep;
-    pthread_mutex_t think;
-    pthread_mutex_t create;
-    pthread_mutex_t death;
-    pthread_mutex_t stop;
-    pthread_mutex_t meal;
-    pthread_mutex_t full;
-	int	nb_philo;
+	pthread_mutex_t	print;
+	pthread_mutex_t	sleep;
+	pthread_mutex_t	think;
+	pthread_mutex_t	create;
+	pthread_mutex_t	death;
+	pthread_mutex_t	stop;
+	pthread_mutex_t	meal;
+	pthread_mutex_t	full;
+	int				nb_philo;
 	long long int	ti_eat;
 	long long int	ti_sleep;
 	long long int	ti_think;
-    long long int   nb_meal;
-    pthread_mutex_t *f;
-    long long int   start;
-    int             ilemor;
-}               t_info;
+	long long int	nb_meal;
+	pthread_mutex_t	*f;
+	long long int	start;
+	int				ilemor;
+}				t_info;
 
 typedef struct s_philo
 {
-    struct s_info   *info;
-    pthread_t       id;
-    pthread_t       idd;
-    int             nb;
-    int             ilerepu;
-    long long int   act_meal;
-    long long int   last_meal;
-    pthread_mutex_t *fork;
+	struct s_info	*info;
+	pthread_t		id;
+	pthread_t		idd;
+	int				nb;
+	int				ilerepu;
+	long long int	act_meal;
+	long long int	last_meal;
+	pthread_mutex_t	*fork;
 	pthread_mutex_t	*nfork;
 }				t_philo;
 
@@ -48,13 +60,17 @@ long long int	ft_atol(const char *nptr);
 void			fill_arg(t_info *info, char **av, int ac);
 long long int	get_milli(void);
 void			create(int ac, char **av);
-void	        *death_check(void *temp);
-void    		miam(t_philo *p);
-void    		zzz(t_philo *p);
-int		        ft_stop(t_philo *p);
-void	        ft_print(t_philo *p, int state);
-void	        *tout_seul(void *temp);
-
-
+void			*death_check(void *temp);
+void			*cycle(void *temp);
+void			miam(t_philo *p);
+void			zzz(t_philo *p);
+int				ft_stop(t_philo *p);
+void			ft_print(t_philo *p, int state);
+void			*tout_seul(void *temp);
+void			destroy(t_philo *p);
+void			setup(t_info *info, int ac, char **av);
+void			process(t_philo *p);
+void			non_la_c_chiant(t_philo *p);
+int				all_unlock(t_philo *p);
 
 #endif

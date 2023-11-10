@@ -6,7 +6,7 @@
 #    By: qpuig <qpuig@student.42perpignan.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/23 16:49:04 by qpuig             #+#    #+#              #
-#    Updated: 2023/10/23 16:49:04 by qpuig            ###   ########.fr        #
+#    Updated: 2023/11/10 14:38:52 by qpuig            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ NAME = philo
 SRCS = philo.c\
 		thread.c\
 		utils.c\
+		utils_2.c\
 		time.c
 OBJS = ${SRCS:.c=.o}
 
