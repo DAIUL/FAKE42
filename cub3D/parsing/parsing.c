@@ -42,7 +42,7 @@ char	**copy_map(char **map, int lect, char **av)
 		map[i++] = remove_nl(line);
 	}
 	close(fd);
-	map[i] = ft_calloc(1, sizeof(char));
+	map[i] = ft_calloc(1, sizeof(char)); 
 	return (map);
 }
 
