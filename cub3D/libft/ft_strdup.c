@@ -31,3 +31,23 @@ char	*ft_strdup(const char *s)
 	dup[i] = '\0';
 	return (dup);
 }
+
+char	*ft_strndup(const char *s, int i, int n)
+{
+	char	*dup;
+	size_t	clatay;
+	int	j;
+
+	j = 0;
+	clatay = ft_strlen(s);
+	dup = malloc(clatay + 1 * sizeof(char));
+	if (dup == NULL)
+		return (NULL);
+	while (s[i] && n > 0)
+	{
+		dup[j++] = s[i++];
+		n--;
+	}
+	dup[j] = '\0';
+	return (dup);
+}
