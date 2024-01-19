@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-char	*len_txt(int i, char *s)
+int	len_txt(int i, char *s)
 {
 	int	j;
 
@@ -13,7 +13,7 @@ char	*len_txt(int i, char *s)
 	return (j);
 }
 
-char	*fill_txt(char	*s, int id, t_txt txt)
+void	fill_txt(char *s, int id, t_txt *txt)
 {
 	int	i;
 
@@ -21,5 +21,6 @@ char	*fill_txt(char	*s, int id, t_txt txt)
 	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 		i++;
 	if (s[i] && s[i] != '\n')
-		txt[id] = ft_strndup(s, i, len_txt(i, s));
+		txt->txt[id] = ft_strndup(s, i, len_txt(i, s));
+	return ;
 }
