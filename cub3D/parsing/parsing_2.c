@@ -20,10 +20,10 @@ int	check_dir_line(char *s, t_txt *txt)
 		fill_txt(s, EA, txt);
 	else if (ft_strncmp(s, "WE ", 3) == 0)
 		fill_txt(s, WE, txt);
-	// else if (ft_strncmp(line, "C ", 2) == 0)
-	// 	fill_txt(line, C, txt);
-	// else if (ft_strncmp(line, "F ", 2) == 0)
-	// 	fill_txt(line, F, txt);
+	else if (ft_strncmp(s, "C ", 2) == 0)
+	 	fill_txt(s, C, txt);
+	 else if (ft_strncmp(s, "F ", 2) == 0)
+	 	fill_txt(s, F, txt);
 	else
 	{
 		i = 0;
@@ -31,7 +31,7 @@ int	check_dir_line(char *s, t_txt *txt)
 		{
 			if (s[i] == '1' || s[i] == '0' || s[i] == 'N'
 				|| s[i] == 'E' || s[i] == 'W' || s[i++] == 'S')
-				return (0);
+				return (ft_printf("map pas au bon endroit\n"), 0);
 		}
 	}
 	return (1);
@@ -59,6 +59,8 @@ int	check_map_viable(char *map)
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (check_nb(&txt) == 1)
+		ft_printf("carre dans l'axe\n");
 	// while (line && (check_map_line) != 2)
 	// {
 	// 	if (check_map_line(line) == 0)

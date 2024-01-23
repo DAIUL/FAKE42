@@ -67,6 +67,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 OBJS = $(SRC:.c=.o)
 
+####################################################################
+
 all: $(NAME)
 
 .c.o:

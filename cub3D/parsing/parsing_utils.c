@@ -18,6 +18,11 @@ void	fill_txt(char *s, int id, t_txt *txt)
 	int	i;
 
 	i = 2;
+	if (txt->txt[id])
+	{
+		ft_printf("deja mis\n");
+		return ; // fonction de free et de stop
+	}
 	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 		i++;
 	if (s[i] && s[i] != '\n')
