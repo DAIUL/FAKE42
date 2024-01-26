@@ -12,6 +12,7 @@
 typedef struct s_txt
 {
 	char	**txt;
+	int		start;
 }				t_txt;
 
 int		parsing_map(char *map);
@@ -20,5 +21,9 @@ int		check_dir_line(char *s, t_txt *txt);
 int		check_map_viable(char *map);
 int		len_txt(int i, char *s);
 void	fill_txt(char *s, int id, t_txt *txt);
+int		skip_till_elem(char *s);
+int		check_map_line(char *s, t_txt *txt);
+int		open_map(char *s, int i);
+int		end_map(char *s);
 
 #endif

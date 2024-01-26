@@ -37,6 +37,30 @@ int	check_dir_line(char *s, t_txt *txt)
 	return (1);
 }
 
+int	check_map_line(char *s, t_txt *txt)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] == ' ' || s[i] == '\t')
+		i++;
+	if (s[i] == '\n')
+		return (2);
+	if (s[i] != '1')
+		return (ft_printf("map ouverte\n"), 0);
+	while (s[i])
+	{
+		if (open_map(s, i) == 0)
+			return (0);
+		if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i++] == 'S')
+			txt->start += 1;
+		if (txt->start > 1)
+			return (ft_printf("trop de positions de depart\n"), 0);
+		i++;
+	}
+	return (1);
+}
+
 int	check_map_viable(char *map)
 {
 	char	*line;
@@ -61,15 +85,22 @@ int	check_map_viable(char *map)
 	}
 	if (check_nb(&txt) == 1)
 		ft_printf("carre dans l'axe\n");
-	// while (line && (check_map_line) != 2)
-	// {
-	// 	if (check_map_line(line) == 0)
-	// 	{
-	// 		free(line);
-	// 		return (0);
-	// 	}
-	// 	free(line);
-	// 	line = get_next_line(fd);
-	// }
+	while (skip_till_elem(line) == 1)
+	{
+		ft_printf("coucou\n");
+		free(line);
+		line = get_next_line(fd);
+	}
+	txt.start = 0;
+	while (line && end_map(line) != 2)
+	{
+		if (check_map_line(line, &txt) == 0)
+	 	{
+	 		free(line);
+	 		return (0);
+	 	}
+	 	free(line);
+		line = get_next_line(fd);
+	}
 	return (1);
 }
