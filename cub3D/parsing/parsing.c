@@ -1,5 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 16:58:54 by qpuig             #+#    #+#             */
+/*   Updated: 2024/01/27 16:58:54 by qpuig            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 #include <stdio.h>
+
+int	check_map_viable(char *map)
+{
+	char	*line;
+	int	fd;
+	int	map_line;
+	t_txt	txt;
+
+	//txt = ft_calloc(1, sizeof(t_txt));
+	txt.txt = ft_calloc(7, sizeof(char *));
+	fd = open(map, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	line = get_next_line(fd);
+	map_line = 1;
+	ft_printf("%s", line);
+	while (line && (check_nb(&txt) != 1))
+	{
+		if (check_dir_line(line, &txt) == 0)
+		{
+			free(line);
+			return (0);
+		}
+		free(line);
+		line = get_next_line(fd);
+		map_line++;
+	}
+	if (check_nb(&txt) == 1)
+		ft_printf("carre dans l'axe\n");
+	while (skip_till_elem(line) == 1)
+	{
+		free(line);
+		line = get_next_line(fd);
+		map_line++;
+	}
+	txt.start = 0;
+	map_size(map, &txt, map_line);
+	// while (line && end_map(line) != 2)
+	// {
+	// 	ft_printf("%s", line);
+	// 	if (check_map_line(line, &txt) == 0)
+	//  	{
+	//  		free(line);
+	//  		return (0);
+	//  	}
+	//  	free(line);
+	// 	line = get_next_line(fd);
+	// }
+	return (1);
+}
 
 int	parsing_map(char *map)
 {
@@ -16,59 +78,3 @@ int	parsing_map(char *map)
 		return (printf("non\n"), 0);
 	return (1);
 }
-
-// char	*remove_nl(char *line);
-// {
-// 	int	i;
-// 	char	*clear;
-
-// 	i = 0;
-// 	clear = ft_calloc(ft_strlen(line), sizeof(char));
-// 	while (line[i] && (line[i] != '\n'))
-// 		clear[i] = line[i++];
-// 	free(line);
-// 	return (clear);
-// }
-
-// char	**copy_map(char **map, int lect, char **av)
-// {
-// 	int		fd;
-// 	int		i;
-// 	char	*line;
-
-// 	i = 0;
-// 	fd = open(av, O_RDONLY);
-// 	while (i < lect)
-// 	{
-// 		line = get_next_line(fd);
-// 		map[i++] = remove_nl(line);
-// 	}
-// 	close(fd);
-// 	map[i] = ft_calloc(1, sizeof(char)); 
-// 	return (map);
-// }
-
-// char	**map_size(int ac, char **av)
-// {
-// 	char	**map;
-// 	int		lect;
-// 	int		fd;
-// 	char	*line;
-
-// 	fd = open(av[1], O_RDONLY);
-// 	if (fd < 0)
-// 		ERROR
-// 	lect = 0;
-// 	line = get_next_line(fd);
-// 	while (line)
-// 	{
-// 		free(line);
-// 		line = get_next_line(fd);
-// 		lect++;
-// 	}
-// 	free(line);
-// 	map = ft_calloc((lect + 1), sizeof(char *));
-// 	close(fd);
-// 	map = copy_map(map, lect, av[1]);
-// 	return (map);
-// }

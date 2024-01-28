@@ -1,12 +1,16 @@
-#include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 16:58:42 by qpuig             #+#    #+#             */
+/*   Updated: 2024/01/27 16:58:42 by qpuig            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int	check_nb(t_txt *txt)
-{
-	if (txt->txt[0] && txt->txt[1] && txt->txt[2]
-		&& txt->txt[3] && txt->txt[4] && txt->txt[5])
-		return (1);
-	return (0);
-}
+#include "cub3d.h"
 
 int	check_dir_line(char *s, t_txt *txt)
 {
@@ -50,9 +54,10 @@ int	check_map_line(char *s, t_txt *txt)
 		return (ft_printf("map ouverte\n"), 0);
 	while (s[i])
 	{
+		ft_printf("loop-----------%c", s[i]);
 		if (open_map(s, i) == 0)
 			return (0);
-		if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i++] == 'S')
+		if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i] == 'S')
 			txt->start += 1;
 		if (txt->start > 1)
 			return (ft_printf("trop de positions de depart\n"), 0);
@@ -61,46 +66,70 @@ int	check_map_line(char *s, t_txt *txt)
 	return (1);
 }
 
-int	check_map_viable(char *map)
+char	*remove_nl(char *line)
 {
-	char	*line;
-	int	fd;
-	t_txt	txt;
+	int	i;
+	char	*clear;
 
-	//txt = ft_calloc(1, sizeof(t_txt));
-	txt.txt = ft_calloc(7, sizeof(char *));
-	fd = open(map, O_RDONLY);
-	if (fd < 0)
-		return (0);
+	i = 0;
+	clear = ft_calloc(ft_strlen(line), sizeof(char));
+	while (line[i] && (line[i] != '\n'))
+		clear[i] = line[i++];
+	free(line);
+	return (clear);
+}
+
+char	**copy_map(char **map, int lect, char *premap, int map_line)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	i = 0;
+	fd = open(premap, O_RDONLY);
+	while (line && map_line > 0)
+	{
+		free(line);
+		line = get_next_line(fd);
+		map_line--;
+	}
+	while (i < lect)
+	{
+		line = get_next_line(fd);
+		map[i++] = remove_nl(line);
+	}
+	close(fd);
+	map[i] = ft_calloc(1, sizeof(char)); 
+	return (map);
+}
+
+char	**map_size(char *premap, t_txt *txt, int map_line)
+{
+	char	**map;
+	int		lect;
+	int		fd;
+	char	*line;
+
+	fd = open(premap, O_RDONLY);
+	//if (fd < 0)
+	//	ERROR
+	lect = map_line;
 	line = get_next_line(fd);
-	while (line && (check_nb(&txt) != 1))
+	while (line && lect > 0)
 	{
-		if (check_dir_line(line, &txt) == 0)
-		{
-			free(line);
-			return (0);
-		}
 		free(line);
 		line = get_next_line(fd);
+		lect--;
 	}
-	if (check_nb(&txt) == 1)
-		ft_printf("carre dans l'axe\n");
-	while (skip_till_elem(line) == 1)
+	while (line && check_dir_line(line, &txt) == 0)
 	{
-		ft_printf("coucou\n");
 		free(line);
 		line = get_next_line(fd);
+		lect++;
 	}
-	txt.start = 0;
-	while (line && end_map(line) != 2)
-	{
-		if (check_map_line(line, &txt) == 0)
-	 	{
-	 		free(line);
-	 		return (0);
-	 	}
-	 	free(line);
-		line = get_next_line(fd);
-	}
-	return (1);
+	free(line);
+	map = ft_calloc((lect + 1), sizeof(char *));
+	close(fd);
+	map = copy_map(map, lect, premap, map_line);
+	return (map);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 16:59:04 by qpuig             #+#    #+#             */
+/*   Updated: 2024/01/27 16:59:04 by qpuig            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 # define NO 0
@@ -25,5 +37,8 @@ int		skip_till_elem(char *s);
 int		check_map_line(char *s, t_txt *txt);
 int		open_map(char *s, int i);
 int		end_map(char *s);
+char	*remove_nl(char *line);
+char	**copy_map(char **map, int lect, char **av);
+char	**map_size(int ac, char **av);
 
 #endif
