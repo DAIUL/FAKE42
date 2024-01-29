@@ -16,6 +16,7 @@
 int	check_map_viable(char *map)
 {
 	char	*line;
+	char	**fmap;
 	int	fd;
 	int	map_line;
 	t_txt	txt;
@@ -48,7 +49,8 @@ int	check_map_viable(char *map)
 		map_line++;
 	}
 	txt.start = 0;
-	map_size(map, &txt, map_line);
+	fmap = map_size(map, map_line);
+	check_map_line(fmap, &txt);
 	// while (line && end_map(line) != 2)
 	// {
 	// 	ft_printf("%s", line);
@@ -75,6 +77,6 @@ int	parsing_map(char *map)
 		&& (map[i + 2] == 'u') && (map[i + 3] == 'b'))
 		check_map_viable(map);
 	else
-		return (printf("non\n"), 0);
+		return (printf("map au mauvais format\n"), 0);
 	return (1);
 }

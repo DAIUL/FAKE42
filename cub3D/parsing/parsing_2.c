@@ -41,24 +41,30 @@ int	check_dir_line(char *s, t_txt *txt)
 	return (1);
 }
 
-int	check_map_line(char *s, t_txt *txt)
+int	check_map_line(char **s, t_txt *txt)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (s[i] == ' ' || s[i] == '\t')
-		i++;
-	if (s[i] == '\n')
-		return (2);
-	if (s[i] != '1')
-		return (ft_printf("map ouverte\n"), 0);
 	while (s[i])
 	{
-		ft_printf("loop-----------%c", s[i]);
-		if (open_map(s, i) == 0)
-			return (0);
-		if (s[i] == 'N' || s[i] == 'E' || s[i] == 'W' || s[i] == 'S')
-			txt->start += 1;
+		j = 0;
+		while (s[i][j])
+		{
+			if (s[i][j] == ' ' && (s[i][j + 1] != ' ' || s[i][j + 1] != '1'))
+				return (ft_printf("map ouverte\n"), 0);
+			if ((s[i][j] == 'N' || s[i][j] == 'E' || s[i][j] == 'W' || s[i][j] == 'S')
+				&& (s[i][j + 1] == '0' || s[i][j + 1] == '1'))
+				txt->start += 1;
+			if ((s[i][j] == 'N' || s[i][j] == 'E' || s[i][j] == 'W' || s[i][j] == 'S')
+				&& (s[i][j + 1] != '0' || s[i][j + 1] != '1'))
+				return (ft_printf("map ouverte\n"), 0);
+			if (s[i][j] == '0'
+				&& (s[i][j + 1] != 'N' || s[i][j + 1] != 'E' || s[i][j + 1] != 'W' || s[i][j + 1] != 'S'))
+				return (ft_printf("map ouverte\n"), 0);
+			j++;
+		}
 		if (txt->start > 1)
 			return (ft_printf("trop de positions de depart\n"), 0);
 		i++;
@@ -74,7 +80,10 @@ char	*remove_nl(char *line)
 	i = 0;
 	clear = ft_calloc(ft_strlen(line), sizeof(char));
 	while (line[i] && (line[i] != '\n'))
-		clear[i] = line[i++];
+	{
+		clear[i] = line[i];
+		i++;
+	}
 	free(line);
 	return (clear);
 }
@@ -87,23 +96,23 @@ char	**copy_map(char **map, int lect, char *premap, int map_line)
 
 	i = 0;
 	fd = open(premap, O_RDONLY);
-	while (line && map_line > 0)
+	line = get_next_line(fd);
+	while (line && map_line > 1)
 	{
 		free(line);
 		line = get_next_line(fd);
 		map_line--;
 	}
-	while (i < lect)
+	while (i < (lect - 1))
 	{
 		line = get_next_line(fd);
 		map[i++] = remove_nl(line);
 	}
 	close(fd);
-	map[i] = ft_calloc(1, sizeof(char)); 
 	return (map);
 }
 
-char	**map_size(char *premap, t_txt *txt, int map_line)
+char	**map_size(char *premap, int map_line)
 {
 	char	**map;
 	int		lect;
@@ -121,7 +130,7 @@ char	**map_size(char *premap, t_txt *txt, int map_line)
 		line = get_next_line(fd);
 		lect--;
 	}
-	while (line && check_dir_line(line, &txt) == 0)
+	while (line && map_line_v(line) == 1)
 	{
 		free(line);
 		line = get_next_line(fd);

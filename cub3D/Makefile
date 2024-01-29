@@ -8,6 +8,7 @@ CFLAGS = -Wall -Wextra -Werror -g -I ./includes
 SRCS = parsing/parsing.c\
 		parsing/parsing_2.c\
 		parsing/parsing_utils.c\
+		parsing/parsing_utils_2.c\
 		main.c
 #LIBX_PATH = Minilibx/
 LIBFT_PATH = libft/

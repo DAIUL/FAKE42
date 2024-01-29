@@ -19,3 +19,18 @@ int	check_nb(t_txt *txt)
 		return (1);
 	return (0);
 }
+
+int	map_line_v(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != '\n' && s[i] != ' ' && s[i] != '1' && s[i] != '0' && s[i] != 'N'
+			&& s[i] != 'E' && s[i] != 'W' && s[i] != 'S')
+			return (ft_printf("caractere inconnu\n"), 0);
+		i++;
+	}
+	return (1);
+}

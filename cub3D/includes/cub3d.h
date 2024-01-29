@@ -34,11 +34,12 @@ int		check_map_viable(char *map);
 int		len_txt(int i, char *s);
 void	fill_txt(char *s, int id, t_txt *txt);
 int		skip_till_elem(char *s);
-int		check_map_line(char *s, t_txt *txt);
+int		check_map_line(char **s, t_txt *txt);
 int		open_map(char *s, int i);
 int		end_map(char *s);
 char	*remove_nl(char *line);
-char	**copy_map(char **map, int lect, char **av);
-char	**map_size(int ac, char **av);
+char	**map_size(char *premap, int map_line);
+char	**copy_map(char **map, int lect, char *premap, int map_line);
+int		map_line_v(char *s);
 
 #endif
