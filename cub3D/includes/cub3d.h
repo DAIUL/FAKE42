@@ -19,6 +19,10 @@
 # define F 4
 # define C 5
 
+# define TEST1 ft_printf("-----------TEST1-----------\n");
+# define TEST2 ft_printf("-----------TEST2-----------\n");
+# define TEST3 ft_printf("-----------TEST3-----------\n");
+
 # include "../libft/libft.h"
 
 typedef struct s_txt
@@ -41,5 +45,6 @@ char	*remove_nl(char *line);
 char	**map_size(char *premap, int map_line);
 char	**copy_map(char **map, int lect, char *premap, int map_line);
 int		map_line_v(char *s);
+int		check_line_vert(char **s);
 
 #endif

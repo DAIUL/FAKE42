@@ -51,6 +51,7 @@ int	check_map_viable(char *map)
 	txt.start = 0;
 	fmap = map_size(map, map_line);
 	check_map_line(fmap, &txt);
+	check_line_vert(fmap);
 	// while (line && end_map(line) != 2)
 	// {
 	// 	ft_printf("%s", line);
