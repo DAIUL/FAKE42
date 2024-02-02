@@ -75,74 +75,80 @@ int	check_map_line(char **s, t_txt *txt)
 	return (1);
 }
 
-char	*remove_nl(char *line)
+char	*remove_nl(char *line, t_txt *txt)
 {
 	int	i;
 	char	*clear;
 
 	i = 0;
-	clear = ft_calloc(ft_strlen(line), sizeof(char));
+	clear = ft_calloc(txt->max_len, sizeof(char));
 	while (line[i] && (line[i] != '\n'))
 	{
 		clear[i] = line[i];
+		i++;
+	}
+	while (i < ((int)txt->max_len - 1))
+	{
+		clear[i] = ' ';
 		i++;
 	}
 	free(line);
 	return (clear);
 }
 
-char	**copy_map(char **map, int lect, char *premap, int map_line)
+char	**copy_map(char **map, t_txt *txt, char *premap)
 {
 	int		fd;
 	int		i;
 	char	*line;
 
-	i = 0;
 	fd = open(premap, O_RDONLY);
 	line = get_next_line(fd);
-	while (line && map_line > 2)
+	while (line && txt->map_line > 2)
 	{
 		free(line);
 		line = get_next_line(fd);
-		map_line--;
+		txt->map_line--;
 	}
-	ft_printf("copy = %s\n", line);
-	while (i < (lect - 1))
+	i = 0;
+	while (i < ((int)txt->lect - 1))
 	{
 		line = get_next_line(fd);
-		map[i++] = remove_nl(line);
+		map[i++] = remove_nl(line, txt);
 	}
 	close(fd);
 	return (map);
 }
 
-char	**map_size(char *premap, int map_line)
+char	**map_size(char *premap, t_txt *txt)
 {
 	char	**map;
-	int		lect;
 	int		fd;
 	char	*line;
 
 	fd = open(premap, O_RDONLY);
 	//if (fd < 0)
 	//	ERROR
-	lect = map_line;
+	txt->lect = txt->map_line;
 	line = get_next_line(fd);
-	while (line && lect > 0)
+	while (line && txt->lect > 1)
 	{
 		free(line);
 		line = get_next_line(fd);
-		lect--;
+		txt->lect--;
 	}
+	txt->max_len = ft_strlen(line);
 	while (line && map_line_v(line) == 1)
 	{
 		free(line);
 		line = get_next_line(fd);
-		lect++;
+		if (line && ft_strlen(line) > txt->max_len)
+			txt->max_len = ft_strlen(line);
+		txt->lect++;
 	}
 	free(line);
-	map = ft_calloc((lect + 1), sizeof(char *));
+	map = ft_calloc((txt->lect + 1), sizeof(char *));
 	close(fd);
-	map = copy_map(map, lect, premap, map_line);
+	map = copy_map(map, txt, premap);
 	return (map);
 }

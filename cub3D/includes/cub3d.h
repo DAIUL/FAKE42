@@ -29,6 +29,9 @@ typedef struct s_txt
 {
 	char	**txt;
 	int		start;
+	size_t	max_len;
+	size_t	map_line;
+	size_t	lect;
 }				t_txt;
 
 int		parsing_map(char *map);
@@ -41,9 +44,9 @@ int		skip_till_elem(char *s);
 int		check_map_line(char **s, t_txt *txt);
 int		open_map(char *s, int i);
 int		end_map(char *s);
-char	*remove_nl(char *line);
-char	**map_size(char *premap, int map_line);
-char	**copy_map(char **map, int lect, char *premap, int map_line);
+char	*remove_nl(char *line, t_txt *txt);
+char	**map_size(char *premap, t_txt *txt);
+char	**copy_map(char **map, t_txt *txt, char *premap);
 int		map_line_v(char *s);
 int		check_line_vert(char **s);
 

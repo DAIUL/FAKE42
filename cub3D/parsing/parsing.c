@@ -18,7 +18,6 @@ int	check_map_viable(char *map)
 	char	*line;
 	char	**fmap;
 	int	fd;
-	int	map_line;
 	t_txt	txt;
 
 	//txt = ft_calloc(1, sizeof(t_txt));
@@ -27,7 +26,7 @@ int	check_map_viable(char *map)
 	if (fd < 0)
 		return (0);
 	line = get_next_line(fd);
-	map_line = 1;
+	txt.map_line = 1;
 	ft_printf("%s", line);
 	while (line && (check_nb(&txt) != 1))
 	{
@@ -38,7 +37,7 @@ int	check_map_viable(char *map)
 		}
 		free(line);
 		line = get_next_line(fd);
-		map_line++;
+		txt.map_line++;
 	}
 	if (check_nb(&txt) == 1)
 		ft_printf("carre dans l'axe\n");
@@ -46,12 +45,14 @@ int	check_map_viable(char *map)
 	{
 		free(line);
 		line = get_next_line(fd);
-		map_line++;
+		txt.map_line++;
 	}
+	close(fd);
 	txt.start = 0;
-	fmap = map_size(map, map_line);
+	fmap = map_size(map, &txt);
 	check_map_line(fmap, &txt);
 	check_line_vert(fmap);
+	ft_printf("youpi\n");
 	// while (line && end_map(line) != 2)
 	// {
 	// 	ft_printf("%s", line);

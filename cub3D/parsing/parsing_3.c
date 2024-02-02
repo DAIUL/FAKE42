@@ -9,9 +9,15 @@ int	check_line_vert(char **s)
 	i = 0;
 	while (s[i][j])
 	{
-		while (s[i + 1] && s[i][j])
+		while (s[i] && s[i][j])
 		{
 			ft_printf("i = %d, j = %d, actual check = %c\n", i, j, s[i][j]);
+			if ((s[i][j] == '1' || s[i][j] == ' ') && !s[i + 1])
+				break;
+			if ((s[i][j] != '1' && s[i][j] != ' ') && !s[i + 1])
+				return (ft_printf("map ouverte\n"), 0);
+			if (s[i + 1] && ((unsigned int)j > ft_strlen(s[i + 1])) && (s[i][j] != '1' && s[i][j] != ' '))
+				return (ft_printf("map ouverte\n"), 0);
 			if (s[i][j] == ' ' && (s[i + 1][j] != ' ' && s[i + 1][j] != '1'
 				&& s[i + 1][j] != '\0'))
 				return (ft_printf("map ouverte\n"), 0);
