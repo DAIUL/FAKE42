@@ -54,17 +54,17 @@ int	check_map_line(char **s, t_txt *txt)
 		{
 			if (s[i][j] == ' ' && (s[i][j + 1] != ' ' && s[i][j + 1] != '1'
 				&& s[i][j + 1] != '\0'))
-				return (ft_printf("map ouverte\n"), 0);
+				error_map(s, txt);
 			if ((s[i][j] == 'N' || s[i][j] == 'E' || s[i][j] == 'W' || s[i][j] == 'S')
 				&& (s[i][j + 1] == '0' || s[i][j + 1] == '1'))
 				txt->start += 1;
 			if ((s[i][j] == 'N' || s[i][j] == 'E' || s[i][j] == 'W' || s[i][j] == 'S')
 				&& (s[i][j + 1] != '0' && s[i][j + 1] != '1'))
-				return (ft_printf("map ouverte\n"), 0);
+				error_map(s, txt);
  			if (s[i][j] == '0'	
 				&& (s[i][j + 1] != 'N' && s[i][j + 1] != 'E' && s[i][j + 1] != 'W'
 				&& s[i][j + 1] != 'S' && s[i][j + 1] != '1' && s[i][j + 1] != '0'))
-				return (ft_printf("map ouverte\n"), 0);
+				error_map(s, txt);
 			j++;
 		}
 		if (txt->start > 1)
@@ -102,6 +102,8 @@ char	**copy_map(char **map, t_txt *txt, char *premap)
 	char	*line;
 
 	fd = open(premap, O_RDONLY);
+	if (fd < 0)
+		error_fd(txt);
 	line = get_next_line(fd);
 	while (line && txt->map_line > 2)
 	{
@@ -109,6 +111,7 @@ char	**copy_map(char **map, t_txt *txt, char *premap)
 		line = get_next_line(fd);
 		txt->map_line--;
 	}
+	free(line);
 	i = 0;
 	while (i < ((int)txt->lect - 1))
 	{
@@ -126,8 +129,8 @@ char	**map_size(char *premap, t_txt *txt)
 	char	*line;
 
 	fd = open(premap, O_RDONLY);
-	//if (fd < 0)
-	//	ERROR
+	if (fd < 0)
+		error_fd(txt);
 	txt->lect = txt->map_line;
 	line = get_next_line(fd);
 	while (line && txt->lect > 1)

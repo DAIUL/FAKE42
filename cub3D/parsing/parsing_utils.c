@@ -33,7 +33,7 @@ void	fill_txt(char *s, int id, t_txt *txt)
 	if (txt->txt[id])
 	{
 		ft_printf("deja mis\n");
-		return ; // fonction de free et de stop
+			error_dir(s, txt);
 	}
 	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 		i++;

@@ -49,8 +49,10 @@ char	*remove_nl(char *line, t_txt *txt);
 char	**map_size(char *premap, t_txt *txt);
 char	**copy_map(char **map, t_txt *txt, char *premap);
 int		map_line_v(char *s);
-int		check_line_vert(char **s);
+int		check_line_vert(char **s, t_txt *txt);
 int		start_to_map(char *map, t_txt *txt);
 void	error_dir(char *s, t_txt *txt);
+void	error_fd(t_txt *txt);
+void	error_map(char **s, t_txt *txt);
 
 #endif
