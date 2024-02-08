@@ -11,7 +11,6 @@ int	check_line_vert(char **s)
 	{
 		while (s[i] && s[i][j])
 		{
-			ft_printf("i = %d, j = %d, actual check = %c\n", i, j, s[i][j]);
 			if ((s[i][j] == '1' || s[i][j] == ' ') && !s[i + 1])
 				break;
 			if ((s[i][j] != '1' && s[i][j] != ' ') && !s[i + 1])

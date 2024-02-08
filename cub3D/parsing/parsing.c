@@ -11,59 +11,49 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
-int	check_map_viable(char *map)
+int	start_to_map(char *map, t_txt *txt)
 {
 	char	*line;
-	char	**fmap;
-	int	fd;
-	t_txt	txt;
+	int		fd;
 
-	//txt = ft_calloc(1, sizeof(t_txt));
-	txt.txt = ft_calloc(7, sizeof(char *));
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	line = get_next_line(fd);
-	txt.map_line = 1;
-	ft_printf("%s", line);
-	while (line && (check_nb(&txt) != 1))
+	txt->map_line = 1;
+	while (line && (check_nb(txt) != 1))
 	{
-		if (check_dir_line(line, &txt) == 0)
-		{
-			free(line);
-			return (0);
-		}
+		if (check_dir_line(line, txt) == 0)
+			return (close(fd), error_dir(line, txt), 0);
 		free(line);
 		line = get_next_line(fd);
-		txt.map_line++;
+		txt->map_line++;
 	}
-	if (check_nb(&txt) == 1)
-		ft_printf("carre dans l'axe\n");
 	while (skip_till_elem(line) == 1)
 	{
 		free(line);
 		line = get_next_line(fd);
-		txt.map_line++;
+		txt->map_line++;
 	}
 	close(fd);
-	txt.start = 0;
-	fmap = map_size(map, &txt);
-	check_map_line(fmap, &txt);
+	return (1);
+}
+
+int	check_map_viable(char *map)
+{
+	char	**fmap;
+	t_txt	*txt;
+
+	txt = ft_calloc(1, sizeof(t_txt));
+	txt->txt = ft_calloc(7, sizeof(char *));
+	if (start_to_map(map, txt) == 0)
+		return (0); // manque le free et fct d'exit 
+	txt->start = 0;
+	fmap = map_size(map, txt);
+	check_map_line(fmap, txt);
 	check_line_vert(fmap);
 	ft_printf("youpi\n");
-	// while (line && end_map(line) != 2)
-	// {
-	// 	ft_printf("%s", line);
-	// 	if (check_map_line(line, &txt) == 0)
-	//  	{
-	//  		free(line);
-	//  		return (0);
-	//  	}
-	//  	free(line);
-	// 	line = get_next_line(fd);
-	// }
 	return (1);
 }
 
@@ -79,6 +69,6 @@ int	parsing_map(char *map)
 		&& (map[i + 2] == 'u') && (map[i + 3] == 'b'))
 		check_map_viable(map);
 	else
-		return (printf("map au mauvais format\n"), 0);
+		return (printf("Map au mauvais format\n"), 0);
 	return (1);
 }

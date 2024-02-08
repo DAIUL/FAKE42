@@ -24,6 +24,7 @@
 # define TEST3 ft_printf("-----------TEST3-----------\n");
 
 # include "../libft/libft.h"
+# include <stdio.h>
 
 typedef struct s_txt
 {
@@ -49,5 +50,7 @@ char	**map_size(char *premap, t_txt *txt);
 char	**copy_map(char **map, t_txt *txt, char *premap);
 int		map_line_v(char *s);
 int		check_line_vert(char **s);
+int		start_to_map(char *map, t_txt *txt);
+void	error_dir(char *s, t_txt *txt);
 
 #endif

@@ -35,7 +35,7 @@ int	check_dir_line(char *s, t_txt *txt)
 		{
 			if (s[i] == '1' || s[i] == '0' || s[i] == 'N'
 				|| s[i] == 'E' || s[i] == 'W' || s[i++] == 'S')
-				return (ft_printf("map pas au bon endroit\n"), 0);
+				return (0);
 		}
 	}
 	return (1);
@@ -49,7 +49,6 @@ int	check_map_line(char **s, t_txt *txt)
 	i = 0;
 	while (s[i])
 	{
-		ft_printf("line = %s\n", s[i]);
 		j = 0;
 		while (s[i][j])
 		{
