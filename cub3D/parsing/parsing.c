@@ -25,7 +25,7 @@ int	start_to_map(char *map, t_txt *txt)
 	while (line && (check_nb(txt) != 1))
 	{
 		if (check_dir_line(line, txt) == 0)
-			return (close(fd), error_dir(line, txt), 0);
+			return (close(fd), error_dir(line, txt, 2), 0);
 		free(line);
 		line = get_next_line(fd);
 		txt->map_line++;
@@ -36,9 +36,7 @@ int	start_to_map(char *map, t_txt *txt)
 		line = get_next_line(fd);
 		txt->map_line++;
 	}
-	free(line);
-	close(fd);
-	return (1);
+	return (free(line), close(fd), 1);
 }
 
 int	check_map_viable(char *map)

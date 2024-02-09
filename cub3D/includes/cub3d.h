@@ -43,16 +43,18 @@ int		len_txt(int i, char *s);
 void	fill_txt(char *s, int id, t_txt *txt);
 int		skip_till_elem(char *s);
 int		check_map_line(char **s, t_txt *txt);
-int		open_map(char *s, int i);
+void	check_map_line_2(char **s, t_txt *txt, int i, int j);
 int		end_map(char *s);
 char	*remove_nl(char *line, t_txt *txt);
 char	**map_size(char *premap, t_txt *txt);
+char	*map_size_2(t_txt *txt, int fd);
 char	**copy_map(char **map, t_txt *txt, char *premap);
-int		map_line_v(char *s);
+int		map_line_v(char *s, t_txt *txt);
 int		check_line_vert(char **s, t_txt *txt);
+void	check_line_vert_2(char **s, t_txt *txt, int i, int j);
 int		start_to_map(char *map, t_txt *txt);
-void	error_dir(char *s, t_txt *txt);
+void	error_dir(char *s, t_txt *txt, int mes);
 void	error_fd(t_txt *txt);
-void	error_map(char **s, t_txt *txt);
+void	error_map(char **s, t_txt *txt, int mes);
 
 #endif

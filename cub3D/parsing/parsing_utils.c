@@ -31,10 +31,7 @@ void	fill_txt(char *s, int id, t_txt *txt)
 
 	i = 2;
 	if (txt->txt[id])
-	{
-		ft_printf("deja mis\n");
-			error_dir(s, txt);
-	}
+		error_dir(s, txt, 1);
 	while (s[i] && (s[i] == ' ' || s[i] == '\t'))
 		i++;
 	if (s[i] && s[i] != '\n')
@@ -54,19 +51,6 @@ int	skip_till_elem(char *s)
 		else
 			return (0);
 	}
-	return (1);
-}
-
-int	open_map(char *s, int i)
-{
-	if (s[i] != '1' && s[i] != '0' && s[i] != 'N'
-		&& s[i] != 'E' && s[i] != 'W' && s[i] != 'S'
-		&& s[i] != ' ' && s[i] != '\t' && s[i] != '\n')
-		return (ft_printf("caractere inconnu\n"), 0);
-	if ((s[i] == '0' || s[i] == 'N' || s[i] == 'E'
-		|| s[i] == 'W' || s[i] == 'S')
-		&& (s[i + 1] == ' ' || s[i + 1] == '\t'))
-		return (ft_printf("map ouverte\n"), 0);
 	return (1);
 }
 

@@ -6,13 +6,13 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:01:54 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/09 00:48:56 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/09 17:40:45 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	error_map(char **s, t_txt *txt)
+void	error_map(char **s, t_txt *txt, int mes)
 {
 	int	i;
 
@@ -33,11 +33,14 @@ void	error_map(char **s, t_txt *txt)
 	}
 	free(txt->txt);
 	free(txt);
-	ft_printf("Map ouverte\n");
+	if (mes == 1)
+		ft_printf("Map ouverte\n");
+	if (mes == 2)
+		ft_printf("Trop de position de depart\n");
 	exit(EXIT_FAILURE);
 }
 
-void	error_dir(char *s, t_txt *txt)
+void	error_dir(char *s, t_txt *txt, int mes)
 {
 	int	i;
 
@@ -51,7 +54,12 @@ void	error_dir(char *s, t_txt *txt)
 	}
 	free(txt->txt);
 	free(txt);
-	ft_printf("Manque de texture avant generation de la map\n");
+	if (mes == 1)
+		ft_printf("Texture en double\n");
+	if (mes == 2)
+		ft_printf("Manque de texture avant generation de la map\n");
+	if (mes == 3)
+		ft_printf("Caractere inconnu\n");
 	exit(EXIT_FAILURE);
 }
 
