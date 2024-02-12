@@ -24,6 +24,7 @@
 # define TEST3 ft_printf("-----------TEST3-----------\n");
 
 # include "../libft/libft.h"
+# include "../Minilibx/mlx.h"
 # include <stdio.h>
 
 typedef struct s_txt
@@ -33,6 +34,9 @@ typedef struct s_txt
 	size_t	max_len;
 	size_t	map_line;
 	size_t	lect;
+	size_t	flen;
+	void	*mlx_ptr;
+	void	*window;
 }				t_txt;
 
 int		parsing_map(char *map);
@@ -56,5 +60,7 @@ int		start_to_map(char *map, t_txt *txt);
 void	error_dir(char *s, t_txt *txt, int mes);
 void	error_fd(t_txt *txt);
 void	error_map(char **s, t_txt *txt, int mes);
+void	file_len(t_txt *txt, char *map);
+void	main_draw(t_txt *txt);
 
 #endif

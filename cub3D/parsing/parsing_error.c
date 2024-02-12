@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:01:54 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/09 17:40:45 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/12 17:41:07 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	error_map(char **s, t_txt *txt, int mes)
 	if (mes == 1)
 		ft_printf("Map ouverte\n");
 	if (mes == 2)
-		ft_printf("Trop de position de depart\n");
+		ft_printf("Mauvaise quantite de position de depart\n");
 	exit(EXIT_FAILURE);
 }
 

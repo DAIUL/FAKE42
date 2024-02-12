@@ -11,6 +11,26 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+void	file_len(t_txt *txt, char *map)
+{
+	char	*line;
+	int		fd;
+
+	fd = open(map, O_RDONLY);
+	if (fd < 0)
+		error_fd(txt);
+	line = get_next_line(fd);
+	txt->flen = 1;
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+		txt->flen++;
+	}
+	free(line);
+	close(fd);
+	return ;
+}
 
 int	start_to_map(char *map, t_txt *txt)
 {
@@ -30,7 +50,7 @@ int	start_to_map(char *map, t_txt *txt)
 		line = get_next_line(fd);
 		txt->map_line++;
 	}
-	while (skip_till_elem(line) == 1)
+	while ((txt->map_line + 1) < txt->flen && skip_till_elem(line) == 1)
 	{
 		free(line);
 		line = get_next_line(fd);
@@ -46,12 +66,20 @@ int	check_map_viable(char *map)
 
 	txt = ft_calloc(1, sizeof(t_txt));
 	txt->txt = ft_calloc(7, sizeof(char *));
+	txt->mlx_ptr = ft_calloc(1, sizeof(void *));
+	txt->window = ft_calloc(1, sizeof(void *));
+	file_len(txt, map);
 	start_to_map(map, txt);
 	txt->start = 0;
 	fmap = map_size(map, txt);
 	check_map_line(fmap, txt);
 	check_line_vert(fmap, txt);
+	if (txt->start != 1)
+		error_map(fmap, txt, 2);
 	ft_printf("youpi\n");
+	txt->mlx_ptr = mlx_init();
+	txt->window = mlx_new_window(txt->mlx_ptr, 1920, 1080, "cub3d");
+	mlx_loop(txt->mlx_ptr);
 	return (1);
 }
 
