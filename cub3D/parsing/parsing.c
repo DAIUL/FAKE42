@@ -66,8 +66,6 @@ int	check_map_viable(char *map)
 
 	txt = ft_calloc(1, sizeof(t_txt));
 	txt->txt = ft_calloc(7, sizeof(char *));
-	txt->mlx_ptr = ft_calloc(1, sizeof(void *));
-	txt->window = ft_calloc(1, sizeof(void *));
 	file_len(txt, map);
 	start_to_map(map, txt);
 	txt->start = 0;
@@ -77,9 +75,7 @@ int	check_map_viable(char *map)
 	if (txt->start != 1)
 		error_map(fmap, txt, 2);
 	ft_printf("youpi\n");
-	txt->mlx_ptr = mlx_init();
-	txt->window = mlx_new_window(txt->mlx_ptr, 1920, 1080, "cub3d");
-	mlx_loop(txt->mlx_ptr);
+	main_draw(txt);
 	return (1);
 }
 
