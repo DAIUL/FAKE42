@@ -68,7 +68,10 @@ int	check_map_line(char **s, t_txt *txt)
 		{
 			if ((s[i][j] == 'N' || s[i][j] == 'E' || s[i][j] == 'W' || s[i][j] == 'S')
 				&& (s[i][j + 1] == '0' || s[i][j + 1] == '1'))
+			{
 				txt->start += 1;
+				direction(txt, s[i][j], i, j);
+			}
 			check_map_line_2(s, txt, i, j);
 			j++;
 		}

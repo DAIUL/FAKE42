@@ -61,20 +61,19 @@ int	start_to_map(char *map, t_txt *txt)
 
 int	check_map_viable(char *map)
 {
-	char	**fmap;
 	t_txt	*txt;
 
 	txt = ft_calloc(1, sizeof(t_txt));
 	txt->txt = ft_calloc(7, sizeof(char *));
+	txt->ray = ft_calloc(1, sizeof(t_ray));
 	file_len(txt, map);
 	start_to_map(map, txt);
 	txt->start = 0;
-	fmap = map_size(map, txt);
-	check_map_line(fmap, txt);
-	check_line_vert(fmap, txt);
+	txt->fmap = map_size(map, txt);
+	check_map_line(txt->fmap, txt);
+	check_line_vert(txt->fmap, txt);
 	if (txt->start != 1)
-		error_map(fmap, txt, 2);
-	ft_printf("youpi\n");
+		error_map(txt->fmap, txt, 2);
 	main_draw(txt);
 	return (1);
 }

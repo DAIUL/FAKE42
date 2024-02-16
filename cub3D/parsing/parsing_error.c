@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:01:54 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/12 17:41:07 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/15 17:17:27 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	error_map(char **s, t_txt *txt, int mes)
 		i++;
 	}
 	free(txt->txt);
+	free(txt->ray);
 	free(txt);
 	if (mes == 1)
 		ft_printf("Map ouverte\n");
@@ -53,6 +54,7 @@ void	error_dir(char *s, t_txt *txt, int mes)
 		i++;
 	}
 	free(txt->txt);
+	free(txt->ray);
 	free(txt);
 	if (mes == 1)
 		ft_printf("Texture en double\n");
@@ -75,6 +77,7 @@ void	error_fd(t_txt *txt)
 		i++;
 	}
 	free(txt->txt);
+	free(txt->ray);
 	free(txt);
 	ft_printf("Erreur de fichier\n");
 	exit(EXIT_FAILURE);

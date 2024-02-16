@@ -18,6 +18,10 @@
 # define WE 3
 # define F 4
 # define C 5
+# define screenWidth 640
+# define screenHeight 480
+# define mapWidth 24
+# define mapHeight 24
 
 # define TEST1 ft_printf("-----------TEST1-----------\n");
 # define TEST2 ft_printf("-----------TEST2-----------\n");
@@ -27,9 +31,40 @@
 # include "../Minilibx/mlx.h"
 # include <stdio.h>
 
+typedef struct s_ray
+{
+	double	posX; 
+	double	posY;
+	double	dirX; 
+	double	dirY;
+	double	planeX;
+	double	planeY;
+  	double	time;
+	double	oldTime;
+    double	cameraX;
+    double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+    double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+    double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+    int		stepY;
+	int		hit;
+	int		side;
+	int 	lineHeight;
+	int 	drawStart;
+	int 	drawEnd;
+}				t_ray;
+
 typedef struct s_txt
 {
+	t_ray	*ray;
 	char	**txt;
+	char	**fmap;
 	int		start;
 	size_t	max_len;
 	size_t	map_line;
@@ -62,5 +97,11 @@ void	error_fd(t_txt *txt);
 void	error_map(char **s, t_txt *txt, int mes);
 void	file_len(t_txt *txt, char *map);
 void	main_draw(t_txt *txt);
+void	direction(t_txt *txt, char c, int y, int x);
+void	raycasting(t_txt *txt);
+void	setup_hit(t_txt *txt);
+void	setup_sidedist(t_txt *txt);
+void	setup_ray(t_txt *txt);
+void	setup_draw(t_txt *txt);
 
 #endif

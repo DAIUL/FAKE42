@@ -6,11 +6,37 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 17:39:49 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/09 17:42:00 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/15 17:23:41 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	direction(t_txt *txt, char c, int y, int x)
+{
+	if (c == 'N')
+	{
+		txt->ray->dirX = 0;
+		txt->ray->dirY = 1;
+	}
+	if (c == 'S')
+	{
+		txt->ray->dirX = 0;
+		txt->ray->dirY = -1;
+	}
+	if (c == 'E')
+	{
+		txt->ray->dirX = 1;
+		txt->ray->dirY = 0;
+	}
+	if (c == 'W')
+	{
+		txt->ray->dirX = -1;
+		txt->ray->dirY = 0;
+	}
+	txt->ray->posX = x;
+	txt->ray->posY = y;
+}
 
 int	check_nb(t_txt *txt)
 {

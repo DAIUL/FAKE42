@@ -12,6 +12,7 @@ SRCS = parsing/parsing.c\
 		parsing/parsing_utils_2.c\
 		parsing/parsing_error.c\
 		recasting/recasting.c\
+		recasting/recasting_utils.c\
 		main.c
 LIBX_PATH = Minilibx/
 LIBFT_PATH = libft/
