@@ -22,6 +22,19 @@
 # define screenHeight 480
 # define mapWidth 24
 # define mapHeight 24
+# define ESC 65307
+# define W 119
+# define Q 113
+# define A 97
+# define S 115
+# define D 100
+# define UP 65362
+# define LEFT 65361
+# define DOWN 65364
+# define RIGHT 65363
+
+# define MS 0.045
+# define RS 0.04
 
 # define TEST1 ft_printf("-----------TEST1-----------\n");
 # define TEST2 ft_printf("-----------TEST2-----------\n");
