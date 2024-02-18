@@ -20,6 +20,8 @@
 # define C 5
 # define screenWidth 640
 # define screenHeight 480
+# define TEXWIDTH 64
+# define TEXHEIGHT 64
 # define mapWidth 24
 # define mapHeight 24
 # define ESC 65307
@@ -44,6 +46,18 @@
 # include "../Minilibx/mlx.h"
 # include <stdio.h>
 
+typedef	struct s_img
+{
+	void	*ptr;
+	int		*addr;
+	char	*addr2;
+	int		bpp;
+	int		length;
+	int		x;
+	int		y;
+	int		endian;
+}				t_img;
+
 typedef struct s_ray
 {
 	double	posX; 
@@ -66,11 +80,20 @@ typedef struct s_ray
 	double	perpWallDist;
 	int		stepX;
     int		stepY;
+	double 	step;
 	int		hit;
 	int		side;
 	int 	lineHeight;
 	int 	drawStart;
 	int 	drawEnd;
+	double	wallX;
+	int		texX;
+	int		texY;
+	double	texPos;
+	int		texNum;
+	int		texTmp;
+	int		color;
+	double	*z_buffer;
 }				t_ray;
 
 typedef struct s_txt
@@ -85,6 +108,9 @@ typedef struct s_txt
 	size_t	flen;
 	void	*mlx_ptr;
 	void	*window;
+	int		mv;
+	char	**tex;
+	int		**buffer;
 }				t_txt;
 
 int		parsing_map(char *map);
@@ -116,5 +142,15 @@ void	setup_hit(t_txt *txt);
 void	setup_sidedist(t_txt *txt);
 void	setup_ray(t_txt *txt);
 void	setup_draw(t_txt *txt);
+void	mv_left(t_txt *txt);
+void	mv_right(t_txt *txt);
+void	mv_forw(t_txt *txt);
+void	mv_back(t_txt *txt);
+void	press_key(int keycode, t_txt *txt);
+void	release_key(int keycode, t_game *game);
+void	rot_cam(t_txt *txt, double rotSpeed);
+void	act_move(t_txt *txt);
+t_img	ft_add_img(t_txt *txt, char *path);
+int		add_texture(t_txt *txt);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:12:59 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/16 17:37:26 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/18 22:24:17 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,23 @@ void	main_draw(t_txt *txt)
 	txt->window = mlx_new_window(txt->mlx_ptr, screenWidth, screenHeight, "cub3d");
 	setup_ray(txt);
 	mlx_loop(txt->mlx_ptr);
+}
+
+static int	tex_num(t_txt *txt)
+{
+	if (txt->ray->side == 0)
+	{
+		if (txt->ray->raydirX < 0)
+			return (0);
+		else
+			return (2);
+	}
+	else
+	{
+		if (txt->ray->raydirY > 0)
+			return (3);
+		else
+			return (1);
+	}
+	return (0);
 }

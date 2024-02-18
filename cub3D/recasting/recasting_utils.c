@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:39:04 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/16 17:40:27 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/18 22:26:26 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,38 @@ void	setup_draw(t_txt *txt)
     txt->ray->drawEnd = txt->ray->lineHeight / 2 + screenHeight / 2;
     if(txt->ray->drawEnd >= screenHeight)
 		txt->ray->drawEnd = screenHeight - 1;
+	if (txt->ray->side == 0)
+		txt->ray->wallX = txt->ray->posY + txt->ray->perpWallDist
+			* txt->ray->raydirY;
+	else
+		txt->ray->wallX = txt->ray->posX + txt->ray->perpWallDist
+			* txt->ray->raydirX;
+	txt->ray->wallX -= floor(txt->ray->wallX);
+	txt->ray->texNum = index_texture(g);
+	txt->ray->texX = (int)(txt->ray->wallX * TEXWIDTH);
+	if (txt->ray->side == 0 && txt->ray->raydirX < 0)
+		txt->ray->texX = TEXWIDTH - txt->ray->texX - 1;
+	if (txt->ray->side == 1 && txt->ray->raydirY > 0)
+		txt->ray->texX = TEXWIDTH - txt->ray->texX - 1;
+}
+
+void	setup_texture(t_txt *txt, int x)
+{
+	int	y;
+
+	y = txt->ray->drawStart;
+	txt->ray->step = 1.0 * TEXHEIGHT / txt->ray->lineHeight;
+	txt->ray->texPos = (txt->ray->drawStart - SCREENHEIGHT / 2
+			+ txt->ray->lineHeight / 2) * txt->ray->step;
+	while (y < txt->ray->drawEnd)
+	{
+		txt->ray->texY = (int)txt->ray->texPos & (TEXHEIGHT - 1);
+		txt->ray->texPos += txt->ray->step;
+		txt->ray->color = txt->img[txt->ray->texNum].addr[TEXHEIGHT
+			* txt->ray->texY + txt->ray->texX];
+		if (txt->ray->color > 0)
+			txt->buffer[y][x] = txt->ray->color;
+		y++;
+	}
+	txt->ray->z_buffer[x] = txt->ray->perpWallDist;
 }

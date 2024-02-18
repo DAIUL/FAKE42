@@ -13,6 +13,9 @@ SRCS = parsing/parsing.c\
 		parsing/parsing_error.c\
 		recasting/recasting.c\
 		recasting/recasting_utils.c\
+		movement/movement.c\
+		movement/movement_2.c\
+		textures/textures.c\
 		main.c
 LIBX_PATH = Minilibx/
 LIBFT_PATH = libft/
