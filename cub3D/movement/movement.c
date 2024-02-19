@@ -14,26 +14,26 @@
 
 void	mv_forw(t_txt *txt)
 {
-	if(txt->fmap[int(txt->ray->pos_x + txt->ray->dir_x * MS)][int(txt->ray->pos_y)] == '0')
+	if(txt->fmap[(int)(txt->ray->pos_y)][(int)(txt->ray->pos_x + txt->ray->dir_x * MS)] == '0')
 		txt->ray->pos_x += txt->ray->dir_x * MS;
-	if(txt->fmap[int(txt->ray->pos_x)][int(txt->ray->pos_y + txt->ray->dir_y * MS)] == '0')
+	if(txt->fmap[(int)(txt->ray->pos_y + txt->ray->dir_y * MS)][(int)(txt->ray->pos_x)] == '0')
 		txt->ray->pos_y += txt->ray->dir_y * MS;
 	txt->mv = 1;
 }
 
 void	mv_back(t_txt *txt)
 {
-	if(txt->fmap[int(txt->ray->pos_x - txt->ray->dir_x * MS)][int(txt->ray->pos_y)] == '0') 
+	if(txt->fmap[(int)(txt->ray->pos_y)][(int)(txt->ray->pos_x - txt->ray->dir_x * MS)] == '0') 
 		txt->ray->pos_x -= txt->ray->dir_x * MS;
-	if(txt->fmap[int(txt->ray->pos_x)][int(txt->ray->pos_y - txt->ray->dir_y * MS)] == '0')
+	if(txt->fmap[(int)(txt->ray->pos_y - txt->ray->dir_y * MS)][(int)(txt->ray->pos_x)] == '0')
 		txt->ray->pos_y -= txt->ray->dir_y * MS;
 	txt->mv = 1;
 }
 
-void	press_key(int keycode, t_txt *txt)
+int	press_key(int keycode, t_txt *txt)
 {
 	if (keycode == ESC)
-		free_end(txt);
+		return (0);
 	else if (keycode == W || keycode == UP)
 		txt->forw = 1;
 	else if (keycode == S || keycode == DOWN)
@@ -46,9 +46,10 @@ void	press_key(int keycode, t_txt *txt)
 		txt->cleft = 1;
 	else if (keycode == RIGHT)
 		txt->cright = 1;
+	return (0);
 }
 
-void	release_key(int keycode, t_game *game)
+int	release_key(int keycode, t_txt *txt)
 {
 	if (keycode == W || keycode == UP)
 		txt->forw = 0;
@@ -62,4 +63,5 @@ void	release_key(int keycode, t_game *game)
 		txt->cleft = 0;
 	else if (keycode == RIGHT)
 		txt->cright = 0;
+	return (0);
 }

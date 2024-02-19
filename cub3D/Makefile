@@ -13,6 +13,7 @@ SRCS = parsing/parsing.c\
 		parsing/parsing_error.c\
 		recasting/recasting.c\
 		recasting/recasting_utils.c\
+		recasting/recasting_utils_2.c\
 		movement/movement.c\
 		movement/movement_2.c\
 		textures/textures.c\
@@ -37,7 +38,7 @@ ${LIBX}:
 #make -C Minilibx/
 
 ${NAME}: ${LIBFT} ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LIB} -L./Minilibx -lmlx -lXext -lX11
+	${CC} ${CFLAGS} ${OBJS} -o ${NAME} ${LIB} -L./Minilibx -lmlx -lXext -lX11 -lm
 
 clean:
 	make -sC ${LIBFT_PATH} fclean

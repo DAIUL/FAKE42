@@ -36,7 +36,6 @@ void	fill_txt(char *s, int id, t_txt *txt)
 		i++;
 	if (s[i] && s[i] != '\n')
 		txt->txt[id] = ft_strndup(s, i, len_txt(i, s));
-	return ;
 }
 
 int	skip_till_elem(char *s)

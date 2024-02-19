@@ -13,18 +13,18 @@
 #include "cub3d.h"
 void	mv_left(t_txt *txt)
 {
-	if (txt->fmap[(int)(txt->ray->pos_x - txt->ray->dir_y * MS)][(int)(txt->ray->pos_y)] == '0')
+	if (txt->fmap[(int)(txt->ray->pos_y)][(int)(txt->ray->pos_x - txt->ray->dir_y * MS)] == '0')
 		txt->ray->pos_x -= txt->ray->dir_y * MS;
-	if (txt->fmap[(int)(txt->ray->pos_x)][(int)(txt->ray->pos_y + txt->ray->dir_x * MS)] == '0')
+	if (txt->fmap[(int)(txt->ray->pos_y + txt->ray->dir_x * MS)][(int)(txt->ray->pos_x)] == '0')
 		txt->ray->pos_y += txt->ray->dir_x * MS;
 	txt->mv = 1;
 }
 
 void	mv_right(t_txt *txt)
 {
-	if (txt->fmap[(int)(txt->ray->pos_x + txt->ray->dir_y * MS)][(int)(txt->ray->pos_y)] == '0')
+	if (txt->fmap[(int)(txt->ray->pos_y)][(int)(txt->ray->pos_x + txt->ray->dir_y * MS)] == '0')
 		txt->ray->pos_x += txt->ray->dir_y * MS;
-	if (txt->fmap[(int)(txt->ray->pos_x)][(int)(txt->ray->pos_y - txt->ray->dir_x * MS)] == '0')
+	if (txt->fmap[(int)(txt->ray->pos_y - txt->ray->dir_x * MS)][(int)(txt->ray->pos_x)] == '0')
 		txt->ray->pos_y -= txt->ray->dir_x * MS;
 	txt->mv = 1;
 }
@@ -43,17 +43,15 @@ void	rot_cam(t_txt *txt, double rot_speed)
 	txt->mv = 1;
 }
 
-void	act_move(t_txt *txt)
+int	act_move(t_txt *txt)
 {
-	if (keycode == ESC)
-		free_end(txt);
 	if (txt->forw == 1)
 		mv_forw(txt);
 	if (txt->back == 1)
 		mv_back(txt);
-	if (txt->left = 1)
+	if (txt->left == 1)
 		mv_left(txt);
-	if (txt->right = 1)
+	if (txt->right == 1)
 		mv_right(txt);
 	if (txt->cleft == 1)
 		rot_cam(txt, RS);
@@ -61,4 +59,5 @@ void	act_move(t_txt *txt)
 		rot_cam(txt, -RS);
 	if (txt->mv == 1)
 		setup_ray(txt);
+	return (0);
 }

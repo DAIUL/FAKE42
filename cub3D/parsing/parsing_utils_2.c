@@ -12,31 +12,45 @@
 
 #include "cub3d.h"
 
+void	direction_2(t_txt *txt, char c)
+{
+	if (c == 'E')
+	{
+		txt->ray->dir_x = 0;
+		txt->ray->dir_y = 1;
+		txt->ray->plane_x = 0.66;
+		txt->ray->plane_y = 0;
+	}
+	if (c == 'W')
+	{
+		txt->ray->dir_x = 0;
+		txt->ray->dir_y = -1;
+		txt->ray->plane_x = -0.66;
+		txt->ray->plane_y = 0;
+	}
+}
+
 void	direction(t_txt *txt, char c, int y, int x)
 {
 	if (c == 'N')
 	{
-		txt->ray->dirX = 0;
-		txt->ray->dirY = 1;
+		txt->ray->dir_x = -1;
+		txt->ray->dir_y = 0;
+		txt->ray->plane_x = 0;
+		txt->ray->plane_y = 0.66;
 	}
 	if (c == 'S')
 	{
-		txt->ray->dirX = 0;
-		txt->ray->dirY = -1;
+		txt->ray->dir_x = 1;
+		txt->ray->dir_y = 0;
+		txt->ray->plane_x = 0;
+		txt->ray->plane_y = -0.66;
 	}
-	if (c == 'E')
-	{
-		txt->ray->dirX = 1;
-		txt->ray->dirY = 0;
-	}
-	if (c == 'W')
-	{
-		txt->ray->dirX = -1;
-		txt->ray->dirY = 0;
-	}
-	txt->ray->posX = x;
-	txt->ray->posY = y;
+	txt->ray->pos_x = x;
+	txt->ray->pos_y = y;
+	direction_2(txt, c);
 }
+
 
 int	check_nb(t_txt *txt)
 {

@@ -18,7 +18,7 @@ char	*remove_nl(char *line, t_txt *txt)
 	char	*clear;
 
 	i = 0;
-	clear = ft_calloc(txt->max_len, sizeof(char));
+	clear = ft_calloc(txt->max_len + 2, sizeof(char));
 	while (line[i] && (line[i] != '\n'))
 	{
 		clear[i] = line[i];

@@ -12,6 +12,24 @@
 
 #include "cub3d.h"
 
+int	try_texture(t_txt *txt)
+{
+	int	fd;
+	int	i;
+
+	fd = -1;
+	i = -1;
+	while (++i < 4)
+	{
+		fd = open(txt->txt[i], O_RDONLY);
+		if (fd == -1)
+			return (ft_printf("Error\nCan't open %s !\n", txt->txt[i]), 0);
+		close(fd);
+		fd = -1;
+	}
+	return (1);
+}
+
 t_img	ft_add_img(t_txt *txt, char *path)
 {
 	t_img	img;
@@ -28,7 +46,7 @@ t_img	ft_add_img(t_txt *txt, char *path)
 	}
 	else
 	{
-		img.ptr = mlx_xpm_file_to_image(txt->mlx,
+		img.ptr = mlx_xpm_file_to_image(txt->mlx_ptr,
 				path, &img.x, &img.y);
 		img.addr = (int *)mlx_get_data_addr(img.ptr, &img.bpp,
 				&img.length, &img.endian);
@@ -41,10 +59,10 @@ int	add_texture(t_txt *txt)
 	t_img	*img;
 
 	img = ft_calloc(5, sizeof(t_img));
-	img[0] = ft_add_img(txt, txt->tex[0]);
-	img[1] = ft_add_img(txt, txt->tex[1]);
-	img[2] = ft_add_img(txt, txt->tex[2]);
-	img[3] = ft_add_img(txt, txt->tex[3]);
+	img[0] = ft_add_img(txt, txt->txt[0]);
+	img[1] = ft_add_img(txt, txt->txt[1]);
+	img[2] = ft_add_img(txt, txt->txt[2]);
+	img[3] = ft_add_img(txt, txt->txt[3]);
 	img[4] = ft_add_img(txt, "");
 	txt->img = img;
 	return (1);

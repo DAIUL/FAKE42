@@ -10,18 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d"
+# include "cub3d.h"
 
-void	raycasting(t_txt *txt)
+static int	tex_numero(t_txt *txt)
 {
-	txt->ray->camera_x = 2 * x / (double)screenWidth - 1;
-	txt->ray->ray_dir_x = txt->ray->dirX + txt->ray->plane_x * txt->ray->camera_x;
-	txt->ray->ray_dir_y = txt->ray->dirY + txt->ray->plane_y * txt->ray->camera_x;
-	txt->ray->map_x = (int)txt->ray->pos_X;
-	txt->ray->map_x = (int)txt->ray->pos_X;
-	txt->ray->delta_dist_x = fabs(1 / txt->ray->ray_dir_x);
-	txt->ray->delta_dist_y = fabs(1 / txt->ray->ray_dir_y);
-	txt->ray->hit = 0;
+	if (txt->ray->side == 0)
+	{
+		if (txt->ray->ray_dir_x < 0)
+			return (0);
+		else
+			return (2);
+	}
+	else
+	{
+		if (txt->ray->ray_dir_y > 0)
+			return (3);
+		else
+			return (1);
+	}
+	return (0);
 }
 
 void	setup_sidedist(t_txt *txt)
@@ -29,12 +36,12 @@ void	setup_sidedist(t_txt *txt)
 	if(txt->ray->ray_dir_x < 0)
     {
         txt->ray->step_x = -1;
-        txt->ray->side_dist_x = (txt->ray->pos_X - txt->ray->map_x) * txt->ray->delta_dist_x;
+        txt->ray->side_dist_x = (txt->ray->pos_x - txt->ray->map_x) * txt->ray->delta_dist_x;
     }
     else
     {
         txt->ray->step_x = 1;
-        txt->ray->side_dist_x = (txt->ray->map_x + 1.0 - txt->ray->pos_X) * txt->ray->delta_dist_x;
+        txt->ray->side_dist_x = (txt->ray->map_x + 1.0 - txt->ray->pos_x) * txt->ray->delta_dist_x;
     }
     if(txt->ray->ray_dir_y < 0)
     {
@@ -64,7 +71,7 @@ void	setup_hit(t_txt *txt)
         	txt->ray->map_y += txt->ray->step_y;
         	txt->ray->side = 1;
         }
-        if(txt->fmap[map_x][map_y] > 0)
+        if(txt->fmap[txt->ray->map_y][txt->ray->map_x] == '1')
 			txt->ray->hit = 1;
     }
 	if(txt->ray->side == 0)
@@ -86,10 +93,10 @@ void	setup_draw(t_txt *txt)
 		txt->ray->wall_x = txt->ray->pos_y + txt->ray->perp_wall_dist
 			* txt->ray->ray_dir_y;
 	else
-		txt->ray->wall_x = txt->ray->pos_X + txt->ray->perp_wall_dist
+		txt->ray->wall_x = txt->ray->pos_x + txt->ray->perp_wall_dist
 			* txt->ray->ray_dir_x;
 	txt->ray->wall_x -= floor(txt->ray->wall_x);
-	txt->ray->tex_num = index_texture(g);
+	txt->ray->tex_num = tex_numero(txt);
 	txt->ray->tex_x = (int)(txt->ray->wall_x * TEXWIDTH);
 	if (txt->ray->side == 0 && txt->ray->ray_dir_x < 0)
 		txt->ray->tex_x = TEXWIDTH - txt->ray->tex_x - 1;
@@ -103,7 +110,7 @@ void	setup_texture(t_txt *txt, int x)
 
 	y = txt->ray->draw_start;
 	txt->ray->step = 1.0 * TEXHEIGHT / txt->ray->line_height;
-	txt->ray->tex_pos = (txt->ray->draw_start - SCREENHEIGHT / 2
+	txt->ray->tex_pos = (txt->ray->draw_start - screenHeight / 2
 			+ txt->ray->line_height / 2) * txt->ray->step;
 	while (y < txt->ray->draw_end)
 	{

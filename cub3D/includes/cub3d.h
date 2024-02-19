@@ -44,7 +44,16 @@
 
 # include "../libft/libft.h"
 # include "../Minilibx/mlx.h"
+# include <string.h>
+# include <unistd.h>
+# include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <math.h>
+# include <stdint.h>
 
 typedef	struct s_img
 {
@@ -109,8 +118,16 @@ typedef struct s_txt
 	void	*mlx_ptr;
 	void	*window;
 	int		mv;
-	char	**tex;
 	int		**buffer;
+	t_img	*img;
+	t_img	*render;
+	unsigned int	hex[2];
+	int		forw;
+	int		back;
+	int		left;
+	int		right;
+	int		cleft;
+	int		cright;
 }				t_txt;
 
 int		parsing_map(char *map);
@@ -137,20 +154,23 @@ void	error_map(char **s, t_txt *txt, int mes);
 void	file_len(t_txt *txt, char *map);
 void	main_draw(t_txt *txt);
 void	direction(t_txt *txt, char c, int y, int x);
-void	raycasting(t_txt *txt);
+void	raycasting(t_txt *txt, int x);
 void	setup_hit(t_txt *txt);
 void	setup_sidedist(t_txt *txt);
 void	setup_ray(t_txt *txt);
+void	setup_texture(t_txt *txt, int x);
 void	setup_draw(t_txt *txt);
 void	mv_left(t_txt *txt);
 void	mv_right(t_txt *txt);
 void	mv_forw(t_txt *txt);
 void	mv_back(t_txt *txt);
-void	press_key(int keycode, t_txt *txt);
-void	release_key(int keycode, t_game *game);
+int		press_key(int keycode, t_txt *txt);
+int		release_key(int keycode, t_txt *game);
 void	rot_cam(t_txt *txt, double rotSpeed);
-void	act_move(t_txt *txt);
+int		act_move(t_txt *txt);
 t_img	ft_add_img(t_txt *txt, char *path);
 int		add_texture(t_txt *txt);
+void	ft_free_buffer(t_txt *g);
+int		try_texture(t_txt *txt);
 
 #endif
