@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 16:26:06 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/18 17:39:27 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/19 22:33:14 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	mv_back(t_txt *txt)
 int	press_key(int keycode, t_txt *txt)
 {
 	if (keycode == ESC)
-		return (0);
+		return (free_all(txt), exit(EXIT_SUCCESS), 0);
 	else if (keycode == W || keycode == UP)
 		txt->forw = 1;
 	else if (keycode == S || keycode == DOWN)

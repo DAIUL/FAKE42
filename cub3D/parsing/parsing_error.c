@@ -6,24 +6,57 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:01:54 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/15 17:17:27 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/19 23:20:45 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	error_map(char **s, t_txt *txt, int mes)
+void	free_all_2(t_txt *txt)
+{
+	if (txt->render)
+	{
+		mlx_destroy_image(txt->mlx_ptr, txt->render->ptr);
+		free(txt->render);
+	}
+	if (txt->ray)
+		free(txt->ray);
+	if (txt->mlx_ptr)
+	{
+		mlx_destroy_window(txt->mlx_ptr, txt->window);
+		mlx_destroy_display(txt->mlx_ptr);
+		free(txt->mlx_ptr);
+	}
+}
+
+void	free_all(t_txt *txt)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
+	while (i < 6)
 	{
-		if (s[i])
-			free(s[i]);
+		if (txt->txt[i])
+			free(txt->txt[i]);
 		i++;
 	}
-	free(s);
+	free(txt->txt);
+	if (txt->fmap)
+		free_map(txt);
+	if (txt->img)
+		ft_free_img(txt);
+	if (txt->ray && txt->ray->z_buffer)
+		free(txt->ray->z_buffer);
+	free_all_2(txt);
+	ft_free_buffer(txt);
+	free(txt);
+}
+
+void	error_map(t_txt *txt, int mes)
+{
+	int	i;
+
+	free_map(txt);
 	i = 0;
 	while (i < 6)
 	{
@@ -38,6 +71,8 @@ void	error_map(char **s, t_txt *txt, int mes)
 		ft_printf("Map ouverte\n");
 	if (mes == 2)
 		ft_printf("Mauvaise quantite de position de depart\n");
+	if (mes == 3)
+		ft_printf("Textures invalides\n");
 	exit(EXIT_FAILURE);
 }
 

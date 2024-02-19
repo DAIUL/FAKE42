@@ -150,7 +150,7 @@ void	check_line_vert_2(char **s, t_txt *txt, int i, int j);
 int		start_to_map(char *map, t_txt *txt);
 void	error_dir(char *s, t_txt *txt, int mes);
 void	error_fd(t_txt *txt);
-void	error_map(char **s, t_txt *txt, int mes);
+void	error_map(t_txt *txt, int mes);
 void	file_len(t_txt *txt, char *map);
 void	main_draw(t_txt *txt);
 void	direction(t_txt *txt, char c, int y, int x);
@@ -172,5 +172,9 @@ t_img	ft_add_img(t_txt *txt, char *path);
 int		add_texture(t_txt *txt);
 void	ft_free_buffer(t_txt *g);
 int		try_texture(t_txt *txt);
+void	free_map(t_txt *txt);
+void	ft_free_img(t_txt *txt);
+void	free_all(t_txt *txt);
+int		mouse_interact(t_txt *txt);
 
 #endif

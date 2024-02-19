@@ -71,10 +71,11 @@ int	check_map_viable(char *map)
 	txt->start = 0;
 	txt->fmap = map_size(map, txt);
 	check_map_line(txt->fmap, txt);
-	try_texture(txt);
+	if (!try_texture(txt))
+		error_map(txt, 3);
 	check_line_vert(txt->fmap, txt);
 	if (txt->start != 1)
-		error_map(txt->fmap, txt, 2);
+		error_map(txt, 2);
 	main_draw(txt);
 	return (1);
 }

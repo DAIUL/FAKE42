@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 22:04:48 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/18 22:47:15 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/19 22:13:39 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	try_texture(t_txt *txt)
 	{
 		fd = open(txt->txt[i], O_RDONLY);
 		if (fd == -1)
-			return (ft_printf("Error\nCan't open %s !\n", txt->txt[i]), 0);
+			return (ft_printf("Ouverture impossible %s !\n", txt->txt[i]), 0);
 		close(fd);
 		fd = -1;
 	}

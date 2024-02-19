@@ -6,11 +6,18 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:12:59 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/18 22:24:17 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/19 22:49:29 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	ft_close(t_txt *txt)
+{
+	free_all(txt);
+	exit(EXIT_SUCCESS);
+	return (0);
+}
 
 static void	render_frame(t_txt *txt)
 {
@@ -91,18 +98,8 @@ void	main_draw(t_txt *txt)
 	setup_ray(txt);
 	mlx_hook(txt->window, 2, (1L << 0), &press_key, txt);
 	mlx_hook(txt->window, 3, (1L << 1), &release_key, txt);
+	mlx_hook(txt->window, 17, 0, &ft_close, txt);
 	mlx_loop_hook(txt->mlx_ptr, &act_move, txt);
 	mlx_loop(txt->mlx_ptr);
-}
-
-void	raycasting(t_txt *txt, int x)
-{
-	txt->ray->camera_x = 2 * x / (double)screenWidth - 1;
-	txt->ray->ray_dir_x = txt->ray->dir_x + txt->ray->plane_x * txt->ray->camera_x;
-	txt->ray->ray_dir_y = txt->ray->dir_y + txt->ray->plane_y * txt->ray->camera_x;
-	txt->ray->map_x = (int)txt->ray->pos_x;
-	txt->ray->map_y = (int)txt->ray->pos_y;
-	txt->ray->delta_dist_x = fabs(1 / txt->ray->ray_dir_x);
-	txt->ray->delta_dist_y = fabs(1 / txt->ray->ray_dir_y);
-	txt->ray->hit = 0;
+	ft_close(txt);
 }

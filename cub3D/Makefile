@@ -11,6 +11,7 @@ SRCS = parsing/parsing.c\
 		parsing/parsing_utils.c\
 		parsing/parsing_utils_2.c\
 		parsing/parsing_error.c\
+		parsing/parsing_error_2.c\
 		recasting/recasting.c\
 		recasting/recasting_utils.c\
 		recasting/recasting_utils_2.c\

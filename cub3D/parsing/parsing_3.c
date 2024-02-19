@@ -45,14 +45,14 @@ void	check_map_line_2(char **s, t_txt *txt, int i, int j)
 {
 	if (s[i][j] == ' ' && (s[i][j + 1] != ' ' && s[i][j + 1] != '1'
 		&& s[i][j + 1] != '\0'))
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 	if ((s[i][j] == 'N' || s[i][j] == 'E' || s[i][j] == 'W' || s[i][j] == 'S')
 		&& (s[i][j + 1] != '0' && s[i][j + 1] != '1'))
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 	if (s[i][j] == '0'	
 		&& (s[i][j + 1] != 'N' && s[i][j + 1] != 'E' && s[i][j + 1] != 'W'
 		&& s[i][j + 1] != 'S' && s[i][j + 1] != '1' && s[i][j + 1] != '0'))
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 }
 
 int	check_map_line(char **s, t_txt *txt)
@@ -76,7 +76,7 @@ int	check_map_line(char **s, t_txt *txt)
 			j++;
 		}
 		if (txt->start > 1)
-			error_map(s, txt, 2);
+			error_map(txt, 2);
 		i++;
 	}
 	return (1);
@@ -85,19 +85,19 @@ int	check_map_line(char **s, t_txt *txt)
 void	check_line_vert_2(char **s, t_txt *txt, int i, int j)
 {
 	if ((s[i][j] != '1' && s[i][j] != ' ') && !s[i + 1])
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 	if (s[i + 1] && ((unsigned int)j > ft_strlen(s[i + 1])) && (s[i][j] != '1' && s[i][j] != ' '))
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 	if (s[i][j] == ' ' && (s[i + 1][j] != ' ' && s[i + 1][j] != '1'
 		&& s[i + 1][j] != '\0'))
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 	if ((s[i][j] == 'N' || s[i][j] == 'E' || s[i][j] == 'W' || s[i][j] == 'S')
 		&& (s[i + 1][j] != '0' && s[i + 1][j] != '1'))
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 	if (s[i][j] == '0'	
 		&& (s[i + 1][j] != 'N' && s[i + 1][j] != 'E' && s[i + 1][j] != 'W'
 		&& s[i + 1][j] != 'S' && s[i + 1][j] != '1' && s[i + 1][j] != '0'))
-		error_map(s, txt, 1);
+		error_map(txt, 1);
 }
 
 int	check_line_vert(char **s, t_txt *txt)
