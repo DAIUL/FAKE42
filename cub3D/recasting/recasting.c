@@ -17,10 +17,10 @@ void	setup_ray(t_txt *txt)
 	int	x;
 
 	x = 0;
-	txt->ray->planeX = 0;
-	txt->ray->planeY = 0.66;
+	txt->ray->plane_x = 0;
+	txt->ray->plane_y = 0.66;
 	txt->ray->time = 0;
-	txt->ray->oldTime = 0;
+	txt->ray->old_time = 0;
 	while (x < screenWidth)
 	{
 		raycasting(txt);
@@ -36,6 +36,9 @@ void	main_draw(t_txt *txt)
 	txt->mlx_ptr = mlx_init();
 	txt->window = mlx_new_window(txt->mlx_ptr, screenWidth, screenHeight, "cub3d");
 	setup_ray(txt);
+	mlx_hook(txt->window, 2, (1L << 0), &press_key, txt);
+	mlx_hook(txt->window, 3, (1L << 1), &release_key, txt);
+	mlx_loop_hook(txt->mlx_ptr, &act_move, txt);
 	mlx_loop(txt->mlx_ptr);
 }
 
@@ -43,14 +46,14 @@ static int	tex_num(t_txt *txt)
 {
 	if (txt->ray->side == 0)
 	{
-		if (txt->ray->raydirX < 0)
+		if (txt->ray->raydir_x < 0)
 			return (0);
 		else
 			return (2);
 	}
 	else
 	{
-		if (txt->ray->raydirY > 0)
+		if (txt->ray->raydir_y > 0)
 			return (3);
 		else
 			return (1);

@@ -14,19 +14,19 @@
 
 void	mv_forw(t_txt *txt)
 {
-	if(txt->fmap[int(txt->ray->posX + txt->ray->dirX * MS)][int(txt->ray->posY)] == '0')
-		txt->ray->posX += txt->ray->dirX * MS;
-	if(txt->fmap[int(txt->ray->posX)][int(txt->ray->posY + txt->ray->dirY * MS)] == '0')
-		txt->ray->posY += txt->ray->dirY * MS;
+	if(txt->fmap[int(txt->ray->pos_x + txt->ray->dir_x * MS)][int(txt->ray->pos_y)] == '0')
+		txt->ray->pos_x += txt->ray->dir_x * MS;
+	if(txt->fmap[int(txt->ray->pos_x)][int(txt->ray->pos_y + txt->ray->dir_y * MS)] == '0')
+		txt->ray->pos_y += txt->ray->dir_y * MS;
 	txt->mv = 1;
 }
 
 void	mv_back(t_txt *txt)
 {
-	if(txt->fmap[int(txt->ray->posX - txt->ray->dirX * MS)][int(txt->ray->posY)] == '0') 
-		txt->ray->posX -= txt->ray->dirX * MS;
-	if(txt->fmap[int(txt->ray->posX)][int(txt->ray->posY - txt->ray->dirY * MS)] == '0')
-		txt->ray->posY -= txt->ray->dirY * MS;
+	if(txt->fmap[int(txt->ray->pos_x - txt->ray->dir_x * MS)][int(txt->ray->pos_y)] == '0') 
+		txt->ray->pos_x -= txt->ray->dir_x * MS;
+	if(txt->fmap[int(txt->ray->pos_x)][int(txt->ray->pos_y - txt->ray->dir_y * MS)] == '0')
+		txt->ray->pos_y -= txt->ray->dir_y * MS;
 	txt->mv = 1;
 }
 

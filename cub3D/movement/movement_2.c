@@ -13,33 +13,33 @@
 #include "cub3d.h"
 void	mv_left(t_txt *txt)
 {
-	if (txt->fmap[(int)(txt->ray->posX - txt->ray->dirY * MS)][(int)(txt->ray->posY)] == '0')
-		txt->ray->posX -= txt->ray->dirY * MS;
-	if (txt->fmap[(int)(txt->ray->posX)][(int)(txt->ray->posY + txt->ray->dirX * MS)] == '0')
-		txt->ray->posY += txt->ray->dirX * MS;
+	if (txt->fmap[(int)(txt->ray->pos_x - txt->ray->dir_y * MS)][(int)(txt->ray->pos_y)] == '0')
+		txt->ray->pos_x -= txt->ray->dir_y * MS;
+	if (txt->fmap[(int)(txt->ray->pos_x)][(int)(txt->ray->pos_y + txt->ray->dir_x * MS)] == '0')
+		txt->ray->pos_y += txt->ray->dir_x * MS;
 	txt->mv = 1;
 }
 
 void	mv_right(t_txt *txt)
 {
-	if (txt->fmap[(int)(txt->ray->posX + txt->ray->dirY * MS)][(int)(txt->ray->posY)] == '0')
-		txt->ray->posX += txt->ray->dirY * MS;
-	if (txt->fmap[(int)(txt->ray->posX)][(int)(txt->ray->posY - txt->ray->dirX * MS)] == '0')
-		txt->ray->posY -= txt->ray->dirX * MS;
+	if (txt->fmap[(int)(txt->ray->pos_x + txt->ray->dir_y * MS)][(int)(txt->ray->pos_y)] == '0')
+		txt->ray->pos_x += txt->ray->dir_y * MS;
+	if (txt->fmap[(int)(txt->ray->pos_x)][(int)(txt->ray->pos_y - txt->ray->dir_x * MS)] == '0')
+		txt->ray->pos_y -= txt->ray->dir_x * MS;
 	txt->mv = 1;
 }
 
-void	rot_cam(t_txt *txt, double rotSpeed)
+void	rot_cam(t_txt *txt, double rot_speed)
 {
-	double	oldDirX;
-	double	oldPlaneX;
+	double	olddir_x;
+	double	oldplane_x;
 	
-	oldDirX = txt->ray->dirX;
-	oldPlaneX = txt->ray->planeX;
-	txt->ray->dirX = txt->ray->dirX * cos(rotSpeed) - txt->ray->dirY * sin(rotSpeed);
-	txt->ray->dirY = oldDirX * sin(rotSpeed) + txt->ray->dirY * cos(rotSpeed);
-	txt->ray->planeX = txt->ray->planeX * cos(rotSpeed) - txt->ray->planeY * sin(rotSpeed);
-	txt->ray->planeY = oldPlaneX * sin(rotSpeed) + txt->ray->planeY * cos(rotSpeed);
+	olddir_x = txt->ray->dir_x;
+	oldplane_x = txt->ray->plane_x;
+	txt->ray->dir_x = txt->ray->dir_x * cos(rot_speed) - txt->ray->dir_y * sin(rot_speed);
+	txt->ray->dir_y = olddir_x * sin(rot_speed) + txt->ray->dir_y * cos(rot_speed);
+	txt->ray->plane_x = txt->ray->plane_x * cos(rot_speed) - txt->ray->plane_y * sin(rot_speed);
+	txt->ray->plane_y = oldplane_x * sin(rot_speed) + txt->ray->plane_y * cos(rot_speed);
 	txt->mv = 1;
 }
 
