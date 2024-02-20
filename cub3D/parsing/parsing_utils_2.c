@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 17:39:49 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/15 17:23:41 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:12:15 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	direction(t_txt *txt, char c, int y, int x)
 	direction_2(txt, c);
 }
 
-
 int	check_nb(t_txt *txt)
 {
 	if (txt->txt[0] && txt->txt[1] && txt->txt[2]
@@ -67,7 +66,8 @@ int	map_line_v(char *s, t_txt *txt)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != '\n' && s[i] != ' ' && s[i] != '1' && s[i] != '0' && s[i] != 'N'
+		if (s[i] != '\n' && s[i] != ' '
+			&& s[i] != '1' && s[i] != '0' && s[i] != 'N'
 			&& s[i] != 'E' && s[i] != 'W' && s[i] != 'S')
 			error_dir(s, txt, 3);
 		i++;

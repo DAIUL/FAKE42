@@ -6,11 +6,12 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:58:54 by qpuig             #+#    #+#             */
-/*   Updated: 2024/01/27 16:58:54 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:20:08 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 void	file_len(t_txt *txt, char *map)
 {
 	char	*line;

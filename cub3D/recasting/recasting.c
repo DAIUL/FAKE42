@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:12:59 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/19 22:49:29 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:33:07 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static void	prepare_render(t_txt *txt)
 	}
 	txt->render = ft_calloc(sizeof(t_img), 1);
 	txt->render->ptr = mlx_new_image(txt->mlx_ptr, screenWidth, screenHeight);
-	txt->render->addr = (int *)mlx_get_data_addr(txt->render->ptr, &txt->render->bpp,
+	txt->render->addr = (int *)mlx_get_data_addr(txt->render->ptr,
+			&txt->render->bpp,
 			&txt->render->length, &txt->render->endian);
 	ft_free_buffer(txt);
 	txt->buffer = ft_calloc(sizeof * txt->buffer, screenHeight + 1);
@@ -91,7 +92,8 @@ void	setup_ray(t_txt *txt)
 void	main_draw(t_txt *txt)
 {
 	txt->mlx_ptr = mlx_init();
-	txt->window = mlx_new_window(txt->mlx_ptr, screenWidth, screenHeight, "cub3d");
+	txt->window = mlx_new_window(txt->mlx_ptr,
+			screenWidth, screenHeight, "cub3d");
 	if (!add_texture(txt))
 		return ;
 	txt->ray->z_buffer = ft_calloc(sizeof(double), screenWidth + 1);

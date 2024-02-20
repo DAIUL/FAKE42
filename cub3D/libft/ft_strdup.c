@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 17:13:15 by qpuig             #+#    #+#             */
-/*   Updated: 2023/08/09 20:54:09 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:22:40 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*ft_strndup(const char *s, int i, int n)
 {
 	char	*dup;
 	size_t	clatay;
-	int	j;
+	int		j;
 
 	j = 0;
 	clatay = ft_strlen(s);

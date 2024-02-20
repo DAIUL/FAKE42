@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 16:59:04 by qpuig             #+#    #+#             */
-/*   Updated: 2024/01/27 16:59:04 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:41:37 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,8 @@
 # define LEFT 65361
 # define DOWN 65364
 # define RIGHT 65363
-
 # define MS 0.045
 # define RS 0.04
-
-# define TEST1 ft_printf("-----------TEST1-----------\n");
-# define TEST2 ft_printf("-----------TEST2-----------\n");
-# define TEST3 ft_printf("-----------TEST3-----------\n");
 
 # include "../libft/libft.h"
 # include "../Minilibx/mlx.h"
@@ -55,7 +50,7 @@
 # include <math.h>
 # include <stdint.h>
 
-typedef	struct s_img
+typedef struct s_img
 {
 	void	*ptr;
 	int		*addr;
@@ -75,26 +70,26 @@ typedef struct s_ray
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-  	double	time;
+	double	time;
 	double	old_time;
-    double	camera_x;
-    double	ray_dir_x;
+	double	camera_x;
+	double	ray_dir_x;
 	double	ray_dir_y;
 	int		map_x;
 	int		map_y;
-    double	side_dist_x;
+	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
-    double	delta_dist_y;
+	double	delta_dist_y;
 	double	perp_wall_dist;
 	int		step_x;
-    int		step_y;
-	double 	step;
+	int		step_y;
+	double	step;
 	int		hit;
 	int		side;
-	int 	line_height;
-	int 	draw_start;
-	int 	draw_end;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 	double	wall_x;
 	int		tex_x;
 	int		tex_y;
@@ -107,27 +102,27 @@ typedef struct s_ray
 
 typedef struct s_txt
 {
-	t_ray	*ray;
-	char	**txt;
-	char	**fmap;
-	int		start;
-	size_t	max_len;
-	size_t	map_line;
-	size_t	lect;
-	size_t	flen;
-	void	*mlx_ptr;
-	void	*window;
-	int		mv;
-	int		**buffer;
-	t_img	*img;
-	t_img	*render;
+	t_ray			*ray;
+	char			**txt;
+	char			**fmap;
+	int				start;
+	size_t			max_len;
+	size_t			map_line;
+	size_t			lect;
+	size_t			flen;
+	void			*mlx_ptr;
+	void			*window;
+	int				mv;
+	int				**buffer;
+	t_img			*img;
+	t_img			*render;
 	unsigned int	hex[2];
-	int		forw;
-	int		back;
-	int		left;
-	int		right;
-	int		cleft;
-	int		cright;
+	int				forw;
+	int				back;
+	int				left;
+	int				right;
+	int				cleft;
+	int				cright;
 }				t_txt;
 
 int		parsing_map(char *map);
