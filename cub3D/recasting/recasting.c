@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 14:12:59 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/20 11:33:07 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:58:58 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ static void	render_frame(t_txt *txt)
 	int		pixel;
 
 	y = 0;
-	while (y < screenHeight)
+	while (y < SCREENHEIGHT)
 	{
 		x = 0;
-		while (x < screenWidth)
+		while (x < SCREENWIDTH)
 		{
 			pixel = y * (txt->render->length / 4) + x;
 			if (txt->buffer[y][x] > 0)
 				txt->render->addr[pixel] = txt->buffer[y][x];
-			else if (y < screenHeight / 2)
+			else if (y < SCREENHEIGHT / 2)
 				txt->render->addr[pixel] = txt->hex[1];
-			else if (y < screenHeight -1)
+			else if (y < SCREENHEIGHT -1)
 				txt->render->addr[pixel] = txt->hex[0];
 			x++;
 		}
@@ -55,15 +55,15 @@ static void	prepare_render(t_txt *txt)
 		free(txt->render);
 	}
 	txt->render = ft_calloc(sizeof(t_img), 1);
-	txt->render->ptr = mlx_new_image(txt->mlx_ptr, screenWidth, screenHeight);
+	txt->render->ptr = mlx_new_image(txt->mlx_ptr, SCREENWIDTH, SCREENHEIGHT);
 	txt->render->addr = (int *)mlx_get_data_addr(txt->render->ptr,
 			&txt->render->bpp,
 			&txt->render->length, &txt->render->endian);
 	ft_free_buffer(txt);
-	txt->buffer = ft_calloc(sizeof * txt->buffer, screenHeight + 1);
-	while (y < screenHeight)
+	txt->buffer = ft_calloc(sizeof * txt->buffer, SCREENHEIGHT + 1);
+	while (y < SCREENHEIGHT)
 	{
-		txt->buffer[y] = ft_calloc(sizeof * txt->buffer, screenWidth + 1);
+		txt->buffer[y] = ft_calloc(sizeof * txt->buffer, SCREENWIDTH + 1);
 		y++;
 	}
 }
@@ -76,7 +76,7 @@ void	setup_ray(t_txt *txt)
 	txt->ray->old_time = 0;
 	prepare_render(txt);
 	x = 0;
-	while (x < screenWidth)
+	while (x < SCREENWIDTH)
 	{
 		raycasting(txt, x);
 		setup_sidedist(txt);
@@ -93,10 +93,10 @@ void	main_draw(t_txt *txt)
 {
 	txt->mlx_ptr = mlx_init();
 	txt->window = mlx_new_window(txt->mlx_ptr,
-			screenWidth, screenHeight, "cub3d");
+			SCREENWIDTH, SCREENHEIGHT, "cub3d");
 	if (!add_texture(txt))
 		return ;
-	txt->ray->z_buffer = ft_calloc(sizeof(double), screenWidth + 1);
+	txt->ray->z_buffer = ft_calloc(sizeof(double), SCREENWIDTH + 1);
 	setup_ray(txt);
 	mlx_hook(txt->window, 2, (1L << 0), &press_key, txt);
 	mlx_hook(txt->window, 3, (1L << 1), &release_key, txt);

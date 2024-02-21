@@ -14,7 +14,7 @@
 
 void	raycasting(t_txt *txt, int x)
 {
-	txt->ray->camera_x = 2 * x / (double)screenWidth - 1;
+	txt->ray->camera_x = 2 * x / (double)SCREENWIDTH - 1;
 	txt->ray->ray_dir_x = txt->ray->dir_x
 		+ txt->ray->plane_x * txt->ray->camera_x;
 	txt->ray->ray_dir_y = txt->ray->dir_y
@@ -33,7 +33,7 @@ void	ft_free_buffer(t_txt *txt)
 	y = 0;
 	if (txt->buffer)
 	{
-		while (y < screenHeight)
+		while (y < SCREENHEIGHT)
 		{
 			free(txt->buffer[y]);
 			y++;

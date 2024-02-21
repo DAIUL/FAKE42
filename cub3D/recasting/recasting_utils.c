@@ -6,7 +6,7 @@
 /*   By: qpuig <qpuig@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 16:39:04 by qpuig             #+#    #+#             */
-/*   Updated: 2024/02/20 11:31:59 by qpuig            ###   ########.fr       */
+/*   Updated: 2024/02/20 11:58:55 by qpuig            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ void	setup_hit(t_txt *txt)
 
 void	setup_draw(t_txt *txt)
 {
-	txt->ray->line_height = (int)(screenHeight / txt->ray->perp_wall_dist);
-	txt->ray->draw_start = -txt->ray->line_height / 2 + screenHeight / 2;
+	txt->ray->line_height = (int)(SCREENHEIGHT / txt->ray->perp_wall_dist);
+	txt->ray->draw_start = -txt->ray->line_height / 2 + SCREENHEIGHT / 2;
 	if (txt->ray->draw_start < 0)
 		txt->ray->draw_start = 0;
-	txt->ray->draw_end = txt->ray->line_height / 2 + screenHeight / 2;
-	if (txt->ray->draw_end >= screenHeight)
-		txt->ray->draw_end = screenHeight - 1;
+	txt->ray->draw_end = txt->ray->line_height / 2 + SCREENHEIGHT / 2;
+	if (txt->ray->draw_end >= SCREENHEIGHT)
+		txt->ray->draw_end = SCREENHEIGHT - 1;
 	if (txt->ray->side == 0)
 		txt->ray->wall_x = txt->ray->pos_y + txt->ray->perp_wall_dist
 			* txt->ray->ray_dir_y;
@@ -116,7 +116,7 @@ void	setup_texture(t_txt *txt, int x)
 
 	y = txt->ray->draw_start;
 	txt->ray->step = 1.0 * TEXHEIGHT / txt->ray->line_height;
-	txt->ray->tex_pos = (txt->ray->draw_start - screenHeight / 2
+	txt->ray->tex_pos = (txt->ray->draw_start - SCREENHEIGHT / 2
 			+ txt->ray->line_height / 2) * txt->ray->step;
 	while (y < txt->ray->draw_end)
 	{
