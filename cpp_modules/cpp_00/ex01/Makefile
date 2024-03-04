@@ -1,8 +1,8 @@
 MAKEFLAGS = --silent
 
 NAME = phonebook
-SRC = phonebook.cpp\
-		contact.cpp\
+SRC = Phonebook.cpp\
+		Contact.cpp\
 		main.cpp
 OBJ = ${SRC:.cpp=.o}
 CC = c++

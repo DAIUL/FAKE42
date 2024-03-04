@@ -17,6 +17,7 @@ public:
 
 	void		DisplayPhoneBook();
 	void		SetContact();
+	void		DisplayContact();
 
 };
 

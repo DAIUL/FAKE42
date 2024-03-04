@@ -18,9 +18,11 @@ int	main()
 		std::getline(std::cin, entry);
 		if ("ADD" == entry)
 			PhoneBook.SetContact();
-		else if ("SEARCH" == entry)
+		else if ("SEARCH" == entry )
+		{
 			PhoneBook.DisplayPhoneBook();
-			//PhoneBook.DisplayContact();
+			PhoneBook.DisplayContact();
+		}
 		else if ("EXIT" == entry)
 			return (0);
 		else
