@@ -15,5 +15,7 @@ public:
 
 	std::string	lvl[4];
 	void	(Harl::*ptr[4])(void);
+	
 	void	complain(std::string level);
+	int		which_lvl(std::string level);
 };
