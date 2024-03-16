@@ -10,13 +10,13 @@ ClapTrap::ClapTrap(std::string name) : _name(name), _HP(10), _EP(10), _AtkDmg(0)
 
 ClapTrap::ClapTrap(ClapTrap const & src)
 {
-	std::cout << "ClapTrap was copied !" << std::endl;
+	std::cout << _name << " was copied !" << std::endl;
 	*this = src;
 }
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << "ClapTrap was destroyed" << std::endl;
+	std::cout << _name << " was destroyed" << std::endl;
 }
 
 ClapTrap&	ClapTrap::operator=(ClapTrap const & src)

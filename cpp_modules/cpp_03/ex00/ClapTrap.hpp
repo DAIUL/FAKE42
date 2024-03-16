@@ -12,9 +12,10 @@ private:
 	int			_EP;
 	int			_AtkDmg;
 
+	ClapTrap();
+	
 public:
 
-	ClapTrap();
 	ClapTrap(std::string name);
 	ClapTrap(ClapTrap const & src);
 	~ClapTrap();
