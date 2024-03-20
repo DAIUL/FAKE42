@@ -3,7 +3,9 @@ MAKEFLAGS = --silent
 NAME = polymorph
 SRC = Dog.cpp\
 		Cat.cpp\
+		WrongCat.cpp\
 		Animal.cpp\
+		WrongAnimal.cpp\
 		main.cpp
 OBJ = ${SRC:.cpp=.o}
 CC = c++
