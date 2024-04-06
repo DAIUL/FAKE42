@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Bureaucrat.hpp"
 
+class Bureaucrat;
+
 class Form
 {
 private:
@@ -20,8 +22,8 @@ public:
 	void	beSigned(Bureaucrat const & b);
 
 	std::string const	getName() const;
-	unsigned int const	getGradeSign() const;
-	unsigned int const	getGradeExec() const;
+	unsigned int		getGradeSign() const;
+	unsigned int		getGradeExec() const;
 	bool				getSign() const;
 
 	Form&	operator=(Form const & src);

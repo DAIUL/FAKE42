@@ -63,12 +63,12 @@ void	Bureaucrat::signForm(Form const & f) const
 
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return "Grade is too high !\nTry a grade between 1 and 150\n";
+	return "Grade is too high ! Try a grade between 1 and 150\n";
 }	
 
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return "Grade is too low !\nTry a grade between 1 and 150\n";
+	return "Grade is too low ! Try a grade between 1 and 150\n";
 }
 
 std::string const Bureaucrat::getName() const {
