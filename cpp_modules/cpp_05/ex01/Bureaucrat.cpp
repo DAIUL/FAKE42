@@ -53,6 +53,14 @@ void	Bureaucrat::downGrade() {
 	}
 }
 
+void	Bureaucrat::signForm(Form const & f) const
+{
+	if (f.getSign() == true)
+		std::cout << _name << " signed " << f.getName() << std::endl;
+	else
+		std::cout << _name << " couldn't sign " << f.getName() << " because their garde was too low..." << std::endl; 
+}
+
 const char* Bureaucrat::GradeTooHighException::what() const throw()
 {
 	return "Grade is too high !\nTry a grade between 1 and 150\n";
