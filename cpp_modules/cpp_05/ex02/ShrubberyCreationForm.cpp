@@ -17,12 +17,12 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
 	try {
-		if ((executor.getGrade() > _gradeExec) || (executor.getGrade() < 1))
+		if ((executor.getGrade() > this->getGradeExec()) || (executor.getGrade() < 1))
 		{
 			executor.executeForm(*this);
 			throw ShrubberyCreationForm::GradeTooLowException();
 		}
-		else if (_sign == false)
+		else if (this->getSign() == false)
 		{
 			executor.executeForm(*this);
 			throw ShrubberyCreationForm::NotSignedException();
@@ -31,17 +31,17 @@ void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 		{
 			std::ofstream	dest;
 
-			dest.open(_target + "_shrubbery");
+			dest.open((_target + "_shrubbery").c_str());
 			if (dest.is_open())
 			{
 				dest << "         &&& &&  & && " << std::endl;
-				dest << "		&& &\/&\|& ()|/ @, && " << std::endl;
-				dest << "		&\/(/&/&||/& /_/)_&/_& " << std::endl;
-				dest << "	&() &\/&|()|/&\/ % & () " << std::endl;
-				dest << "	&_\_&&_\ |& |&&/&__%_/_& && " << std::endl;
+				dest << "		&& &&&||& ()|/ @, && " << std::endl;
+				dest << "		&&/(/&/&||/& /_/)_&/_& " << std::endl;
+				dest << "	&() &&/&|()|/&&/ % & () " << std::endl;
+				dest << "	&_/_&&_/ |& |&&/&__%_/_& && " << std::endl;
 				dest << "	&&   && & &| &| /& & % ()& /&& " << std::endl;
-				dest << "	()&_---()&\&\|&&-&&--%---()~ " << std::endl;
-				dest << "		&&     \||| " << std::endl;
+				dest << "	()&_---()&/&/|&&-&&--%---()~ " << std::endl;
+				dest << "		&&      |||/ " << std::endl;
 				dest << "				||| " << std::endl;
 				dest << "				||| " << std::endl;
 				dest << "				||| " << std::endl;
@@ -59,7 +59,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	}
 }
 
-std::string	ShrubberyCreationForm::getTarget() {
+std::string	ShrubberyCreationForm::getTarget() const {
 	return _target;
 }
 

@@ -2,6 +2,8 @@
 # define AFORM_HPP
 
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;
@@ -38,7 +40,7 @@ public:
 	{
 		virtual const char* what() const throw();
 	};
-}
+};
 
 std::ostream&	operator<<(std::ostream & out, AForm const & src);
 

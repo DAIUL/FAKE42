@@ -1,8 +1,8 @@
 MAKEFLAGS = --silent
 
-NAME = form
+NAME = forms
 SRC = Bureaucrat.cpp\
-		Form.cpp\
+		AForm.cpp\
 		ShrubberyCreationForm.cpp\
 		main.cpp
 OBJ = ${SRC:.cpp=.o}

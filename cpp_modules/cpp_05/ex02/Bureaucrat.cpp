@@ -61,7 +61,7 @@ void	Bureaucrat::signForm(AForm const & f) const
 		std::cout << _name << " couldn't sign " << f.getName() << " because their garde was too low..." << std::endl; 
 }
 
-void	Bureaucrat::executeForm(AForm const & f)
+void	Bureaucrat::executeForm(AForm const & f) const
 {
 	if ((f.getSign() == true) && (f.getGradeExec() >= _grade))
 		std::cout << _name << " executed " << f.getName() << std::endl;

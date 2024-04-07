@@ -20,7 +20,7 @@ public:
 	void 		upGrade();
 	void 		downGrade();
 	void		signForm(AForm const &) const;
-	void		executeForm(AForm const & form);
+	void		executeForm(AForm const & form) const;
 	
 	std::string const 	getName() const;
 	unsigned int 		getGrade() const;
