@@ -4,6 +4,8 @@ NAME = forms
 SRC = Bureaucrat.cpp\
 		AForm.cpp\
 		ShrubberyCreationForm.cpp\
+		PresidentialPardonForm.cpp\
+		RobotomyRequestForm.cpp\
 		main.cpp
 OBJ = ${SRC:.cpp=.o}
 CC = c++
@@ -27,6 +29,7 @@ clean:
 
 fclean: clean
 	rm -rf ${NAME} \
+	rm -f *_shrubbery\
 			&& echo "\033[1;38;2;255;117;24m˖⁺‧₊˚✦ Executable clean ˖⁺‧₊˚✦\033[0m"\
             || echo "\033[1;38;2;255;117;24m(・_・ ) Executable cleaning : Error (・_・ )\033[0m"
 
