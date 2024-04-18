@@ -1,9 +1,7 @@
 MAKEFLAGS = --silent
 
-
-NAME = serializer
-SRC = main.cpp\
-		Serializer.cpp
+NAME = identify
+SRC = main.cpp
 OBJ = ${SRC:.cpp=.o}
 CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98 -g
