@@ -41,7 +41,29 @@ void	BitcoinExchange::showResult(std::string line)
 	int	year = atoi(line.substr(0, 4).c_str());
 	int	month = atoi(line.substr(5, 7).c_str());
 	int	day = atoi(line.substr(8, 10).c_str());
+	float	value = atof(line.substr(13).c_str());
 
+	//std::cout << year << "-" << month << "-" << day << std::endl;
+
+	for (std::map<std::string, double>::iterator it = _database.begin(); it != _database.end(); it++) {
+		if (line.substr(0, 10) == it->first) {
+			std::cout << it->first << " => " << value << " = " << value * it->second << std::endl;
+			return ;
+		}
+	}
+	for (std::map<std::string, double>::reverse_iterator it = _database.rbegin(); it != _database.rend(); it++) {
+		//std::cout << it->first << std::endl;
+		if (day >= atoi(it->first.substr(8, 10).c_str())) {
+			//std::cout << "le jour c'est super" << month << " it month -> " << atoi(it->first.substr(5, 7).c_str()) << std::endl;
+			if (month >= atoi(it->first.substr(5, 7).c_str())) {
+				//std::cout << "le mois c'est super" << std::endl;
+				if (year >= atoi(it->first.substr(0, 4).c_str())) {
+					std::cout << line.substr(0, 10) << " => " << value << " = " << value * it->second << std::endl;
+					return ;
+				}
+			}
+		}
+	}
 	// cherche la date dans la db si elle y est pas tu recule jusqu'a trouver une date 
 }
 
@@ -65,9 +87,8 @@ bool	BitcoinExchange::checkInput(std::string line)
 	float	value = atof(line.substr(13).c_str());
 	std::cout << value << std::endl;
 
-	// for (int i = 13; line[i]; i++) {
-	// 	std::cout << i << line[i];
-	// 	if (!isdigit(line[i])/* && line[i] != '-' && line[i] != '.'*/) {
+	// for (unsigned int i = 13; i < line.size(); i++) {
+	// 	if (!std::isdigit(line[i])/* && line[i] != '-' && line[i] != '.'*/) {
 	// 		std::cout << "Error : bad value input A" << std::endl;
 	// 		return false;
 	// 	}
@@ -76,6 +97,8 @@ bool	BitcoinExchange::checkInput(std::string line)
 	// 		return false;
 	// 	}
 	// }
+
+
 
 	if (value < 0) {
 		std::cout << "Error : not a positive number" << std::endl;
@@ -87,6 +110,19 @@ bool	BitcoinExchange::checkInput(std::string line)
 	}
 
 	return true;
+}
+
+int	stoi(const std::string &str)
+{
+	int					num;
+	std::istringstream	iss(str);
+
+	iss >> std::noskipws >> num;
+
+	if (iss.fail() || !iss.eof())
+		throw std::runtime_error("Bad nymber");
+	
+	return (num);
 }
 
 void	BitcoinExchange::exchange() {
@@ -102,8 +138,4 @@ void	BitcoinExchange::exchange() {
 		if (checkInput(line))
 			showResult(line);
 	}
-
-// 	for (std::map<std::string, double>::iterator it = input.begin(); it != input.end(); ++it) {
-//         std::cout << "Date : " << it->first << " | Value : " << it->second << std::endl;
-// 	}
 }

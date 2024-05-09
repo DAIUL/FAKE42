@@ -21,7 +21,7 @@ public:
 	void	dataBase();
 	void	exchange();
 	bool	checkInput(std::string line);
-	bool	showResult(std::string line);
+	void	showResult(std::string line);
 };
 
 #endif
