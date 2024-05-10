@@ -19,9 +19,10 @@ public:
 //	BitcoinExchange&	operator=(BitcoinExchange const & src);
 
 	void	dataBase();
-	void	exchange();
+	void	exchange(char *txt);
 	bool	checkInput(std::string line);
 	void	showResult(std::string line);
+	bool	stoi(const std::string &str);
 };
 
 #endif

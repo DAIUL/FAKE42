@@ -64,7 +64,6 @@ void	BitcoinExchange::showResult(std::string line)
 			}
 		}
 	}
-	// cherche la date dans la db si elle y est pas tu recule jusqu'a trouver une date 
 }
 
 bool	BitcoinExchange::checkInput(std::string line)
@@ -85,7 +84,7 @@ bool	BitcoinExchange::checkInput(std::string line)
 	}
 
 	float	value = atof(line.substr(13).c_str());
-	std::cout << value << std::endl;
+	//std::cout << value << std::endl;
 
 	// for (unsigned int i = 13; i < line.size(); i++) {
 	// 	if (!std::isdigit(line[i])/* && line[i] != '-' && line[i] != '.'*/) {
@@ -98,7 +97,10 @@ bool	BitcoinExchange::checkInput(std::string line)
 	// 	}
 	// }
 
-
+	// if (stoi(line.substr(13).c_str())) {
+	// 	std::cout << "Error : bad value input" << std::endl;
+	// 	return false;
+	// }
 
 	if (value < 0) {
 		std::cout << "Error : not a positive number" << std::endl;
@@ -112,26 +114,27 @@ bool	BitcoinExchange::checkInput(std::string line)
 	return true;
 }
 
-int	stoi(const std::string &str)
+bool	BitcoinExchange::stoi(const std::string &str)
 {
 	int					num;
 	std::istringstream	iss(str);
 
-	iss >> std::noskipws >> num;
+	iss >> std::noskipws;
+	iss>> num;
 
-	if (iss.fail() || !iss.eof())
-		throw std::runtime_error("Bad nymber");
-	
-	return (num);
+	if (iss.fail() || !iss.eof()) {
+		return false;
+	}
+	return true;
 }
 
-void	BitcoinExchange::exchange() {
+void	BitcoinExchange::exchange(char *txt) {
 	std::map<std::string, double>	input;
-	std::ifstream	inputFile("input.txt");
+	std::ifstream	inputFile(txt);
 	std::string		line;
 
 	if (!inputFile.is_open()) {
-		std::cerr << "input.txt does not exist..." << std::endl;
+		std::cerr << "Cannot open input file..." << std::endl;
 		return ;
 	}
 	 while (std::getline(inputFile, line)) {
