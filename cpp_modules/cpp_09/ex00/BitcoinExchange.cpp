@@ -1,17 +1,18 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange() {};
-//BitcoinExchange::BitcoinExchange(BitcoinExchange const & src) { ? };
+BitcoinExchange::BitcoinExchange(BitcoinExchange const & src) {*this = src};
 BitcoinExchange::~BitcoinExchange() {};
 
-// BitcoinExchange&	BitcoinExchange::operator=(BitcoinExchange const & src)
-// {
-// 	if (this != &src)
-// 	{
-		
-// 	}
-// 	return *this;
-// }
+BitcoinExchange&	BitcoinExchange::operator=(BitcoinExchange const & src)
+{
+	if (this != &src)
+	{
+		_database.clear();
+		_database = src._database;
+	}
+	return *this;
+}
 
 void	BitcoinExchange::dataBase()
 {

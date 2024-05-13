@@ -13,10 +13,10 @@ private:
 	std::map<std::string, double>	_database;
 public:
 	BitcoinExchange();
-//	BitcoinExchange(BitcoinExchange const & src);
+	BitcoinExchange(BitcoinExchange const & src);
 	~BitcoinExchange();
 
-//	BitcoinExchange&	operator=(BitcoinExchange const & src);
+	BitcoinExchange&	operator=(BitcoinExchange const & src);
 
 	void	dataBase();
 	void	exchange(char *txt);
