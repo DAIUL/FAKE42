@@ -15,20 +15,16 @@ RPN&	RPN::operator=(RPN const & src)
 
 bool	RPN::checkExpr(char *expr)
 {
-	int count = 0;
-	
 	for (int i = 0; expr[i]; i++)
 	{
 		if (!isdigit(expr[i]) && !isOperat(expr[i]) && expr[i] != ' ') {
 			std::cout << "Error" << std::endl;
 			return false;
 		}
-		else if (isOperat(expr[i]) && count < 2) {
+		else if (isdigit(expr[i]) && isdigit(expr[i + 1])) {
 			std::cout << "Error" << std::endl;
 			return false;
 		}
-		else if (isdigit(expr[i]))
-			count++;
 	}
 	return true;
 }
@@ -39,6 +35,10 @@ void	RPN::resolve(char *expr)
 		if (isdigit(expr[i]))
 			_stack.push(atoi(&expr[i]));
 		else if (isOperat(expr[i])) {
+			if (_stack.size() < 2) {
+				std::cout << "Error" << std::endl;
+				return ;
+			}
 			int a;
 			int b;
 			b = _stack.top();
