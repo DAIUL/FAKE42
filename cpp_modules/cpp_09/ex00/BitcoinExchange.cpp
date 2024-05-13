@@ -1,7 +1,7 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange() {};
-BitcoinExchange::BitcoinExchange(BitcoinExchange const & src) {*this = src};
+BitcoinExchange::BitcoinExchange(BitcoinExchange const & src) {*this = src;};
 BitcoinExchange::~BitcoinExchange() {};
 
 BitcoinExchange&	BitcoinExchange::operator=(BitcoinExchange const & src)
@@ -84,8 +84,11 @@ bool	BitcoinExchange::checkInput(std::string line)
 		return false;
 	}
 
+	if (!stof(line.substr(13))) {
+		std::cout << "Error : not a number" << std::endl;
+		return false;
+	}
 	float	value = atof(line.substr(13).c_str());
-	//std::cout << value << std::endl;
 
 	// for (unsigned int i = 13; i < line.size(); i++) {
 	// 	if (!std::isdigit(line[i])/* && line[i] != '-' && line[i] != '.'*/) {
@@ -102,7 +105,7 @@ bool	BitcoinExchange::checkInput(std::string line)
 	// 	std::cout << "Error : bad value input" << std::endl;
 	// 	return false;
 	// }
-
+	
 	if (value < 0) {
 		std::cout << "Error : not a positive number" << std::endl;
 		return false;
@@ -115,9 +118,9 @@ bool	BitcoinExchange::checkInput(std::string line)
 	return true;
 }
 
-bool	BitcoinExchange::stoi(const std::string &str)
+bool	BitcoinExchange::stof(const std::string &str)
 {
-	int					num;
+	float				num;
 	std::istringstream	iss(str);
 
 	iss >> std::noskipws;
@@ -139,6 +142,8 @@ void	BitcoinExchange::exchange(char *txt) {
 		return ;
 	}
 	 while (std::getline(inputFile, line)) {
+		if (line[line.size() - 1] == '\r')
+			line.resize(line.size() - 1);
 		if (checkInput(line))
 			showResult(line);
 	}

@@ -2,6 +2,7 @@
 # define BITCOINEXCHANGE_HPP
 
 #include <map>
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -22,7 +23,7 @@ public:
 	void	exchange(char *txt);
 	bool	checkInput(std::string line);
 	void	showResult(std::string line);
-	bool	stoi(const std::string &str);
+	bool	stof(const std::string &str);
 };
 
 #endif
