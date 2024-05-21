@@ -12,7 +12,7 @@ PmergeMe&	PmergeMe::operator=(PmergeMe const & src) {
 	return *this;
 }
 
-void	PmergeMe::fillPool(char **av) {
+void	PmergeMe::fillPool(char **const & av) {
 	std::vector<int>	filled;
 
 	for (int i = 1; av[i]; i++) {

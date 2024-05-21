@@ -21,7 +21,7 @@ public:
 	PmergeMe(PmergeMe const & src);
 	~PmergeMe();
 
-	void	fillPool(char **av);
+	void	fillPool(char **const &av);
 	bool	checkNum(char** const & av, int const & i);
 	bool	stoi(const std::string &str);
 	void	displayPool();
