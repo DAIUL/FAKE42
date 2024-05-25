@@ -8,23 +8,36 @@
 #include <sstream>
 #include <stdlib.h>
 #include <vector>
-#include <list>
+#include <deque>
+#include <algorithm>
+#include <ctime>
+#include <iomanip>
 
+
+template<typename T>
 class PmergeMe
 {
 private:
-	std::vector<int>	_basePool;
-	std::list<int>		_minVec;
-	std::list<int>		_maxVec;
+	T	_basePool;
+	T	_minList;
+	T	_maxList;
+	T	_res;
+	double _time;
 public:
 	PmergeMe();
 	PmergeMe(PmergeMe const & src);
 	~PmergeMe();
 
 	void	fillPool(char **const &av);
-	bool	checkNum(char** const & av, int const & i);
+	bool	checkNum(char** const & av, int const & i, int ac);
 	bool	stoi(const std::string &str);
-	void	displayPool();
+	void	sortPool();
+	void	displayPool(T array) const;
+	void 	displayTime() const;
+
+	T	getPool() const;
+	T	getMin() const;
+	T	getMax() const;
 
 	PmergeMe&	operator=(PmergeMe const & src);
 };
