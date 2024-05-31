@@ -29,7 +29,7 @@ public:
 	~PmergeMe();
 
 	void	fillPool(char **const &av);
-	bool	checkNum(char** const & av, int const & i, int ac);
+	bool	checkNum(char** const & av, int const & i);
 	bool	stoi(const std::string &str);
 	void	sortPool();
 	void	displayPool(T array) const;
@@ -38,6 +38,7 @@ public:
 	T	getPool() const;
 	T	getMin() const;
 	T	getMax() const;
+	T	getRes() const;
 
 	PmergeMe&	operator=(PmergeMe const & src);
 };
