@@ -50,8 +50,8 @@ bool	PmergeMe<T>::checkNum(char** const & av, int const & i, int ac) {
 			return false;
 		}
 	}
-	for (int i = 0; av[i + 1]; i++) {
-		if (atoi(av[i]) < atoi(av[i + 1]) && i == (ac - 2)) {
+	for (int i = 0; av[i + 1] && atoi(av[i]) < atoi(av[i + 1]); i++) {
+		if (i == (ac - 2)) {
 			std::cout << "Error : Already sorted" << std::endl;
 			return false;
 		}
