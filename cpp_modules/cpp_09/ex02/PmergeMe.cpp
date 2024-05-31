@@ -31,7 +31,7 @@ void	PmergeMe<T>::fillPool(char **const & av) {
 }
 
 template<typename T>
-bool	PmergeMe<T>::checkNum(char** const & av, int const & i, int ac) {
+bool	PmergeMe<T>::checkNum(char** const & av, int const & i) {
 	
 	std::string	snum = av[i];
 
@@ -50,12 +50,12 @@ bool	PmergeMe<T>::checkNum(char** const & av, int const & i, int ac) {
 			return false;
 		}
 	}
-	for (int i = 0; av[i + 1]; i++) {
-		if (atoi(av[i]) < atoi(av[i + 1]) && i == (ac - 2)) {
-			std::cout << "Error : Already sorted" << std::endl;
-			return false;
-		}
-	}
+	// for (int i = 0; av[i + 1]; i++) {
+	// 	if (atoi(av[i]) < atoi(av[i + 1]) && i == (ac - 2)) {
+	// 		std::cout << "Error : Already sorted" << std::endl;
+	// 		return false;
+	// 	}
+	// }
 	
 	return true;
 }
@@ -140,6 +140,9 @@ T	PmergeMe<T>::getMin() const {return _minList;}
 
 template<typename T>
 T	PmergeMe<T>::getMax() const {return _maxList;}
+
+template<typename T>
+T	PmergeMe<T>::getRes() const {return _res;}
 
 template class PmergeMe< std::vector<int> >;
 template class PmergeMe< std::deque<int> >;
