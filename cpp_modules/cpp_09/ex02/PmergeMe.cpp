@@ -1,7 +1,7 @@
 #include "PmergeMe.hpp"
 
 template<typename T>
-PmergeMe<T>::PmergeMe() {}
+PmergeMe<T>::PmergeMe() {setName();}
 
 template<typename T>
 PmergeMe<T>::PmergeMe(PmergeMe const & src) {*this = src;}
@@ -16,6 +16,7 @@ PmergeMe<T>&	PmergeMe<T>::operator=(PmergeMe const & src) {
 		_basePool = src._basePool;
 		_minList = src._minList;
 		_maxList = src._maxList;
+		_name = src._name;
 	}
 	return *this;
 }
@@ -77,8 +78,8 @@ bool	PmergeMe<T>::stoi(const std::string &str)
 }
 
 template<typename T>
-void	PmergeMe<T>::displayPool(T array) const {
-	std::cout << "Before : ";
+void	PmergeMe<T>::displayPool(T array, std::string when) const {
+	std::cout << when << " : ";
 
 	for (typename T::iterator it = array.begin(); it != array.end(); it++) {
 		std::cout << *it << " ";
@@ -94,7 +95,7 @@ void	PmergeMe<T>::sortPool() {
 
 	std::clock_t	start = std::clock();
 
-	for ( i = 0; _basePool[i + 1]; i += 2) {
+	for (i = 0; i < (int)(_basePool.size() - 1); i += 2) {
 		if (_basePool[i] > _basePool[i + 1]) {
 			_minList.push_back(_basePool[i + 1]);
 			_maxList.push_back(_basePool[i]);
@@ -104,22 +105,22 @@ void	PmergeMe<T>::sortPool() {
 			_minList.push_back(_basePool[i]);
 		}
 	}
-	if (_basePool[i])
+	if (i < (int)_basePool.size())
 		_minList.push_back(_basePool[i]);
 	std::sort(_maxList.begin(), _maxList.end());
 	std::sort(_minList.begin(), _minList.end());
 	
 	i = 0;
 	j = 0;
-	while (_minList[i] && _maxList[j]) {
+	while (i < (int)(_minList.size() - 1) && j < (int)(_maxList.size() - 1)) {
 		if (_minList[i] > _maxList[j])
 			_res.push_back(_maxList[j++]);
 		else
 			_res.push_back(_minList[i++]);
 	}
-	while (_minList[i])
+	while (i < (int)(_minList.size()))
 		_res.push_back(_minList[i++]);
-	while (_maxList[j])
+	while (j < (int)(_maxList.size()))
 		_res.push_back(_maxList[j++]);
 
 	_time = static_cast<double>(std::clock() - start) / CLOCKS_PER_SEC;
@@ -128,7 +129,7 @@ void	PmergeMe<T>::sortPool() {
 template<typename T>
 void PmergeMe<T>::displayTime() const {
 	std::cout << "Time to process a range of " << _basePool.size();
-	std::cout << " elements with std::";
+	std::cout << " elements with std::" << _name;
 	std::cout << " : " << std::fixed << std::setprecision(5) << _time << " us" << std::endl;
 }
 
@@ -143,6 +144,12 @@ T	PmergeMe<T>::getMax() const {return _maxList;}
 
 template<typename T>
 T	PmergeMe<T>::getRes() const {return _res;}
+
+template<>
+void PmergeMe< std::vector<int> >::setName() { _name = "vector"; }
+
+template<>
+void PmergeMe< std::deque<int> >::setName() { _name = "deque"; }
 
 template class PmergeMe< std::vector<int> >;
 template class PmergeMe< std::deque<int> >;

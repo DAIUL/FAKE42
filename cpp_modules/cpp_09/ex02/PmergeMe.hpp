@@ -18,11 +18,12 @@ template<typename T>
 class PmergeMe
 {
 private:
-	T	_basePool;
-	T	_minList;
-	T	_maxList;
-	T	_res;
-	double _time;
+	T			_basePool;
+	T			_minList;
+	T			_maxList;
+	T			_res;
+	double 		_time;
+	std::string	_name;
 public:
 	PmergeMe();
 	PmergeMe(PmergeMe const & src);
@@ -32,13 +33,14 @@ public:
 	bool	checkNum(char** const & av, int const & i);
 	bool	stoi(const std::string &str);
 	void	sortPool();
-	void	displayPool(T array) const;
+	void	displayPool(T array, std::string when) const;
 	void 	displayTime() const;
 
-	T	getPool() const;
-	T	getMin() const;
-	T	getMax() const;
-	T	getRes() const;
+	T		getPool() const;
+	T		getMin() const;
+	T		getMax() const;
+	T		getRes() const;
+	void	setName();
 
 	PmergeMe&	operator=(PmergeMe const & src);
 };
