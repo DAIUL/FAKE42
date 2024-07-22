@@ -41,6 +41,7 @@ var Ai = {
             x: side === 'left' ? 150 : this.canvas.width - 150,
             y: (this.canvas.height / 2) - 35,
             score: 0,
+            round_score: 0,
             move: DIRECTION.IDLE,
             speed: 7
         };
@@ -172,7 +173,7 @@ var Game = {
                 if (this.ball.y <= this.player1.y + this.player1.height && this.ball.y + this.ball.height >= this.player1.y) {
                     this.ball.x = (this.player1.x + this.ball.width);
                     this.ball.moveX = DIRECTION.RIGHT;
-                    
+                    this.ball.speed += 0.1;
                 }
             }
             
@@ -180,33 +181,37 @@ var Game = {
                 if (this.ball.y <= this.player2.y + this.player2.height && this.ball.y + this.ball.height >= this.player2.y) {
                     this.ball.x = (this.player2.x - this.ball.width);
                     this.ball.moveX = DIRECTION.LEFT;
-                    
+                    this.ball.speed += 0.1;
                 }
             }
         }
         
         if (this.player1.score === rounds[this.round]) {
-            if (!rounds[this.round + 1]) {
+            if (!rounds[this.round + 1] || this.player1.round_score + 1 === 3) {
                 this.over = true;
+                this.player1.round_score += 1;
                 setTimeout(function () { Pong.endGameMenu('Player 1 Wins!'); }, 1000);
             } else {
                 this.color = this._generateRoundColor();
                 this.player1.score = this.player2.score = 0;
+                this.player1.round_score += 1;
                 this.player1.speed = this.player2.speed += 0.5;
-                this.ball.speed += 1;
+                this.ball.speed = 3;
                 this.round += 1;
                 
             }
         }
         else if (this.player2.score === rounds[this.round]) {
-            if (!rounds[this.round + 1]) {
+            if (!rounds[this.round + 1] || this.player2.round_score + 1 === 3) {
+                this.player2.round_score += 1;
                 this.over = true;
                 setTimeout(function () { Pong.endGameMenu('Player 2 Wins!'); }, 1000);
             } else {
                 this.color = this._generateRoundColor();
                 this.player1.score = this.player2.score = 0;
+                this.player2.round_score += 1;
                 this.player1.speed = this.player2.speed += 0.5;
-                this.ball.speed += 1;
+                this.ball.speed = 3;
                 this.round += 1;
                 
             }
@@ -264,7 +269,7 @@ var Game = {
  
         this.context.beginPath();
         this.context.setLineDash([7, 15]);
-        this.context.moveTo((this.canvas.width / 2), this.canvas.height - 140);
+        this.context.moveTo((this.canvas.width / 2), this.canvas.height - 70);
         this.context.lineTo((this.canvas.width / 2), 140);
         this.context.lineWidth = 10;
         this.context.strokeStyle = '#ffffff';
@@ -298,7 +303,13 @@ var Game = {
         this.context.fillText(
             rounds[Pong.round] ? rounds[Pong.round] : rounds[Pong.round - 1],
             (this.canvas.width / 2),
-            100
+            80
+        );
+
+        this.context.fillText(
+            (`${this.player1.round_score} - ${this.player2.round_score}`),
+            (this.canvas.width / 2),
+            120
         );
     },
 
