@@ -2,13 +2,14 @@
 // varaible DIRECTION | status de mouvement d'un object
 
 var DIRECTION = {
-	IDLE: 0,
+    IDLE: 0,
 	UP: 1,
 	DOWN: 2,
 	LEFT: 3,
 	RIGHT: 4,
 }
 
+var keys = {};
 var rounds = [5, 5, 3, 3, 2];
 var colors = ['#1abc9c', '#2ecc71', '#3498db', '#8c52ff', '#9b59b6'];
 
@@ -25,7 +26,7 @@ var Ball = {
             y: (this.canvas.height / 2) - 9,
             moveX: DIRECTION.IDLE,
             moveY: DIRECTION.IDLE,
-            speed: incrementedSpeed || 3
+            speed: incrementedSpeed || 7
         };
     }
 };
@@ -43,7 +44,7 @@ var Ai = {
             score: 0,
             round_score: 0,
             move: DIRECTION.IDLE,
-            speed: 7
+            speed: 8
         };
     }
 };
@@ -196,7 +197,7 @@ var Game = {
                 this.player1.score = this.player2.score = 0;
                 this.player1.round_score += 1;
                 this.player1.speed = this.player2.speed += 0.5;
-                this.ball.speed = 3;
+                this.ball.speed = 7;
                 this.round += 1;
                 
             }
@@ -211,7 +212,7 @@ var Game = {
                 this.player1.score = this.player2.score = 0;
                 this.player2.round_score += 1;
                 this.player1.speed = this.player2.speed += 0.5;
-                this.ball.speed = 3;
+                this.ball.speed = 7;
                 this.round += 1;
                 
             }
@@ -326,21 +327,30 @@ var Game = {
 
     listen: function () {
         document.addEventListener('keydown', function (key) {
+            keys[key.keyCode] = true;
+
             if (Pong.running === false) {
                 Pong.running = true;
                 window.requestAnimationFrame(Pong.loop);
             }
  
-            if (key.keyCode === 38) Pong.player2.move = DIRECTION.UP;
-            if (key.keyCode === 87) Pong.player1.move = DIRECTION.UP;
-            if (key.keyCode === 40) Pong.player2.move = DIRECTION.DOWN;
-            if (key.keyCode === 83) Pong.player1.move = DIRECTION.DOWN;
+            updatePlayerMovement();
         });
  
-        document.addEventListener('keyup', function (key) { 
-             if (key.keyCode === 38 || key.keyCode === 40) Pong.player2.move = DIRECTION.IDLE; 
-             if (key.keyCode === 83 || key.keyCode === 87) Pong.player1.move = DIRECTION.IDLE; 
+        document.addEventListener('keyup', function (key) {
+            keys[key.keyCode] = false 
+            updatePlayerMovement();
         });
+        
+        function updatePlayerMovement() {
+            if (keys[38]) Pong.player2.move = DIRECTION.UP;
+            else if (keys[40]) Pong.player2.move = DIRECTION.DOWN;
+            else Pong.player2.move = DIRECTION.IDLE;
+
+            if (keys[87]) Pong.player1.move = DIRECTION.UP;
+            else if (keys[83]) Pong.player1.move = DIRECTION.DOWN;
+            else Pong.player1.move = DIRECTION.IDLE;
+        }
     },
 
     _resetTurn: function(victor, loser) {
