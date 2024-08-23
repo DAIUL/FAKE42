@@ -14,7 +14,7 @@ RUN openssl req -x509 -days 365 -nodes -newkey rsa:4096 \
 
 RUN mkdir -p /var/run/nginx
 
-COPY ./conf/nginx.conf /etc/nginx/sites-available/default
+COPY ./nginx.conf /etc/nginx/sites-available/default
 
 RUN chmod 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html
