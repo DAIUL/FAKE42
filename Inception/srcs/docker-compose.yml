@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   nginx:
     build:
-      context: ./nginx
+      context: ./requirements/nginx
       dockerfile: Dockerfile
     ports:
       - "443:443"
@@ -11,12 +9,11 @@ services:
       - wordpress
     networks:
       - inception
-    restart:
-      - unless-stopped
+    restart: unless-stopped
 
   wordpress:
     build:
-      context: ./wordpress
+      context: ./requirements/wordpress
       dockerfile: Dockerfile
     volumes:
       - wp-content:/var/www/html/wp-content
@@ -26,12 +23,11 @@ services:
       - db
     networks:
       - inception
-    restart:
-      - unless-stopped
+    restart: unless-stopped
 
   db:
     build:
-      context: ./mariadb
+      context: ./requirements/mariadb
       dockerfile: Dockerfile
     environment:
       - .env
@@ -39,18 +35,17 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - inception
-    restart:
-      - unless-stopped
+    restart: unless-stopped
 
 volumes:
   db-data:
-      driver: local
+    driver: local
     driver_opts:
       type: none
       device: ~/data/mariadb
       o: bind
   wp-content:
-      driver: local
+    driver: local
     driver_opts:
       type: none
       o: bind

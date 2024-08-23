@@ -20,7 +20,8 @@ RUN chmod +x ./usr/bin/wp
 
 RUN mkdir /run/php
 
-COPY ./conf/config.sh /var/www/wordpress/config.sh
-RUN chmod +x /var/www/wordpress/config.sh
+COPY ./conf/auto-config.sh /var/www/wordpress/auto-config.sh
+RUN chmod +x /var/www/wordpress/auto-config.sh
 
-CMD ["bash", "/var/www/wordpress/config.sh"]
+ENTRYPOINT ["bash", "/var/www/wordpress/auto-config.sh"]
+CMD ["php-fpm7.3", "-F"]

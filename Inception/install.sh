@@ -1,18 +1,18 @@
 #!/bin/bash
 
-if [ -d "/home/user/data" ]; then \
+if [ -d "~/data" ]; then \
 	echo "/data directory already exists"; else \
-	mkdir /home/user/data; \
+	mkdir ~/data; \
 fi
 
-if [ -d "/home/user/data/wordpress" ]; then \
+if [ -d "~/data/wordpress" ]; then \
 	echo "/data/wordpress already exists"; else \
-	mkdir /home/user/data/wordpress; \
+	mkdir ~/data/wordpress; \
 fi
 
-if [ -d "/home/user/data/mariadb" ]; then \
+if [ -d "~/data/mariadb" ]; then \
 	echo "/data/mariadb already exists"; else \
-	mkdir /home/user/data/mariadb; \
+	mkdir ~/data/mariadb; \
 fi
 
 sudo apt-get update

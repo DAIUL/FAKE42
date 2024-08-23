@@ -8,4 +8,6 @@ echo "FLUSH PRIVILEGES;" >> db.sql
 
 mysql < db.sql
 
-mysqld_safe
+#mysqld_safe
+
+exec "$@"

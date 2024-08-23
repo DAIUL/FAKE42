@@ -19,4 +19,6 @@ wp user create $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD --allow
 
 cd -
 
-php-fpm7.3 -F
+#php-fpm7.3 -F
+
+exec "$@"
